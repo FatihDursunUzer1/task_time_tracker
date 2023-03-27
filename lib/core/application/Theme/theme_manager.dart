@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 
 class ThemeManager {
+  static Box<String> _darkModeBox = Hive.box<String>('settings');
+  static String? _darkMode =
+      _darkModeBox.get('darkMode', defaultValue: CustomThemeMode.light.name);
+
   static ThemeManager? _instance;
-  ThemeManager._();
+  ThemeManager._() {}
   static ThemeManager get instance => _instance ?? ThemeManager._();
 
-  CustomThemeMode _themeMode = CustomThemeMode.light; //default
+  CustomThemeMode _themeMode = _darkMode == CustomThemeMode.dark.name
+      ? CustomThemeMode.dark
+      : CustomThemeMode.light; //default
   CustomThemeMode get themeMode => _themeMode;
   ThemeData get theme =>
       _themeMode == CustomThemeMode.light ? _lightTheme : _darkTheme;
@@ -15,8 +22,7 @@ class ThemeManager {
     _themeMode = _themeMode.name == CustomThemeMode.light.name
         ? CustomThemeMode.dark
         : CustomThemeMode.light;
-
-    print("ThemeManager: setThemeMode: ${_themeMode.name}");
+    _darkModeBox.put('darkMode', _themeMode.name);
   }
 
   ThemeData get _darkTheme =>

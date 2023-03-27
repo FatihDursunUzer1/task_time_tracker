@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-import 'package:task_time_tracker/core/application/Theme/theme_manager.dart';
+import 'package:task_time_tracker/core/application/constants/app_constants.dart';
+import 'package:task_time_tracker/core/application/constants/page_constants.dart';
+import 'package:task_time_tracker/presentatiton/widgets/custom_app_bar.dart';
 
 import 'core/application/state/global_state_provider.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<String>('settings');
   runApp(MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => ThemeStateProvider())],
       child: const MyApp()));
@@ -17,9 +22,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: AppConstants.appName,
       theme: context.watch<ThemeStateProvider>().instance.theme,
-      home: Home(),
+      initialRoute: PageConstants.home,
+      routes: {
+        PageConstants.home: (context) => Home(),
+      },
     );
   }
 }
@@ -35,35 +44,11 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeStateProvider>();
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(theme.instance.themeMode == CustomThemeMode.light
-              ? Icons.dark_mode
-              : Icons.light_mode),
-          onPressed: () {
-            context.read<ThemeStateProvider>().setTheme();
-          },
-        ),
-        title: Text("Home"),
+      appBar: FunctionalAppBar(
+        title: PageConstants.home,
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
