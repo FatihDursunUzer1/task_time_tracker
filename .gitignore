@@ -42,3 +42,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+macos/Runner/GoogleService-Info.plist
+ios/Runner/GoogleService-Info.plist
+android/app/google-services.json
