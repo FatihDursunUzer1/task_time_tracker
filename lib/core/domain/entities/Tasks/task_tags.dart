@@ -1,5 +1,4 @@
-
-enum TaskTags{
+enum TaskTags {
   work,
   home,
   personal,

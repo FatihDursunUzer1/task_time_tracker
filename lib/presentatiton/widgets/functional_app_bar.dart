@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_time_tracker/core/application/Theme/theme_manager.dart';
+import 'package:task_time_tracker/core/application/Theme/custom_theme_mode.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
 import 'package:task_time_tracker/core/application/state/global_state_provider.dart';
 
@@ -25,11 +25,11 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
         Padding(
           padding: const EdgeInsets.all(16.0), //TODO: use constants
           child: GestureDetector(
-              child: Icon(theme.instance.themeMode == CustomThemeMode.light
+              child: Icon(theme.themeMode == CustomThemeMode.light
                   ? Icons.dark_mode
                   : Icons.light_mode),
               onTap: () {
-                context.read<ThemeStateProvider>().setTheme();
+                context.read<ThemeStateProvider>().setThemeMode();
               }),
         )
       ],

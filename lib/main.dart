@@ -3,13 +3,14 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
-import 'package:task_time_tracker/presentatiton/widgets/custom_app_bar.dart';
+import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
+import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
 
 import 'core/application/state/global_state_provider.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  await Hive.openBox<String>('settings');
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveCacheManager.instance.init();
   runApp(MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => ThemeStateProvider())],
       child: const MyApp()));
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
-      theme: context.watch<ThemeStateProvider>().instance.theme,
+      theme: context.watch<ThemeStateProvider>().theme,
       initialRoute: PageConstants.home,
       routes: {
         PageConstants.home: (context) => Home(),
