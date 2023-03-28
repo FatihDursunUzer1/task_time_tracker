@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
+import 'package:task_time_tracker/presentatiton/views/splash/splash_view.dart';
 import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
 
 import 'core/application/state/global_state_provider.dart';
@@ -26,9 +27,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
       theme: context.watch<ThemeStateProvider>().theme,
-      initialRoute: PageConstants.home,
+      initialRoute: PageConstants.splash,
       routes: {
-        PageConstants.home: (context) => Home(),
+        PageConstants.splash: (context) => Splash(),
       },
     );
   }
