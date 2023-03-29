@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
       theme: context.watch<ThemeStateProvider>().theme,
-      initialRoute: PageConstants.splash,
+      initialRoute: PageConstants.home,
       routes: {
+        PageConstants.home: (context) => Home(),
         PageConstants.splash: (context) => Splash(),
       },
     );
@@ -42,9 +43,33 @@ class Home extends StatelessWidget {
     _counter++;
   }
 
+  Future<void> initProject() async {
+    await Future.delayed(const Duration(seconds: 2));
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeStateProvider>();
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        print(snapshot.connectionState.toString());
+        if (snapshot.connectionState == ConnectionState.done) {
+          Future.delayed(Duration.zero, () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(context),
+                ),
+                (Route<dynamic> route) => false);
+          });
+        }
+        return const Splash();
+      },
+      future: initProject(),
+    );
+  }
+
+  Scaffold HomePage(BuildContext context) {
     return Scaffold(
       appBar: FunctionalAppBar(
         title: PageConstants.home,

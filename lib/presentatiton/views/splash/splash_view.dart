@@ -18,14 +18,18 @@ class _SplashState extends State<Splash> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-                padding: EdgeInsets.all(32),
-                child: Image.asset('assets/icon/ic_logo.png')),
+            displayLogo(),
             LoadingAnimationWidget.inkDrop(
                 color: Colors.deepPurpleAccent, size: 50)
           ],
         ),
       ),
     );
+  }
+
+  Padding displayLogo() {
+    return Padding(
+        padding: EdgeInsets.all(32),
+        child: Image.asset('assets/icon/ic_logo.png'));
   }
 }

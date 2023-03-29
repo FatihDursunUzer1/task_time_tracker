@@ -12,11 +12,11 @@ class HiveCacheManager {
     return _instance!;
   }
 
-  late Box _hive;
+  Box? _hive;
 
-  Box get hive => _hive;
+  Box? get hive => _hive;
 
-  set hive(Box value) {
+  set hive(Box? value) {
     _hive = value;
   }
 

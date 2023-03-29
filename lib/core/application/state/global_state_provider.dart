@@ -10,7 +10,7 @@ class ThemeStateProvider extends ChangeNotifier {
   late CustomThemeMode _themeMode;
 
   ThemeStateProvider() {
-    _darkMode = HiveCacheManager.instance.hive.get(key) as String? ??
+    _darkMode = HiveCacheManager.instance.hive?.get(key) as String? ??
         CustomThemeMode.light.name;
     _themeMode = _darkMode == CustomThemeMode.dark.name
         ? CustomThemeMode.dark
@@ -24,7 +24,7 @@ class ThemeStateProvider extends ChangeNotifier {
     _themeMode = _themeMode.name == CustomThemeMode.light.name
         ? CustomThemeMode.dark
         : CustomThemeMode.light;
-    HiveCacheManager.instance.hive.put('darkMode', _themeMode.name);
+    HiveCacheManager.instance.hive!.put('darkMode', _themeMode.name);
     notifyListeners();
   }
 
