@@ -3,6 +3,8 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
+import 'package:task_time_tracker/core/application/navigation/navigation_route.dart';
+import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
 import 'package:task_time_tracker/presentatiton/views/splash/splash_view.dart';
 import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
@@ -27,16 +29,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
       theme: context.watch<ThemeStateProvider>().theme,
-      initialRoute: PageConstants.home,
-      routes: {
-        PageConstants.home: (context) => Home(),
-        PageConstants.splash: (context) => Splash(),
-      },
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      navigatorKey: NavigationService.instance.navigatorKey,
     );
   }
 }
 
-class Home extends StatelessWidget {
+class MainApp extends StatelessWidget {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -55,44 +54,12 @@ class Home extends StatelessWidget {
         print(snapshot.connectionState.toString());
         if (snapshot.connectionState == ConnectionState.done) {
           Future.delayed(Duration.zero, () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(context),
-                ),
-                (Route<dynamic> route) => false);
+            NavigationService.instance.navigateToPageClear(PageConstants.home);
           });
         }
         return const Splash();
       },
       future: initProject(),
-    );
-  }
-
-  Scaffold HomePage(BuildContext context) {
-    return Scaffold(
-      appBar: FunctionalAppBar(
-        title: PageConstants.home,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
