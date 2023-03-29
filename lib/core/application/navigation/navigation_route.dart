@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/presentatiton/views/home/home_view.dart';
+import 'package:task_time_tracker/presentatiton/views/login/login_view.dart';
 
 import '../../../main.dart';
 import '../../../presentatiton/views/splash/splash_view.dart';
@@ -27,6 +28,8 @@ class NavigationRoute {
         return defaultRoute(Splash());
       case PageConstants.home:
         return defaultRoute(Home());
+      case PageConstants.login:
+        return defaultRoute(Login());
       default:
         return defaultRoute(Home());
     }

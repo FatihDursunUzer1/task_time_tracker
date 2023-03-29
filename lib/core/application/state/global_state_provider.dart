@@ -28,8 +28,13 @@ class ThemeStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  ThemeData get _darkTheme =>
-      ThemeData.dark().copyWith(cardColor: ColorConstants.timerCardDark.color);
+  ThemeData get _darkTheme => ThemeData.dark().copyWith(
+      cardColor: ColorConstants.timerCardDark.color,
+      scaffoldBackgroundColor: ColorConstants.scaffoldBackGroundDark.color,
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+            backgroundColor: Colors.black, foregroundColor: Colors.white),
+      ));
   ThemeData get _lightTheme => ThemeData.light()
       .copyWith(cardColor: ColorConstants.timerCardLight.color);
 }
