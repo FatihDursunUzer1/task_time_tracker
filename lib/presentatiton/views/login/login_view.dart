@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
@@ -20,24 +21,53 @@ class _LoginState extends State<Login> {
         appBar: AppBar(),
         body: Center(
           child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Login'),
-                    ),
-                    PasswordTextFormField(context),
-                    OutlinedButton.icon(
-                        onPressed: () {
-                          NavigationService.instance
-                              .navigateToPage(path: PageConstants.home);
-                        },
-                        icon: Icon(Icons.login_outlined),
-                        label: Text('Login')),
-                    const Divider()
-                  ])),
+              padding: const EdgeInsets.all(32.0),
+              child: Form(
+                key: context.read<LoginViewModel>().formKey,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller:
+                            context.read<LoginViewModel>().emailController,
+                        validator: context.read<LoginViewModel>().validateEmail,
+                        decoration: InputDecoration(labelText: 'Login'),
+                      ),
+                      PasswordTextFormField(context),
+                      LoginButton(context),
+                      const Divider(),
+                      Text('Or'),
+                      const Divider(),
+                      LoginWithGoogle(context),
+                    ]),
+              )),
         ));
+  }
+
+  Container LoginWithGoogle(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: OutlinedButton(onPressed: () {}, child: Text('Login with Google')),
+    );
+  }
+
+  Container LoginButton(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: OutlinedButton(
+          onPressed: () {
+            if (context
+                .read<LoginViewModel>()
+                .formKey
+                .currentState!
+                .validate()) {
+              print('Validated');
+              NavigationService.instance
+                  .navigateToPage(path: PageConstants.home);
+            }
+          },
+          child: Text('Login')),
+    );
   }
 
   TextFormField PasswordTextFormField(BuildContext context) {

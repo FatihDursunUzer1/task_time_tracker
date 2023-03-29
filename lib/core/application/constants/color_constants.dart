@@ -5,7 +5,8 @@ enum ColorConstants {
   timerCardLight(0xFFE0E0E0),
   //deeppurple color
   scaffoldBackGround(0xFF673AB7),
-  scaffoldBackGroundDark(0x000);
+  scaffoldBackGroundDark(0x000),
+  darkBlue(0xFF1B143F);
 
   final int value;
   const ColorConstants(this.value);

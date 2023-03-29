@@ -17,9 +17,11 @@ class ThemeStateProvider extends ChangeNotifier {
         : CustomThemeMode.light; //default
   }
   CustomThemeMode get themeMode => _themeMode;
+
   ThemeData get theme =>
       _themeMode == CustomThemeMode.light ? _lightTheme : _darkTheme;
   bool isLightTheme() => _themeMode == CustomThemeMode.light;
+
   void setThemeMode() {
     _themeMode = _themeMode.name == CustomThemeMode.light.name
         ? CustomThemeMode.dark
@@ -33,8 +35,10 @@ class ThemeStateProvider extends ChangeNotifier {
       scaffoldBackgroundColor: ColorConstants.scaffoldBackGroundDark.color,
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.black, foregroundColor: Colors.white),
+            backgroundColor: ColorConstants.darkBlue.color,
+            foregroundColor: Colors.white),
       ));
+
   ThemeData get _lightTheme => ThemeData.light()
       .copyWith(cardColor: ColorConstants.timerCardLight.color);
 }
