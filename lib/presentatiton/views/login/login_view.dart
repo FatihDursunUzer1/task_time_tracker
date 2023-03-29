@@ -72,6 +72,8 @@ class _LoginState extends State<Login> {
 
   TextFormField PasswordTextFormField(BuildContext context) {
     return TextFormField(
+      controller: context.read<LoginViewModel>().passwordController,
+      validator: context.read<LoginViewModel>().validatePassword,
       obscureText: !context.watch<LoginViewModel>().isVisible,
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(

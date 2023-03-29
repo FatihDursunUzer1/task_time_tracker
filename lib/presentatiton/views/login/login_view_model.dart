@@ -21,7 +21,7 @@ class LoginViewModel extends ChangeNotifier {
     return null;
   }
 
-  String? validatePassword() {
+  String? validatePassword(String? value) {
     if (passwordController.text.isEmpty) {
       return 'Password is required';
     } else if (passwordController.text.length < 6) {
