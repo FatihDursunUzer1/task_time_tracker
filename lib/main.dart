@@ -6,6 +6,7 @@ import 'package:task_time_tracker/core/application/constants/page_constants.dart
 import 'package:task_time_tracker/core/application/navigation/navigation_route.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
+import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/login/login_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/splash/splash_view.dart';
 import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
@@ -16,7 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveCacheManager.instance.init();
   runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ThemeStateProvider()),ChangeNotifierProvider(create: (_)=>LoginViewModel())],
+      providers: [ChangeNotifierProvider(create: (_) => ThemeStateProvider()),ChangeNotifierProvider(create: (_)=>LoginViewModel()),ChangeNotifierProvider(create: (_)=>HomeViewModel())],
       child: const MyApp()));
 }
 
