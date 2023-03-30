@@ -49,6 +49,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   google_sign_in: ^6.0.2
   flutter_signin_button: ^2.0.0
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_test:

@@ -39,6 +39,14 @@ class ThemeStateProvider extends ChangeNotifier {
             foregroundColor: Colors.white),
       ));
 
-  ThemeData get _lightTheme => ThemeData.light()
-      .copyWith(cardColor: ColorConstants.timerCardLight.color);
+  ThemeData get _lightTheme => ThemeData.light().copyWith(
+      cardColor: ColorConstants.timerCardLight.color,
+      scaffoldBackgroundColor: ColorConstants.scaffoldBackGround.color,
+      appBarTheme:
+          AppBarTheme(backgroundColor: ColorConstants.customPurple.color),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+            backgroundColor: ColorConstants.customPurple.color,
+            foregroundColor: Colors.white),
+      ));
 }

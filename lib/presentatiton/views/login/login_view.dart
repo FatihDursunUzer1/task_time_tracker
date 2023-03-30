@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
+import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
 import 'package:task_time_tracker/presentatiton/views/login/login_view_model.dart';
+import 'package:task_time_tracker/presentatiton/widgets/custom_button.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -27,46 +30,66 @@ class _LoginState extends State<Login> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextFormField(
-                        controller:
-                            context.read<LoginViewModel>().emailController,
-                        validator: context.read<LoginViewModel>().validateEmail,
-                        decoration: InputDecoration(labelText: 'Login'),
-                      ),
+                      EmailTextFormField(context),
                       PasswordTextFormField(context),
                       LoginButton(context),
                       const Divider(),
                       Text('Or'),
                       const Divider(),
-                      LoginWithGoogle(context),
+                      RegisterButton(context),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SignInMethods(context, FontAwesomeIcons.google,
+                              onPressed: context
+                                  .read<LoginViewModel>()
+                                  .signInWithOAuths(OAuthMethods.google)),
+                          SignInMethods(context, FontAwesomeIcons.facebook,
+                              onPressed: context
+                                  .read<LoginViewModel>()
+                                  .signInWithOAuths(OAuthMethods.facebook)),
+                          SignInMethods(context, FontAwesomeIcons.twitter,
+                              onPressed: context
+                                  .read<LoginViewModel>()
+                                  .signInWithOAuths(OAuthMethods.twitter)),
+                          SignInMethods(context, FontAwesomeIcons.apple,
+                              onPressed: context
+                                  .read<LoginViewModel>()
+                                  .signInWithOAuths(OAuthMethods.apple)),
+                        ],
+                      )
                     ]),
               )),
         ));
   }
 
-  Container LoginWithGoogle(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: OutlinedButton(onPressed: () {}, child: Text('Login with Google')),
-    );
+  IconButton SignInMethods(BuildContext context, IconData icon,
+      {Function()? onPressed}) {
+    return IconButton(
+        onPressed: onPressed == null ? () {} : onPressed, icon: FaIcon(icon));
   }
 
-  Container LoginButton(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: OutlinedButton(
-          onPressed: () {
-            if (context
-                .read<LoginViewModel>()
-                .formKey
-                .currentState!
-                .validate()) {
-              print('Validated');
-              NavigationService.instance
-                  .navigateToPage(path: PageConstants.home);
-            }
-          },
-          child: Text('Login')),
+  RegisterButton(BuildContext context) {
+    return CustomButton(
+        onPressed: () {
+          context.read<LoginViewModel>().goToRegister();
+        },
+        text: 'Register');
+  }
+
+  LoginButton(BuildContext context) {
+    return CustomButton(
+        text: 'Login',
+        onPressed: () {
+          context.read<LoginViewModel>().validate();
+        });
+  }
+
+  TextFormField EmailTextFormField(BuildContext context) {
+    return TextFormField(
+      controller: context.read<LoginViewModel>().emailController,
+      validator: context.read<LoginViewModel>().validateEmail,
+      decoration: InputDecoration(labelText: 'Email'),
     );
   }
 

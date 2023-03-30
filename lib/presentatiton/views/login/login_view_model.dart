@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task_time_tracker/core/application/constants/page_constants.dart';
+import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
+import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
 
 class LoginViewModel extends ChangeNotifier {
   bool _isVisible = false;
@@ -29,4 +32,18 @@ class LoginViewModel extends ChangeNotifier {
     }
     return null;
   }
+
+  validate() {
+    if (formKey.currentState!.validate()) {
+      emailController.clear();
+      passwordController.clear();
+      NavigationService.instance.navigateToPageClear(PageConstants.home);
+    }
+  }
+
+  goToRegister() {
+    NavigationService.instance.navigateToPage(path: PageConstants.register);
+  }
+
+  signInWithOAuths(OAuthMethods oAuthMethod) {}
 }
