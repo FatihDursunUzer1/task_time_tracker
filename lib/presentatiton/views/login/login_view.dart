@@ -31,13 +31,12 @@ class _LoginState extends State<Login> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Image.asset(
+                        'assets/icon/ic_logo.png',
+                      ),
                       EmailTextFormField(context),
                       PasswordTextFormField(context),
                       LoginButton(context),
-                      const Divider(),
-                      Text('Or'),
-                      const Divider(),
-                      RegisterButton(context),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -58,7 +57,11 @@ class _LoginState extends State<Login> {
                                   .read<LoginViewModel>()
                                   .signInWithOAuths(OAuthMethods.apple)),
                         ],
-                      )
+                      ),
+                      const Divider(),
+                      Text('Or'),
+                      const Divider(),
+                      RegisterButton(context),
                     ]),
               )),
         ));

@@ -31,8 +31,16 @@ class ThemeStateProvider extends ChangeNotifier {
   }
 
   ThemeData get _darkTheme => ThemeData.dark().copyWith(
+      inputDecorationTheme: InputDecorationTheme(
+          contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
+          suffixIconColor: ColorConstants.darkBlue.color,
+          labelStyle: TextStyle(color: ColorConstants.darkBlue.color),
+          focusedBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: ColorConstants.customPurple.color))),
       cardColor: ColorConstants.timerCardDark.color,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackGroundDark.color,
+      appBarTheme: AppBarTheme(backgroundColor: ColorConstants.darkBlue.color),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
             backgroundColor: ColorConstants.darkBlue.color,
@@ -45,6 +53,7 @@ class ThemeStateProvider extends ChangeNotifier {
       appBarTheme:
           AppBarTheme(backgroundColor: ColorConstants.customPurple.color),
       inputDecorationTheme: InputDecorationTheme(
+          contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
           suffixIconColor: ColorConstants.customPurple.color,
           labelStyle: TextStyle(color: ColorConstants.customPurple.color),
           focusedBorder: UnderlineInputBorder(
