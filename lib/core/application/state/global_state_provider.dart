@@ -44,6 +44,12 @@ class ThemeStateProvider extends ChangeNotifier {
       scaffoldBackgroundColor: ColorConstants.scaffoldBackGround.color,
       appBarTheme:
           AppBarTheme(backgroundColor: ColorConstants.customPurple.color),
+      inputDecorationTheme: InputDecorationTheme(
+          suffixIconColor: ColorConstants.customPurple.color,
+          labelStyle: TextStyle(color: ColorConstants.customPurple.color),
+          focusedBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: ColorConstants.customPurple.color))),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
             backgroundColor: ColorConstants.customPurple.color,

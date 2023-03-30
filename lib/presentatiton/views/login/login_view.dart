@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
@@ -66,7 +67,11 @@ class _LoginState extends State<Login> {
   IconButton SignInMethods(BuildContext context, IconData icon,
       {Function()? onPressed}) {
     return IconButton(
-        onPressed: onPressed == null ? () {} : onPressed, icon: FaIcon(icon));
+        onPressed: onPressed == null ? () {} : onPressed,
+        icon: FaIcon(
+          icon,
+          color: ColorConstants.customPurple.color,
+        ));
   }
 
   RegisterButton(BuildContext context) {

@@ -35,15 +35,21 @@ class LoginViewModel extends ChangeNotifier {
 
   validate() {
     if (formKey.currentState!.validate()) {
-      emailController.clear();
-      passwordController.clear();
+      _clearAll();
       NavigationService.instance.navigateToPageClear(PageConstants.home);
     }
   }
 
   goToRegister() {
+    _clearAll();
     NavigationService.instance.navigateToPage(path: PageConstants.register);
   }
 
   signInWithOAuths(OAuthMethods oAuthMethod) {}
+
+  _clearAll() {
+    emailController.clear();
+    passwordController.clear();
+    formKey.currentState!.reset();
+  }
 }
