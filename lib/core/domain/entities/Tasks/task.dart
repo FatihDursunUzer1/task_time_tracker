@@ -14,6 +14,7 @@ class Task implements IEntity<Task> {
   List<TaskTags>? tags;
   late Duration? duration;
   late bool isCompleted;
+  late DateTime createdAt;
 
   @override
   late final String id;
@@ -27,6 +28,7 @@ class Task implements IEntity<Task> {
     this.tags,
     required this.id,
     required this.duration,
+    required this.createdAt,
     required this.isCompleted,
   });
 

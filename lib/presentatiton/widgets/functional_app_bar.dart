@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/Theme/custom_theme_mode.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
+import 'package:task_time_tracker/core/application/constants/page_constants.dart';
+import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
 
 class FunctionalAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -31,7 +34,33 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
               onTap: () {
                 context.read<ThemeStateProvider>().setThemeMode();
               }),
-        )
+        ),
+        IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text(
+                            "Are you sure you want to logout from Task Time Tracker?"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("No")),
+                          TextButton(
+                              onPressed: () {
+                                //Navigator.pop(context);
+                                NavigationService.instance
+                                    .navigateToPageClear(PageConstants.login);
+                              },
+                              child: Text("Yes")),
+                        ],
+                      ));
+              /* NavigationService.instance
+                  .navigateToPageClear(PageConstants.login); */
+            },
+            icon: const FaIcon(FontAwesomeIcons.signOutAlt)),
       ],
       title: Text(widget.title ?? AppConstants.appName),
     );

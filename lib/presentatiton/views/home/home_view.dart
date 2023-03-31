@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
             description: 'test',
             id: 'test',
             duration: Duration(minutes: 10),
+            createdAt: DateTime(2023, 1, 1),
             isCompleted: false,
             tags: List.filled(1, TaskTags.work)));
   }
@@ -60,7 +61,7 @@ class _HomeState extends State<Home> {
                 ),
                 child: HomeBottomNavigationBar(context))),
         appBar: FunctionalAppBar(
-          title: 'Ana Sayfa',
+          title: 'Task Time Tracker',
         ),
         body: HomeWidget());
   }
@@ -103,13 +104,14 @@ class _HomeState extends State<Home> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ClickableText('Today', 'All'),
-              FilterClickableText('See All', 'See Today')
-            ],
+          SizedBox(
+            child: Text(
+              'Current Task',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            height: MediaQuery.of(context).size.height * 0.2,
           ),
+          FilterOptionsRow(),
           Expanded(
               child: ListView.builder(
                   itemCount: _currentTasks!.length,
@@ -129,6 +131,16 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Row FilterOptionsRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ClickableText('Today', 'All'),
+        FilterClickableText('See All', 'See Today')
+      ],
+    );
+  }
+
   FilterClickableText(String condition1, String condition2) {
     return InkWell(
       onTap: () {
@@ -136,6 +148,7 @@ class _HomeState extends State<Home> {
             context.read<HomeViewModel>().taskFilterDay == TaskFilterDay.today
                 ? TaskFilterDay.all
                 : TaskFilterDay.today);
+        context.read<HomeViewModel>().getValues();
       },
       child: ClickableText(condition1, condition2),
     );

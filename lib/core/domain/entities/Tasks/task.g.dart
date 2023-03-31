@@ -17,6 +17,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
       duration: json['duration'] == null
           ? null
           : Duration(microseconds: json['duration'] as int),
+      createdAt: DateTime.parse(json['createdAt'] as String),
       isCompleted: json['isCompleted'] as bool,
     );
 
@@ -27,6 +28,7 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'tags': instance.tags?.map((e) => _$TaskTagsEnumMap[e]!).toList(),
       'duration': instance.duration?.inMicroseconds,
       'isCompleted': instance.isCompleted,
+      'createdAt': instance.createdAt.toIso8601String(),
       'id': instance.id,
     };
 
