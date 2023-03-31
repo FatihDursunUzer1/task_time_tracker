@@ -9,11 +9,15 @@ part of 'task.dart';
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(
       icon: json['icon'] as String,
       title: json['title'] as String,
-      description: json['description'] as String?,
+      description: json['description'] as String,
       tags: (json['tags'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$TaskTagsEnumMap, e))
           .toList(),
       id: json['id'] as String,
+      duration: json['duration'] == null
+          ? null
+          : Duration(microseconds: json['duration'] as int),
+      isCompleted: json['isCompleted'] as bool,
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -21,6 +25,8 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
       'tags': instance.tags?.map((e) => _$TaskTagsEnumMap[e]!).toList(),
+      'duration': instance.duration?.inMicroseconds,
+      'isCompleted': instance.isCompleted,
       'id': instance.id,
     };
 

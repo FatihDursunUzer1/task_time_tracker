@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/Theme/custom_theme_mode.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
-import 'package:task_time_tracker/core/application/state/global_state_provider.dart';
+import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
 
 class FunctionalAppBar extends StatefulWidget implements PreferredSizeWidget {
   String? title;

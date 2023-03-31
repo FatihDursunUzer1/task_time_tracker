@@ -10,18 +10,24 @@ part 'task.g.dart';
 class Task implements IEntity<Task> {
   late String icon;
   late String title;
-  late String? description;
+  late String description;
   List<TaskTags>? tags;
+  late Duration? duration;
+  late bool isCompleted;
 
   @override
   late final String id;
 
+  Task.init();
+
   Task({
     required this.icon,
     required this.title,
-    this.description,
+    required this.description,
     this.tags,
     required this.id,
+    required this.duration,
+    required this.isCompleted,
   });
 
   @override

@@ -7,4 +7,13 @@ class HomeViewModel extends ChangeNotifier {
     _currentNavBarIndex = index;
     notifyListeners();
   }
+
+  TaskFilterDay _taskFilterDay = TaskFilterDay.today;
+  TaskFilterDay get taskFilterDay => _taskFilterDay;
+  void setTaskFilterDay(TaskFilterDay taskFilterDay) {
+    _taskFilterDay = taskFilterDay;
+    notifyListeners();
+  }
 }
+
+enum TaskFilterDay { today, all }

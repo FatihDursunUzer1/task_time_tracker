@@ -12,4 +12,5 @@ class PageConstants {
   static const String termsOfService = '/terms-of-service';
   static const String notFound = '/not-found';
   static const String splash = '/splash';
+  static const String task = '/task';
 }
