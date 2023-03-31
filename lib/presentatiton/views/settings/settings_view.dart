@@ -12,9 +12,14 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: Center(
-      child: Text('Settings Page'),
+      child: Column(
+        children: const [
+          Text(
+              'Theme mode, languages , exit button , contact us, give 5 stars to us')
+        ],
+      ),
     ));
   }
 }

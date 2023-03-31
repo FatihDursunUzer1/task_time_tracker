@@ -10,6 +10,7 @@ import 'package:task_time_tracker/core/application/navigation/navigation_service
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 import 'package:task_time_tracker/presentatiton/utility/enums/TaskIcons.dart';
+import 'package:task_time_tracker/presentatiton/utility/errors/not_available_currently.dart';
 import 'package:task_time_tracker/presentatiton/views/add/add_task_view.dart';
 import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/settings/settings_view.dart';
@@ -123,7 +124,7 @@ class _HomeState extends State<Home> {
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 1) {
       return AddTask();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
-      return StatisticsView();
+      return NotAvailable(); //StatisticsView(); normally but this page not available for this section.
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 3) {
       return SettingsView();
     } else {

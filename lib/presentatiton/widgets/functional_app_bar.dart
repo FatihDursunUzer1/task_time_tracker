@@ -24,6 +24,7 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeStateProvider>();
     return AppBar(
+      centerTitle: true,
       actions: [
         Padding(
           padding: const EdgeInsets.all(16.0), //TODO: use constants
