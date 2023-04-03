@@ -45,19 +45,44 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<bool> registerWithEmailAndPassword(
-      String email, String password) async {
-    await auth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) {
-      print(value.user!.email);
-      return true;
-    }).onError((error, stackTrace) {
-      //show pop up
-      print(error);
-      return false;
-    });
-    return false;
+  registerWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return CustomUser(
+          id: userCredential.user!.uid,
+          email: userCredential.user!.email!,
+          emailVerified: userCredential.user!.emailVerified);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        Fluttertoast.showToast(
+            msg: "The password provided is too weak.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else if (e.code == 'email-already-in-use') {
+        Fluttertoast.showToast(
+            msg: "The account already exists for that email.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+          msg: "Error: $e",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 
   @override

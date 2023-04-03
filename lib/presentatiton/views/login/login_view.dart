@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
+import 'package:task_time_tracker/core/application/constants/validators.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
 import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
@@ -106,7 +107,7 @@ class _LoginState extends State<Login> {
   TextFormField EmailTextFormField(BuildContext context) {
     return TextFormField(
       controller: context.read<LoginViewModel>().emailController,
-      validator: context.read<LoginViewModel>().validateEmail,
+      validator: Validators.validateEmail,
       decoration: InputDecoration(labelText: 'Email'),
     );
   }
@@ -114,7 +115,7 @@ class _LoginState extends State<Login> {
   TextFormField PasswordTextFormField(BuildContext context) {
     return TextFormField(
       controller: context.read<LoginViewModel>().passwordController,
-      validator: context.read<LoginViewModel>().validatePassword,
+      validator: Validators.validatePassword,
       obscureText: !context.watch<LoginViewModel>().isVisible,
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(

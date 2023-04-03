@@ -5,7 +5,7 @@ abstract class IUserRepository {
 
   Future<bool> signOut();
 
-  Future<bool> registerWithEmailAndPassword(String email, String password);
+  registerWithEmailAndPassword(String email, String password);
 
   bool IsLoggedIn();
   //CustomUser? getCurrentUser();

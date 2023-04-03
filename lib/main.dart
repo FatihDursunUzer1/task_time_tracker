@@ -10,6 +10,7 @@ import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/login/login_view_model.dart';
+import 'package:task_time_tracker/presentatiton/views/register/register_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/splash/splash_view.dart';
 import 'package:task_time_tracker/presentatiton/views/tasks/task_view_model.dart';
 import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
@@ -24,7 +25,8 @@ void main() async {
     ChangeNotifierProvider(create: (_) => ThemeStateProvider()),
     ChangeNotifierProvider(create: (_) => LoginViewModel()),
     ChangeNotifierProvider(create: (_) => HomeViewModel()),
-    ChangeNotifierProvider(create: (_) => TaskViewModel())
+    ChangeNotifierProvider(create: (_) => TaskViewModel()),
+    ChangeNotifierProvider(create: (_) => RegisterViewModel()),
   ], child: const MyApp()));
 }
 
@@ -63,17 +65,16 @@ class MainApp extends StatelessWidget {
         print(snapshot.connectionState.toString());
         if (snapshot.connectionState == ConnectionState.done) {
           var user = UserRepository.instance.getCurrentUser();
-          if(user !=null)
-          {
+          if (user != null) {
             //context.read<HomeViewModel>().setCurrentUser(user);
             Future.delayed(Duration.zero, () {
-              NavigationService.instance.navigateToPageClear(PageConstants.home);
+              NavigationService.instance
+                  .navigateToPageClear(PageConstants.home);
             });
-          }
-          else
-          {
+          } else {
             Future.delayed(Duration.zero, () {
-              NavigationService.instance.navigateToPageClear(PageConstants.login);
+              NavigationService.instance
+                  .navigateToPageClear(PageConstants.login);
             });
           }
         }

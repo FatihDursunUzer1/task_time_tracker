@@ -20,23 +20,7 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? validateEmail(String? value) {
-    if (emailController.text.isEmpty) {
-      return 'Email is required';
-    } else if (!emailController.text.contains('@')) {
-      return 'Email is invalid';
-    }
-    return null;
-  }
-
-  String? validatePassword(String? value) {
-    if (passwordController.text.isEmpty) {
-      return 'Password is required';
-    } else if (passwordController.text.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
-    return null;
-  }
+  
 
   validate() {
     if (formKey.currentState!.validate()) {
