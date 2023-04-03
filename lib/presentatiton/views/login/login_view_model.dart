@@ -45,7 +45,6 @@ class LoginViewModel extends ChangeNotifier {
       /*_clearAll();
       NavigationService.instance.navigateToPageClear(PageConstants.home); */
     } else {
-      _clearAll();
       return false;
     }
   }
@@ -62,16 +61,17 @@ class LoginViewModel extends ChangeNotifier {
 
   signInWithOAuths(OAuthMethods oAuthMethod) {}
 
-  Future<CustomUser> signInWithEmailAndPassword() async {
-    _clearAll();
+  signInWithEmailAndPassword() async {
     var customUser = await _userRepository.signInWithEmailAndPassword(
         emailController.text, passwordController.text);
+    if (customUser == null) return null;
     return customUser;
   }
 
   _clearAll() {
     emailController.text = '';
     passwordController.text = '';
-    formKey.currentState!.reset();
+    debugPrint(emailController.text);
+    notifyListeners();
   }
 }
