@@ -8,6 +8,7 @@ import 'package:task_time_tracker/core/application/constants/color_constants.dar
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
+import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/login/login_view_model.dart';
 import 'package:task_time_tracker/presentatiton/widgets/custom_button.dart';
 
@@ -88,8 +89,17 @@ class _LoginState extends State<Login> {
   LoginButton(BuildContext context) {
     return CustomButton(
         text: 'Login',
-        onPressed: () {
-          context.read<LoginViewModel>().validate();
+        onPressed: () async {
+          var validate = context.read<LoginViewModel>().validate();
+          if (validate) {
+            var customUser = await context
+                .read<LoginViewModel>()
+                .signInWithEmailAndPassword();
+            if (customUser != null) {
+              context.read<HomeViewModel>().setCurrentUser(customUser);
+              context.read<LoginViewModel>().goToHomePage();
+            }
+          }
         });
   }
 

@@ -6,6 +6,7 @@ import 'package:task_time_tracker/core/application/constants/app_constants.dart'
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
+import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 
 class FunctionalAppBar extends StatefulWidget implements PreferredSizeWidget {
   String? title;
@@ -36,34 +37,38 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
                 context.read<ThemeStateProvider>().setThemeMode();
               }),
         ),
-        IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(
-                            "Are you sure you want to logout from Task Time Tracker?"),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text("No")),
-                          TextButton(
-                              onPressed: () {
-                                //Navigator.pop(context);
-                                NavigationService.instance
-                                    .navigateToPageClear(PageConstants.login);
-                              },
-                              child: Text("Yes")),
-                        ],
-                      ));
-              /* NavigationService.instance
-                  .navigateToPageClear(PageConstants.login); */
-            },
-            icon: const FaIcon(FontAwesomeIcons.signOutAlt)),
+        ExitButton(context),
       ],
       title: Text(widget.title ?? AppConstants.appName),
     );
+  }
+
+  IconButton ExitButton(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text(
+                        "Are you sure you want to logout from Task Time Tracker?"),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("No")),
+                      TextButton(
+                          onPressed: () {
+                            UserRepository.instance.signOut();
+                            NavigationService.instance
+                                .navigateToPageClear(PageConstants.login);
+                          },
+                          child: Text("Yes")),
+                    ],
+                  ));
+          /* NavigationService.instance
+                .navigateToPageClear(PageConstants.login); */
+        },
+        icon: const FaIcon(FontAwesomeIcons.signOutAlt));
   }
 }

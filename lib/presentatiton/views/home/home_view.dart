@@ -9,6 +9,7 @@ import 'package:task_time_tracker/core/application/constants/page_constants.dart
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
+import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentatiton/utility/enums/TaskIcons.dart';
 import 'package:task_time_tracker/presentatiton/utility/errors/not_available_currently.dart';
 import 'package:task_time_tracker/presentatiton/views/add/add_task_view.dart';
@@ -30,11 +31,14 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    context
+        .read<HomeViewModel>()
+        .setCurrentUser(UserRepository.instance.getCurrentUser()!);
     _currentTasks = List.filled(
         5,
         Task(
             icon: 'test',
-            title: 'test',
+            title: context.read<HomeViewModel>().currentUser.email,
             description: 'test',
             id: 'test',
             duration: Duration(minutes: 10),

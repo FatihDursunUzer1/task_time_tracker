@@ -15,7 +15,21 @@ class _RegisterState extends State<Register> {
     return Scaffold(
         appBar: AppBar(),
         body: Center(
-          child: Text('Register Page'),
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/icon/ic_logo.png'),
+                Form(
+                    child: Column(children: [
+                  TextFormField(),
+                  TextFormField(),
+                  TextFormField()
+                ])),
+              ],
+            ),
+          ),
         ));
   }
 }

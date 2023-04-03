@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
+import 'package:task_time_tracker/core/domain/entities/Users/IUserRepository.dart';
+import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
+import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -8,6 +11,8 @@ class LoginViewModel extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final UserRepository _userRepository =
+      UserRepository.instance; //TO DO: This must be interface, but not now
 
   bool get isVisible => _isVisible;
   void setIsVisible() {
@@ -35,8 +40,13 @@ class LoginViewModel extends ChangeNotifier {
 
   validate() {
     if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      return true;
+      /*_clearAll();
+      NavigationService.instance.navigateToPageClear(PageConstants.home); */
+    } else {
       _clearAll();
-      NavigationService.instance.navigateToPageClear(PageConstants.home);
+      return false;
     }
   }
 
@@ -45,11 +55,23 @@ class LoginViewModel extends ChangeNotifier {
     NavigationService.instance.navigateToPage(path: PageConstants.register);
   }
 
+  goToHomePage() {
+    _clearAll();
+    NavigationService.instance.navigateToPageClear(PageConstants.home);
+  }
+
   signInWithOAuths(OAuthMethods oAuthMethod) {}
 
+  Future<CustomUser> signInWithEmailAndPassword() async {
+    _clearAll();
+    var customUser = await _userRepository.signInWithEmailAndPassword(
+        emailController.text, passwordController.text);
+    return customUser;
+  }
+
   _clearAll() {
-    emailController.clear();
-    passwordController.clear();
+    emailController.text = '';
+    passwordController.text = '';
     formKey.currentState!.reset();
   }
 }

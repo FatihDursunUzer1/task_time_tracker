@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
+import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
 
 class HomeViewModel extends ChangeNotifier {
+  late CustomUser _currentUser;
+
+  CustomUser get currentUser => _currentUser;
+  void setCurrentUser(CustomUser user) {
+    _currentUser = user;
+    notifyListeners();
+  }
+
   late List<Task> _currentTasks;
   List<Task>? get currentTasks => _currentTasks;
   void setCurrentTasks(List<Task> tasks) {
