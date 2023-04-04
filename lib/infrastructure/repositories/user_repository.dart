@@ -49,6 +49,15 @@ class UserRepository implements IUserRepository {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      Fluttertoast.showToast(
+          msg: "User Registered Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
       return CustomUser(
           id: userCredential.user!.uid,
           email: userCredential.user!.email!,
@@ -90,6 +99,14 @@ class UserRepository implements IUserRepository {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
+      Fluttertoast.showToast(
+          msg: "User Logged In Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
       return CustomUser(
           id: userCredential.user!.uid,
           email: userCredential.user!.email!,

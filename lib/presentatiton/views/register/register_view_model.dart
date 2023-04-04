@@ -37,6 +37,11 @@ class RegisterViewModel extends ChangeNotifier {
     NavigationService.instance.navigateToPage(path: PageConstants.login);
   }
 
+  goToHome() {
+    _clearAll();
+    NavigationService.instance.navigateToPageClear(PageConstants.home);
+  }
+
   registerWithEmailAndPassword() async {
     var customUser = await _userRepository.registerWithEmailAndPassword(
         emailController.text, passwordController.text);

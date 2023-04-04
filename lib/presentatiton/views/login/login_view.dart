@@ -12,6 +12,8 @@ import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart'
 import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/login/login_view_model.dart';
 import 'package:task_time_tracker/presentatiton/widgets/custom_button.dart';
+import 'package:task_time_tracker/presentatiton/widgets/email_text_form_field.dart';
+import 'package:task_time_tracker/presentatiton/widgets/password_text_form_field.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -24,8 +26,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Center(
+      appBar: AppBar(),
+      body: Center(
+        child: SingleChildScrollView(
           child: Padding(
               padding: const EdgeInsets.all(32.0),
               child: Form(
@@ -36,8 +39,18 @@ class _LoginState extends State<Login> {
                       Image.asset(
                         'assets/icon/ic_logo.png',
                       ),
-                      EmailTextFormField(context),
-                      PasswordTextFormField(context),
+                      EmailTextFormField(
+                        controller:
+                            context.read<LoginViewModel>().emailController,
+                      ),
+                      PasswordTextFormField(
+                        passwordController:
+                            context.read<LoginViewModel>().passwordController,
+                        isVisible: context.watch<LoginViewModel>().isVisible,
+                        onPressed: () {
+                          context.read<LoginViewModel>().setIsVisible();
+                        },
+                      ),
                       LoginButton(context),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +79,9 @@ class _LoginState extends State<Login> {
                       RegisterButton(context),
                     ]),
               )),
-        ));
+        ),
+      ),
+    );
   }
 
   IconButton SignInMethods(BuildContext context, IconData icon,
@@ -102,33 +117,5 @@ class _LoginState extends State<Login> {
             }
           }
         });
-  }
-
-  TextFormField EmailTextFormField(BuildContext context) {
-    return TextFormField(
-      controller: context.read<LoginViewModel>().emailController,
-      validator: Validators.validateEmail,
-      decoration: InputDecoration(labelText: 'Email'),
-    );
-  }
-
-  TextFormField PasswordTextFormField(BuildContext context) {
-    return TextFormField(
-      controller: context.read<LoginViewModel>().passwordController,
-      validator: Validators.validatePassword,
-      obscureText: !context.watch<LoginViewModel>().isVisible,
-      keyboardType: TextInputType.visiblePassword,
-      decoration: InputDecoration(
-        labelText: 'Password',
-        suffixIcon: IconButton(
-          icon: Icon(!context.watch<LoginViewModel>().isVisible
-              ? Icons.visibility
-              : Icons.visibility_off),
-          onPressed: () {
-            context.read<LoginViewModel>().setIsVisible();
-          },
-        ),
-      ),
-    );
   }
 }

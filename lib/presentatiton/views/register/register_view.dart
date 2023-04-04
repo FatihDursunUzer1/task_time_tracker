@@ -8,6 +8,8 @@ import 'package:task_time_tracker/core/application/navigation/navigation_service
 import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentatiton/views/register/register_view_model.dart';
 import 'package:task_time_tracker/presentatiton/widgets/custom_button.dart';
+import 'package:task_time_tracker/presentatiton/widgets/email_text_form_field.dart';
+import 'package:task_time_tracker/presentatiton/widgets/password_text_form_field.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -22,50 +24,64 @@ class _RegisterState extends State<Register> {
     return Scaffold(
         appBar: AppBar(),
         body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/icon/ic_logo.png'),
-                Form(
-                    key: context.read<RegisterViewModel>().formKey,
-                    child: Column(children: [
-                      TextFormField(
-                        controller:
-                            context.read<RegisterViewModel>().emailController,
-                        validator: Validators.validateEmail,
-                      ),
-                      TextFormField(
-                          controller: context
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/icon/ic_logo.png'),
+                  Form(
+                      key: context.read<RegisterViewModel>().formKey,
+                      child: Column(children: [
+                        EmailTextFormField(
+                          controller:
+                              context.read<RegisterViewModel>().emailController,
+                        ),
+                        PasswordTextFormField(
+                          passwordController: context
                               .read<RegisterViewModel>()
                               .passwordController,
-                          validator: Validators.validatePassword),
-                      TextFormField(
-                          controller: context
+                          isVisible:
+                              context.watch<RegisterViewModel>().isVisible,
+                          onPressed: () {
+                            context.read<RegisterViewModel>().setIsVisible();
+                          },
+                        ),
+                        PasswordTextFormField(
+                          passwordController: context
                               .read<RegisterViewModel>()
                               .passwordAgainController,
+                          isVisible:
+                              context.watch<RegisterViewModel>().isVisible,
+                          onPressed: () {
+                            context.read<RegisterViewModel>().setIsVisible();
+                          },
                           validator: context
                               .read<RegisterViewModel>()
-                              .validatePasswordAgain),
-                      CustomButton(
-                        onPressed: () async {
-                          var customUser = await context
-                              .read<RegisterViewModel>()
-                              .registerWithEmailAndPassword();
-
-                          if (customUser != null) {
-                            context
-                                .read<HomeViewModel>()
-                                .setCurrentUser(customUser);
-                            NavigationService.instance
-                                .navigateToPageClear(PageConstants.home);
-                          }
-                        },
-                        text: 'Register',
-                      ),
-                    ])),
-              ],
+                              .validatePasswordAgain,
+                        ),
+                        CustomButton(
+                          onPressed: () async {
+                            var validate =
+                                context.read<RegisterViewModel>().validate();
+                            if (validate) {
+                              var customUser = await context
+                                  .read<RegisterViewModel>()
+                                  .registerWithEmailAndPassword();
+                              if (customUser != null) {
+                                context
+                                    .read<HomeViewModel>()
+                                    .setCurrentUser(customUser);
+                                context.read<RegisterViewModel>().goToHome();
+                              }
+                            }
+                          },
+                          text: 'Register',
+                        ),
+                      ])),
+                ],
+              ),
             ),
           ),
         ));
