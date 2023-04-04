@@ -6,6 +6,7 @@ import 'package:task_time_tracker/core/application/constants/app_constants.dart'
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_route.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
+import 'package:task_time_tracker/firebase_options.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
@@ -19,7 +20,7 @@ import 'core/application/state/theme_state_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await HiveCacheManager.instance.init();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => ThemeStateProvider()),
