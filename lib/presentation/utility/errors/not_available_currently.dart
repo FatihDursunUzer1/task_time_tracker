@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class NotAvailable extends StatefulWidget {
   const NotAvailable({super.key});
@@ -29,13 +31,11 @@ class _NotAvailableState extends State<NotAvailable> {
           ),
           Center(
             child: Column(
-              children: const [
+              children: [
                 Text(
-                  'Not Available For This Version.',
+                  LocaleKeys.not_available_current_version.tr(),
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text('We will add this feature in the next version',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
           ),

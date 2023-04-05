@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,7 @@ import 'package:task_time_tracker/core/application/constants/page_constants.dart
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class FunctionalAppBar extends StatefulWidget implements PreferredSizeWidget {
   String? title;
@@ -39,7 +41,7 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
         ),
         ExitButton(context),
       ],
-      title: Text(widget.title ?? AppConstants.appName),
+      title: Text(widget.title ?? LocaleKeys.app_name.tr()),
     );
   }
 
@@ -49,21 +51,20 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    title: Text(
-                        "Are you sure you want to logout from Task Time Tracker?"),
+                    title: Text(LocaleKeys.logout_message.tr()),
                     actions: [
                       TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text("No")),
+                          child: Text(LocaleKeys.no.tr())),
                       TextButton(
                           onPressed: () {
                             UserRepository.instance.signOut();
                             NavigationService.instance
                                 .navigateToPageClear(PageConstants.login);
                           },
-                          child: Text("Yes")),
+                          child: Text(LocaleKeys.yes.tr())),
                     ],
                   ));
           /* NavigationService.instance

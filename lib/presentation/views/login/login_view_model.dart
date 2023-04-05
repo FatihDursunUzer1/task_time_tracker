@@ -4,7 +4,7 @@ import 'package:task_time_tracker/core/application/navigation/navigation_service
 import 'package:task_time_tracker/core/domain/entities/Users/IUserRepository.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
-import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
+import 'package:task_time_tracker/presentation/utility/enums/OAuthMethods.dart';
 
 class LoginViewModel extends ChangeNotifier {
   bool _isVisible = false;

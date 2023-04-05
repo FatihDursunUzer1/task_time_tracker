@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -9,26 +10,33 @@ import 'package:task_time_tracker/core/application/navigation/navigation_service
 import 'package:task_time_tracker/firebase_options.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
-import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
-import 'package:task_time_tracker/presentatiton/views/login/login_view_model.dart';
-import 'package:task_time_tracker/presentatiton/views/register/register_view_model.dart';
-import 'package:task_time_tracker/presentatiton/views/splash/splash_view.dart';
-import 'package:task_time_tracker/presentatiton/views/tasks/task_view_model.dart';
-import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
+import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
+import 'package:task_time_tracker/presentation/views/login/login_view_model.dart';
+import 'package:task_time_tracker/presentation/views/register/register_view_model.dart';
+import 'package:task_time_tracker/presentation/views/splash/splash_view.dart';
+import 'package:task_time_tracker/presentation/views/tasks/task_view_model.dart';
+import 'package:task_time_tracker/presentation/widgets/functional_app_bar.dart';
 
 import 'core/application/state/theme_state_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await HiveCacheManager.instance.init();
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => ThemeStateProvider()),
-    ChangeNotifierProvider(create: (_) => LoginViewModel()),
-    ChangeNotifierProvider(create: (_) => HomeViewModel()),
-    ChangeNotifierProvider(create: (_) => TaskViewModel()),
-    ChangeNotifierProvider(create: (_) => RegisterViewModel()),
-  ], child: const MyApp()));
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeStateProvider()),
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
+        ChangeNotifierProvider(create: (_) => TaskViewModel()),
+        ChangeNotifierProvider(create: (_) => RegisterViewModel()),
+      ],
+      child: EasyLocalization(
+        //fallbackLocale: Locale('en', 'US'),
+          supportedLocales: [Locale('en', 'US'), Locale('tr', 'TR')],
+          path: 'assets/translations',
+          child: const MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,6 +46,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: context.locale,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
       theme: context.watch<ThemeStateProvider>().theme,

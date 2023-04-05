@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -10,14 +11,15 @@ import 'package:task_time_tracker/core/application/navigation/navigation_service
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
-import 'package:task_time_tracker/presentatiton/utility/enums/TaskIcons.dart';
-import 'package:task_time_tracker/presentatiton/utility/errors/not_available_currently.dart';
-import 'package:task_time_tracker/presentatiton/views/add/add_task_view.dart';
-import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
-import 'package:task_time_tracker/presentatiton/views/settings/settings_view.dart';
-import 'package:task_time_tracker/presentatiton/views/statistics/statistics_view.dart';
-import 'package:task_time_tracker/presentatiton/views/tasks/task_view_model.dart';
-import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
+import 'package:task_time_tracker/presentation/utility/enums/TaskIcons.dart';
+import 'package:task_time_tracker/presentation/utility/errors/not_available_currently.dart';
+import 'package:task_time_tracker/presentation/views/add/add_task_view.dart';
+import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
+import 'package:task_time_tracker/presentation/views/settings/settings_view.dart';
+import 'package:task_time_tracker/presentation/views/statistics/statistics_view.dart';
+import 'package:task_time_tracker/presentation/views/tasks/task_view_model.dart';
+import 'package:task_time_tracker/presentation/widgets/functional_app_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -140,8 +142,9 @@ class _HomeState extends State<Home> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ClickableText('Today', 'All'),
-        FilterClickableText('See All', 'See Today')
+        ClickableText(LocaleKeys.see_today.tr(), LocaleKeys.see_all_task.tr()),
+        FilterClickableText(
+            LocaleKeys.see_all_task.tr(), LocaleKeys.see_today.tr())
       ],
     );
   }

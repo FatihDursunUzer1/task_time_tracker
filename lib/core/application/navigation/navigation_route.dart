@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
-import 'package:task_time_tracker/presentatiton/views/home/home_view.dart';
-import 'package:task_time_tracker/presentatiton/views/login/login_view.dart';
-import 'package:task_time_tracker/presentatiton/views/register/register_view.dart';
-import 'package:task_time_tracker/presentatiton/views/tasks/task_view.dart';
+import 'package:task_time_tracker/presentation/views/home/home_view.dart';
+import 'package:task_time_tracker/presentation/views/login/login_view.dart';
+import 'package:task_time_tracker/presentation/views/register/register_view.dart';
+import 'package:task_time_tracker/presentation/views/tasks/task_view.dart';
 
 import '../../../main.dart';
-import '../../../presentatiton/views/splash/splash_view.dart';
+import '../../../presentation/views/splash/splash_view.dart';
 
 class NavigationRoute {
   static NavigationRoute? _instance;

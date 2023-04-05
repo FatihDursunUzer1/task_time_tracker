@@ -1,10 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
-import 'package:task_time_tracker/presentatiton/views/tasks/task_view_model.dart';
-import 'package:task_time_tracker/presentatiton/widgets/custom_button.dart';
-import 'package:task_time_tracker/presentatiton/widgets/functional_app_bar.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
+import 'package:task_time_tracker/presentation/views/tasks/task_view_model.dart';
+import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
+import 'package:task_time_tracker/presentation/widgets/functional_app_bar.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView({super.key});
@@ -39,11 +41,11 @@ class _TaskViewState extends State<TaskView> {
                       .toString(),
                 ),
                 CustomButton(
-                    text: 'Finish',
+                    text: LocaleKeys.finish.tr(),
                     onPressed: () {
                       //context.read<TaskViewModel>().finishTask();
                     }),
-                TextButton(onPressed: () {}, child: const Text('Quit'))
+                TextButton(onPressed: () {}, child: Text(LocaleKeys.quit.tr()))
               ],
             ),
           ),

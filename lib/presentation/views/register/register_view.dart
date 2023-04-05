@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/constants/validators.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
-import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
-import 'package:task_time_tracker/presentatiton/views/register/register_view_model.dart';
-import 'package:task_time_tracker/presentatiton/widgets/custom_button.dart';
-import 'package:task_time_tracker/presentatiton/widgets/email_text_form_field.dart';
-import 'package:task_time_tracker/presentatiton/widgets/password_text_form_field.dart';
+import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
+import 'package:task_time_tracker/presentation/views/register/register_view_model.dart';
+import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
+import 'package:task_time_tracker/presentation/widgets/email_text_form_field.dart';
+import 'package:task_time_tracker/presentation/widgets/password_text_form_field.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});

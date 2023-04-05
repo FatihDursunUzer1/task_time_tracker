@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -16,29 +18,29 @@ class _SettingsViewState extends State<SettingsView> {
     return Scaffold(
         body: Center(
       child: Column(
-        children: const [
+        children: [
           ListTile(
             leading: FaIcon(FontAwesomeIcons.user),
-            title: Text('Profile'),
+            title: Text(LocaleKeys.profile.tr()),
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.trafficLight),
-            title: Text('Theme'),
+            title: Text(LocaleKeys.theme.tr()),
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.language),
-            title: Text('Language'),
+            title: Text(LocaleKeys.languages.tr()),
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.infoCircle),
-            title: Text('About'),
+            title: Text(LocaleKeys.about.tr()),
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.envelopeOpen),
-            title: Text('Connect with us'),
+            title: Text(LocaleKeys.contact_us.tr()),
           ),
           ListTile(
-            title: Text('Rate Application'),
+            title: Text(LocaleKeys.rate_application.tr()),
             leading: FaIcon(FontAwesomeIcons.star),
           ),
           ListTile(
@@ -47,7 +49,7 @@ class _SettingsViewState extends State<SettingsView> {
               FontAwesomeIcons.signOutAlt,
               color: Colors.red,
             ),
-            title: Text('Logout'),
+            title: Text(LocaleKeys.logout.tr()),
           ),
         ],
       ),

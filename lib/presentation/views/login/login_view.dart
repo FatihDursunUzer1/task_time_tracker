@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -8,12 +9,13 @@ import 'package:task_time_tracker/core/application/constants/color_constants.dar
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/constants/validators.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
-import 'package:task_time_tracker/presentatiton/utility/enums/OAuthMethods.dart';
-import 'package:task_time_tracker/presentatiton/views/home/home_view_model.dart';
-import 'package:task_time_tracker/presentatiton/views/login/login_view_model.dart';
-import 'package:task_time_tracker/presentatiton/widgets/custom_button.dart';
-import 'package:task_time_tracker/presentatiton/widgets/email_text_form_field.dart';
-import 'package:task_time_tracker/presentatiton/widgets/password_text_form_field.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
+import 'package:task_time_tracker/presentation/utility/enums/OAuthMethods.dart';
+import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
+import 'package:task_time_tracker/presentation/views/login/login_view_model.dart';
+import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
+import 'package:task_time_tracker/presentation/widgets/email_text_form_field.dart';
+import 'package:task_time_tracker/presentation/widgets/password_text_form_field.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -74,7 +76,7 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                       const Divider(),
-                      Text('Or'),
+                      Text(LocaleKeys.or.tr()),
                       const Divider(),
                       RegisterButton(context),
                     ]),

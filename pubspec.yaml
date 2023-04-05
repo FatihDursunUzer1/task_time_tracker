@@ -53,6 +53,7 @@ dependencies:
   firebase_auth: ^4.3.0
   fluttertoast: ^8.2.1
   cloud_firestore: ^4.5.0
+  easy_localization: ^3.0.1
 
 flutter_icons:
   android: "launcher_icon"
@@ -100,6 +101,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icon/
+    - assets/translations/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
