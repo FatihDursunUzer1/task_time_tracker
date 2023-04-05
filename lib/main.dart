@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
+import 'package:task_time_tracker/core/application/languages/language_manager.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_route.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/firebase_options.dart';
@@ -24,7 +25,10 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await HiveCacheManager.instance.init();
-  runApp(MultiProvider(
+  runApp(EasyLocalization(
+    supportedLocales: LanguageManager.instance.supportedLocales,
+    path: 'assets/translations',
+    child: MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeStateProvider()),
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
@@ -32,11 +36,9 @@ void main() async {
         ChangeNotifierProvider(create: (_) => TaskViewModel()),
         ChangeNotifierProvider(create: (_) => RegisterViewModel()),
       ],
-      child: EasyLocalization(
-        //fallbackLocale: Locale('en', 'US'),
-          supportedLocales: [Locale('en', 'US'), Locale('tr', 'TR')],
-          path: 'assets/translations',
-          child: const MyApp())));
+      child: const MyApp(),
+    ),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -46,9 +48,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: context.locale,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
       theme: context.watch<ThemeStateProvider>().theme,
@@ -78,7 +80,7 @@ class MainApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           var user = UserRepository.instance.getCurrentUser();
           if (user != null) {
-            //context.read<HomeViewModel>().setCurrentUser(user);
+            context.read<HomeViewModel>().setCurrentUser(user);
             Future.delayed(Duration.zero, () {
               NavigationService.instance
                   .navigateToPageClear(PageConstants.home);

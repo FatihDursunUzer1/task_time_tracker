@@ -42,5 +42,7 @@ abstract class  LocaleKeys {
   static const cancel = 'cancel';
   static const finish = 'finish';
   static const quit = 'quit';
+  static const english = 'english';
+  static const turkish = 'turkish';
 
 }

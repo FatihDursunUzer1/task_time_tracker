@@ -39,7 +39,9 @@
     "or":"Or",
     "cancel":"Cancel",
     "finish":"Finish",
-    "quit":"Quit"
+    "quit":"Quit",
+    "english":"English",
+    "turkish":"Turkish"
 
 
 }

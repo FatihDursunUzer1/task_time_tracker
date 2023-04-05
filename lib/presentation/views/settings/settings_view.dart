@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class SettingsView extends StatefulWidget {
@@ -27,9 +28,14 @@ class _SettingsViewState extends State<SettingsView> {
             leading: FaIcon(FontAwesomeIcons.trafficLight),
             title: Text(LocaleKeys.theme.tr()),
           ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.language),
-            title: Text(LocaleKeys.languages.tr()),
+          GestureDetector(
+            onTap: () {
+              NavigationService.instance.navigateToPage(path: '/languages');
+            },
+            child: ListTile(
+              leading: FaIcon(FontAwesomeIcons.language),
+              title: Text(LocaleKeys.languages.tr()),
+            ),
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.infoCircle),

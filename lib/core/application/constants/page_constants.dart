@@ -13,4 +13,5 @@ class PageConstants {
   static const String notFound = '/not-found';
   static const String splash = '/splash';
   static const String task = '/task';
+  static const String languages = '/languages';
 }

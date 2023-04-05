@@ -3,6 +3,7 @@ import 'package:task_time_tracker/core/application/constants/page_constants.dart
 import 'package:task_time_tracker/presentation/views/home/home_view.dart';
 import 'package:task_time_tracker/presentation/views/login/login_view.dart';
 import 'package:task_time_tracker/presentation/views/register/register_view.dart';
+import 'package:task_time_tracker/presentation/views/settings/languages/set_language_view.dart';
 import 'package:task_time_tracker/presentation/views/tasks/task_view.dart';
 
 import '../../../main.dart';
@@ -36,6 +37,8 @@ class NavigationRoute {
         return defaultRoute(Register());
       case PageConstants.task:
         return defaultRoute(TaskView());
+      case PageConstants.languages:
+        return defaultRoute(SetLanguage());
       default:
         return defaultRoute(Home());
     }

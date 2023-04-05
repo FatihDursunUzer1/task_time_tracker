@@ -33,9 +33,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    context
+    /*context
         .read<HomeViewModel>()
-        .setCurrentUser(UserRepository.instance.getCurrentUser()!);
+        .setCurrentUser(UserRepository.instance.getCurrentUser()!); */
     _currentTasks = List.filled(
         5,
         Task(
@@ -88,21 +88,21 @@ class _HomeState extends State<Home> {
   }
 
   List<BottomNavigationBarItem> get BottomNavigationBarItems {
-    return const <BottomNavigationBarItem>[
+    return <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.clock),
-        label: 'Home',
+        label: LocaleKeys.home.tr(),
       ),
       BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.plus),
-        label: 'Add Task',
+        label: LocaleKeys.add_task.tr(),
       ),
       BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.chartBar),
-        label: 'Statistics',
+        label: LocaleKeys.statiscs.tr(),
       ),
       BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.cog), label: 'Settings')
+          icon: FaIcon(FontAwesomeIcons.cog), label: LocaleKeys.settings.tr())
     ];
   }
 
@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
         children: [
           SizedBox(
             child: Text(
-              'Current Task',
+              LocaleKeys.current_task.tr(),
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             height: MediaQuery.of(context).size.height * 0.2,

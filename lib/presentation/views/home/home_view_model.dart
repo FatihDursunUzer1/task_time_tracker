@@ -10,7 +10,7 @@ class HomeViewModel extends ChangeNotifier {
   CustomUser get currentUser => _currentUser;
   void setCurrentUser(CustomUser user) {
     _currentUser = user;
-    notifyListeners();
+    //notifyListeners();
   }
 
   late List<Task> _currentTasks;
@@ -29,6 +29,7 @@ class HomeViewModel extends ChangeNotifier {
 
   TaskFilterDay _taskFilterDay = TaskFilterDay.today;
   TaskFilterDay get taskFilterDay => _taskFilterDay;
+
   void setTaskFilterDay(TaskFilterDay taskFilterDay) {
     _taskFilterDay = taskFilterDay;
     notifyListeners();
