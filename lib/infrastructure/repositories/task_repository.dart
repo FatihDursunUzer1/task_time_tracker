@@ -14,9 +14,9 @@ class TaskRepository {
   TaskRepository._privateConstructor();
 
   Future<void> addTask(Task task) async {
-    await _firestore
-        .collection('tasks')
-        .doc()
+    var doc = _firestore.collection('tasks').doc();
+    task.id = doc.id;
+    await doc
         .withConverter<Task>(
             fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
             toFirestore: (task, _) => task.toJson(task))

@@ -13,6 +13,7 @@ class Task implements IEntity<Task> {
   late String description;
   List<TaskTags>? tags;
   late String userId;
+  late DateTime createdAt;
 
   @override
   late String id;
@@ -24,7 +25,7 @@ class Task implements IEntity<Task> {
       required this.description,
       required this.tags,
       required this.userId,
-      required this.id});
+      required this.createdAt});
 
   @override
   Task fromJson(Map<String, dynamic> json) {
