@@ -36,7 +36,8 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   getValues() async {
-    var a=await _taskRepository.getTasks();
+    var a= await _taskRepository.getTasks();
+    return a;
   }
 }
 

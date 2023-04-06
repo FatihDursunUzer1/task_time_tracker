@@ -70,10 +70,7 @@ class _RegisterState extends State<Register> {
                                   .read<RegisterViewModel>()
                                   .registerWithEmailAndPassword();
                               if (customUser != null) {
-                                context
-                                    .read<HomeViewModel>()
-                                    .setCurrentUser(customUser);
-                                context.read<RegisterViewModel>().goToHome();
+                                context.read<RegisterViewModel>().goToLogin();
                               }
                             }
                           },

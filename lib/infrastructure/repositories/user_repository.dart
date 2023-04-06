@@ -49,6 +49,7 @@ class UserRepository implements IUserRepository {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      sendRegisterEmail();
       Fluttertoast.showToast(
           msg: "User Registered Successfully",
           toastLength: Toast.LENGTH_SHORT,
@@ -57,6 +58,8 @@ class UserRepository implements IUserRepository {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
+
+      await auth.signOut();
 
       return CustomUser(
           id: userCredential.user!.uid,
@@ -94,11 +97,18 @@ class UserRepository implements IUserRepository {
     }
   }
 
+  sendRegisterEmail() async {
+    await auth.currentUser!.sendEmailVerification();
+  }
+
   @override
   signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
+      if (!userCredential.user!.emailVerified)
+        // ignore: curly_braces_in_flow_control_structures
+        throw FirebaseAuthException(code: 'email-not-verified');
       Fluttertoast.showToast(
           msg: "User Logged In Successfully",
           toastLength: Toast.LENGTH_SHORT,
@@ -124,6 +134,24 @@ class UserRepository implements IUserRepository {
       } else if (e.code == 'wrong-password') {
         Fluttertoast.showToast(
             msg: "Wrong password provided for that user.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else if (e.code == 'user-disabled') {
+        Fluttertoast.showToast(
+            msg: "User has been disabled.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else if (e.code == 'email-not-verified') {
+        Fluttertoast.showToast(
+            msg: "Email not verified.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,

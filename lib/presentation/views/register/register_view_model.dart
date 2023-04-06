@@ -34,7 +34,7 @@ class RegisterViewModel extends ChangeNotifier {
 
   goToLogin() {
     _clearAll();
-    NavigationService.instance.navigateToPage(path: PageConstants.login);
+    NavigationService.instance.navigateToPageClear(PageConstants.login);
   }
 
   goToHome() {

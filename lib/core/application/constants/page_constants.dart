@@ -14,4 +14,5 @@ class PageConstants {
   static const String splash = '/splash';
   static const String task = '/task';
   static const String languages = '/languages';
+  static const String theme = '/theme';
 }

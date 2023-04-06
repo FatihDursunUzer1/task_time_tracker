@@ -119,12 +119,24 @@ class _HomeState extends State<Home> {
             height: MediaQuery.of(context).size.height * 0.2,
           ),
           FilterOptionsRow(),
-          Expanded(
-              child: ListView.builder(
-                  itemCount: _currentTasks!.length,
-                  itemBuilder: (context, index) {
-                    return ClickableListTile(context, index);
-                  }))
+          FutureBuilder(
+            future: context.read<HomeViewModel>().getValues(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData)
+                  return Expanded(
+                      child: ListView.builder(
+                          itemCount: _currentTasks!.length,
+                          itemBuilder: (context, index) {
+                            return ClickableListTile(context, index);
+                          }));
+                else
+                  return const Center(child: Text('No data'));
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          )
         ],
       );
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 1) {

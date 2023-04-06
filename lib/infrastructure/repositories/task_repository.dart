@@ -25,10 +25,12 @@ class TaskRepository {
     await _firestore.collection('tasks').doc(id).delete();
   }
 
-  getTasks() {
-    return _firestore.collection('tasks').withConverter(
+  getTasks() async {
+    final collection = _firestore.collection('tasks').withConverter(
         fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
         toFirestore: (task, _) => task.toJson(task));
+
+    return await collection.doc().get();
   }
 
   Stream<QuerySnapshot> getTasksByUser(String userId) {

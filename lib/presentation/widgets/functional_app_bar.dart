@@ -29,16 +29,6 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
     return AppBar(
       centerTitle: true,
       actions: [
-        Padding(
-          padding: const EdgeInsets.all(16.0), //TODO: use constants
-          child: GestureDetector(
-              child: Icon(theme.themeMode == CustomThemeMode.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode),
-              onTap: () {
-                context.read<ThemeStateProvider>().setThemeMode();
-              }),
-        ),
         ExitButton(context),
       ],
       title: Text(widget.title ?? LocaleKeys.app_name.tr()),
