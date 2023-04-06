@@ -13,12 +13,24 @@ class TaskRepository {
 
   TaskRepository._privateConstructor();
 
-  Future<void> addTask(Map<String, dynamic> task) async {
-    await _firestore.collection('tasks').add(task);
+  Future<void> addTask(Task task) async {
+    await _firestore
+        .collection('tasks')
+        .doc()
+        .withConverter<Task>(
+            fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
+            toFirestore: (task, _) => task.toJson(task))
+        .set(task);
   }
 
   Future<void> updateTask(Map<String, dynamic> task) async {
-    await _firestore.collection('tasks').doc(task['id']).update(task);
+    await _firestore
+        .collection('tasks')
+        .doc(task['id'])
+        .withConverter<Task>(
+            fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
+            toFirestore: (task, _) => task.toJson(task))
+        .update(task);
   }
 
   Future<void> deleteTask(String id) async {
@@ -26,17 +38,23 @@ class TaskRepository {
   }
 
   getTasks() async {
-    final collection = _firestore.collection('tasks').withConverter(
-        fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
-        toFirestore: (task, _) => task.toJson(task));
-
-    return await collection.doc().get();
+    final collection = await _firestore
+        .collection('tasks')
+        .withConverter<Task>(
+            fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
+            toFirestore: (task, _) => task.toJson(task))
+        .get();
+    return collection.docs.map((e) => e.data()).toList();
   }
 
-  Stream<QuerySnapshot> getTasksByUser(String userId) {
-    return _firestore
+  getTasksByUser(String userId) async {
+    final collection = await _firestore
         .collection('tasks')
         .where('userId', isEqualTo: userId)
-        .snapshots();
+        .withConverter<Task>(
+            fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
+            toFirestore: (task, _) => task.toJson(task))
+        .get();
+    collection.docs.map((e) => e.data()).toList();
   }
 }

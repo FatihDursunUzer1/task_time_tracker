@@ -36,8 +36,7 @@ class _TaskViewState extends State<TaskView> {
                 Text(
                   context
                       .watch<TaskViewModel>()
-                      .currentTask
-                      .duration
+                      .currentTask.description
                       .toString(),
                 ),
                 CustomButton(

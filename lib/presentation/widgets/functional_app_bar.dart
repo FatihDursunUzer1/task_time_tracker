@@ -9,6 +9,7 @@ import 'package:task_time_tracker/core/application/navigation/navigation_service
 import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
+import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
 
 class FunctionalAppBar extends StatefulWidget implements PreferredSizeWidget {
   String? title;
@@ -51,6 +52,9 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
                       TextButton(
                           onPressed: () {
                             UserRepository.instance.signOut();
+                            context
+                                .read<HomeViewModel>()
+                                .setCurrentNavBarIndex(0);
                             NavigationService.instance
                                 .navigateToPageClear(PageConstants.login);
                           },

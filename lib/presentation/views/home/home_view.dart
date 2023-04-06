@@ -33,20 +33,10 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _currentTasks = [];
     /*context
         .read<HomeViewModel>()
         .setCurrentUser(UserRepository.instance.getCurrentUser()!); */
-    _currentTasks = List.filled(
-        5,
-        Task(
-            icon: 'test',
-            title: context.read<HomeViewModel>().currentUser.email,
-            description: 'test',
-            id: 'test',
-            duration: Duration(minutes: 10),
-            createdAt: DateTime(2023, 1, 1),
-            isCompleted: false,
-            tags: List.filled(1, TaskTags.work)));
   }
 
   @override
@@ -120,7 +110,7 @@ class _HomeState extends State<Home> {
           ),
           FilterOptionsRow(),
           FutureBuilder(
-            future: context.read<HomeViewModel>().getValues(),
+            future: getTasks(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData)
@@ -168,7 +158,7 @@ class _HomeState extends State<Home> {
             context.read<HomeViewModel>().taskFilterDay == TaskFilterDay.today
                 ? TaskFilterDay.all
                 : TaskFilterDay.today);
-        context.read<HomeViewModel>().getValues();
+        context.read<HomeViewModel>().getTasks();
       },
       child: ClickableText(condition1, condition2),
     );
@@ -206,8 +196,8 @@ class _HomeState extends State<Home> {
 
   Column ListTileTrailing(Task task) {
     return Column(children: [
-      Text(task.duration!.inHours.toString()),
-      task.isCompleted
+      Text(task.description),
+      true
           ? const FaIcon(FontAwesomeIcons.checkSquare)
           : const FaIcon(FontAwesomeIcons.play)
     ]);
@@ -215,5 +205,10 @@ class _HomeState extends State<Home> {
 
   TaskIcon ListTileLeading(TaskTags taskTags) {
     return TaskIcon(taskTag: taskTags);
+  }
+
+  getTasks() async {
+    _currentTasks = await context.read<HomeViewModel>().getTasks();
+    return _currentTasks;
   }
 }

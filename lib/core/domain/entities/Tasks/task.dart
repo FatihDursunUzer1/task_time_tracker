@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:task_time_tracker/core/domain/entities/abstracts/IEntity.dart';
@@ -8,29 +9,22 @@ part 'task.g.dart';
 
 @JsonSerializable()
 class Task implements IEntity<Task> {
-  late String icon;
   late String title;
   late String description;
   List<TaskTags>? tags;
-  late Duration? duration;
-  late bool isCompleted;
-  late DateTime createdAt;
+  late String userId;
 
   @override
-  late final String id;
+  late String id;
 
   Task.init();
 
-  Task({
-    required this.icon,
-    required this.title,
-    required this.description,
-    this.tags,
-    required this.id,
-    required this.duration,
-    required this.createdAt,
-    required this.isCompleted,
-  });
+  Task(
+      {required this.title,
+      required this.description,
+      required this.tags,
+      required this.userId,
+      required this.id});
 
   @override
   Task fromJson(Map<String, dynamic> json) {
