@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:task_time_tracker/core/application/constants/validators.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
@@ -24,55 +26,67 @@ class _AddTaskState extends State<AddTask> {
     return Container(
       child: Form(
         key: context.read<AddTaskViewModel>().formKey,
-        child: Column(
-          children: [
-            Text(
-              'Add Task',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            TextFormField(
-              validator: Validators.checkEmptyText,
-              controller:
-                  context.read<AddTaskViewModel>().titleEditingController,
-              decoration: InputDecoration(labelText: 'Title'),
-            ),
-            Divider(),
-            TextFormField(
-              validator: Validators.checkEmptyText,
-              controller:
-                  context.read<AddTaskViewModel>().descriptionEditingController,
-              decoration: InputDecoration(
-                labelText: 'Description',
-                floatingLabelAlignment: FloatingLabelAlignment.center,
-                floatingLabelStyle: TextStyle(fontSize: 20),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Add Task',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
-              maxLines: 5,
-            ),
-            TaskTagDropdownButton(context),
-            CustomButton(
-                onPressed: () {
-                  var currentState =
-                      context.read<AddTaskViewModel>().formKey.currentState!;
-                  if (currentState.validate()) {
-                    currentState.save();
-                    context.read<AddTaskViewModel>().addTask();
-                    context.read<HomeViewModel>().setCurrentNavBarIndex(0);
-                  }
-                },
-                text: 'Add Task'),
-          ],
+              TextFormField(
+                validator: Validators.checkEmptyText,
+                controller:
+                    context.read<AddTaskViewModel>().titleEditingController,
+                decoration: InputDecoration(
+                  hintText: 'Title',
+                ),
+              ),
+              Divider(),
+              TextFormField(
+                validator: Validators.checkEmptyText,
+                controller: context
+                    .read<AddTaskViewModel>()
+                    .descriptionEditingController,
+                decoration: InputDecoration(
+                  hintText: 'Description',
+                ),
+                maxLines: 5,
+              ),
+              TaskTagDropdownButton(context),
+              CustomButton(
+                  onPressed: () {
+                    var currentState =
+                        context.read<AddTaskViewModel>().formKey.currentState!;
+                    if (currentState.validate()) {
+                      currentState.save();
+                      context.read<AddTaskViewModel>().addTask();
+                      context.read<HomeViewModel>().setCurrentNavBarIndex(0);
+                    }
+                  },
+                  text: 'Add Task'),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  DropdownButton<TaskTags> TaskTagDropdownButton(BuildContext context) {
-    return DropdownButton(
-      items: dropdownItems,
-      onChanged: (taskTag) {
-        context.read<AddTaskViewModel>().setSelectedTaskTag(taskTag!);
-      },
-      value: context.watch<AddTaskViewModel>().selectedTaskTag,
+  TaskTagDropdownButton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Task Tag: ', style: TextStyle(fontSize: 20)),
+        DropdownButton(
+          icon: FaIcon(FontAwesomeIcons.caretDown),
+          items: dropdownItems,
+          onChanged: (taskTag) {
+            context.read<AddTaskViewModel>().setSelectedTaskTag(taskTag!);
+          },
+          value: context.watch<AddTaskViewModel>().selectedTaskTag,
+        ),
+      ],
     );
   }
 

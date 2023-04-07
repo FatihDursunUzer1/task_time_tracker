@@ -5,23 +5,22 @@ import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 
 class TaskIcon extends StatelessWidget {
   final TaskTags taskTag;
-  final Color? color;
 
-  const TaskIcon({super.key, required this.taskTag, this.color});
+  const TaskIcon({super.key, required this.taskTag});
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-        backgroundColor: color ?? ColorConstants.customPurple.color,
-        child: _getIcon());
+    return _getIcon();
   }
 
   Widget _getIcon() {
     switch (taskTag) {
       case TaskTags.work:
-        return const FaIcon(FontAwesomeIcons.briefcase);
+        return const FaIcon(
+          FontAwesomeIcons.briefcase,
+        );
       case TaskTags.personal:
-        return const FaIcon(FontAwesomeIcons.user);
+        return const FaIcon(FontAwesomeIcons.userAlt);
       case TaskTags.other:
         return const FaIcon(FontAwesomeIcons.question);
       case TaskTags.home:

@@ -182,15 +182,19 @@ class _HomeState extends State<Home> {
         child: ListTileTask(index));
   }
 
-  ListTile ListTileTask(int index) {
+  ListTileTask(int index) {
     var task = _currentTasks![index];
-    return ListTile(
-      trailing: FaIcon(FontAwesomeIcons.chevronRight),
-      subtitle: Text(task.description.length > 20
-          ? '${task.description.substring(0, 20)}...'
-          : task.description),
-      leading: ListTileLeading(task.tags![0]),
-      title: Text(task.title),
+    return Card(
+      child: ListTile(
+        iconColor: Colors.white,
+        textColor: Colors.white,
+        trailing: FaIcon(FontAwesomeIcons.chevronRight),
+        subtitle: Text(task.description.length > 20
+            ? '${task.description.substring(0, 20)}...'
+            : task.description),
+        leading: ListTileLeading(task.tags![0]),
+        title: Text(task.title),
+      ),
     );
   }
 

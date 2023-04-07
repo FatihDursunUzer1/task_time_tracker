@@ -50,6 +50,9 @@ class ThemeStateProvider extends ChangeNotifier {
         style: OutlinedButton.styleFrom(
             backgroundColor: ColorConstants.darkBlue.color,
             foregroundColor: Colors.white),
+      ),
+      cardTheme: CardTheme(
+        color: ColorConstants.darkBlue.color,
       ));
 
   ThemeData get _lightTheme => ThemeData.light().copyWith(
@@ -71,5 +74,8 @@ class ThemeStateProvider extends ChangeNotifier {
         style: OutlinedButton.styleFrom(
             backgroundColor: ColorConstants.customPurple.color,
             foregroundColor: Colors.white),
+      ),
+      cardTheme: CardTheme(
+        color: ColorConstants.customPurple.color,
       ));
 }

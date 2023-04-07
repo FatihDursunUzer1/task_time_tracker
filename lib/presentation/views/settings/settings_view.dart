@@ -27,7 +27,8 @@ class _SettingsViewState extends State<SettingsView> {
           ),
           GestureDetector(
             onTap: () {
-              NavigationService.instance.navigateToPage(path:PageConstants.theme);
+              NavigationService.instance
+                  .navigateToPage(path: PageConstants.theme);
             },
             child: ListTile(
               leading: FaIcon(FontAwesomeIcons.trafficLight),
