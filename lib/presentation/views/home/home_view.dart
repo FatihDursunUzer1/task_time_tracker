@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
+import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
@@ -186,8 +187,14 @@ class _HomeState extends State<Home> {
     var task = _currentTasks![index];
     return Card(
       child: ListTile(
-        iconColor: Colors.white,
-        textColor: Colors.white,
+        iconColor:
+            context.read<ThemeStateProvider>().themeMode == ThemeMode.light
+                ? Colors.white
+                : Colors.black,
+        textColor:
+            context.read<ThemeStateProvider>().themeMode == ThemeMode.light
+                ? Colors.white
+                : Colors.black,
         trailing: FaIcon(FontAwesomeIcons.chevronRight),
         subtitle: Text(task.description.length > 20
             ? '${task.description.substring(0, 20)}...'
