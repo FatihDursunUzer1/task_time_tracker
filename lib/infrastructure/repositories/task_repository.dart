@@ -55,6 +55,23 @@ class TaskRepository {
             fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
             toFirestore: (task, _) => task.toJson(task))
         .get();
-    collection.docs.map((e) => e.data()).toList();
+    return collection.docs.map((e) => e.data()).toList();
+  }
+
+  getTodayTasksByUser(String userId) async {
+    try {
+      var date = DateTime.now().subtract(Duration(days: 1));
+      final collection = await _firestore
+          .collection('tasks')
+          .where('userId', isEqualTo: userId)
+          .where('createdAt', isGreaterThanOrEqualTo: date)
+          .withConverter<Task>(
+              fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
+              toFirestore: (task, _) => task.toJson(task))
+          .get();
+      return collection.docs.map((e) => e.data()).toList();
+    } catch (e) {
+      print(e);
+    }
   }
 }

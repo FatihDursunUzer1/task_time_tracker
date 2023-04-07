@@ -13,7 +13,8 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           ?.map((e) => $enumDecode(_$TaskTagsEnumMap, e))
           .toList(),
       userId: json['userId'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: DateTime.fromMicrosecondsSinceEpoch(
+          json['createdAt'].microsecondsSinceEpoch),
     )..id = json['id'] as String;
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -21,7 +22,7 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'description': instance.description,
       'tags': instance.tags?.map((e) => _$TaskTagsEnumMap[e]!).toList(),
       'userId': instance.userId,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt,
       'id': instance.id,
     };
 

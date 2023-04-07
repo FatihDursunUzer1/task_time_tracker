@@ -36,7 +36,9 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   getTasks() async {
-    var tasks= await _taskRepository.getTasks();
+    var tasks = (_taskFilterDay == TaskFilterDay.all)
+        ? await _taskRepository.getTasksByUser(_currentUser.id)
+        : await _taskRepository.getTodayTasksByUser(_currentUser.id);
     return tasks;
   }
 }

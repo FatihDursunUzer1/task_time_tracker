@@ -10,6 +10,7 @@ import 'package:task_time_tracker/core/application/constants/page_constants.dart
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
+import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/utility/enums/TaskIcons.dart';
@@ -144,7 +145,7 @@ class _HomeState extends State<Home> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ClickableText(LocaleKeys.see_today.tr(), LocaleKeys.see_all_task.tr()),
+        ClickableText(LocaleKeys.today.tr(), LocaleKeys.all.tr()),
         FilterClickableText(
             LocaleKeys.see_all_task.tr(), LocaleKeys.see_today.tr())
       ],
@@ -153,12 +154,11 @@ class _HomeState extends State<Home> {
 
   FilterClickableText(String condition1, String condition2) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         context.read<HomeViewModel>().setTaskFilterDay(
             context.read<HomeViewModel>().taskFilterDay == TaskFilterDay.today
                 ? TaskFilterDay.all
                 : TaskFilterDay.today);
-        context.read<HomeViewModel>().getTasks();
       },
       child: ClickableText(condition1, condition2),
     );

@@ -41,7 +41,9 @@
     "finish":"Finish",
     "quit":"Quit",
     "english":"English",
-    "turkish":"Turkish"
+    "turkish":"Turkish",
+    "all":"All",
+    "today":"Today"
 
 
 }
