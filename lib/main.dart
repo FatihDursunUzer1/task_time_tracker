@@ -11,6 +11,7 @@ import 'package:task_time_tracker/core/application/navigation/navigation_service
 import 'package:task_time_tracker/firebase_options.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
+import 'package:task_time_tracker/presentation/views/add/add_task_view_model.dart';
 import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentation/views/login/login_view_model.dart';
 import 'package:task_time_tracker/presentation/views/register/register_view_model.dart';
@@ -35,6 +36,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => TaskViewModel()),
         ChangeNotifierProvider(create: (_) => RegisterViewModel()),
+        ChangeNotifierProvider(create: (_)=> AddTaskViewModel())
       ],
       child: const MyApp(),
     ),

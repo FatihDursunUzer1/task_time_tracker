@@ -22,4 +22,10 @@ class Validators {
       return 'Passwords do not match';
     }
   }
+
+  static String? checkEmptyText(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+  }
 }
