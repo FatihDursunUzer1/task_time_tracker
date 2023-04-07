@@ -185,22 +185,13 @@ class _HomeState extends State<Home> {
   ListTile ListTileTask(int index) {
     var task = _currentTasks![index];
     return ListTile(
-      trailing: ListTileTrailing(task),
-      subtitle: task.tags!.isNotEmpty
-          ? Text(task.tags![0].name)
-          : const Text('No tags'),
+      trailing: FaIcon(FontAwesomeIcons.chevronRight),
+      subtitle: Text(task.description.length > 20
+          ? '${task.description.substring(0, 20)}...'
+          : task.description),
       leading: ListTileLeading(task.tags![0]),
       title: Text(task.title),
     );
-  }
-
-  Column ListTileTrailing(Task task) {
-    return Column(children: [
-      Text(task.description),
-      true
-          ? const FaIcon(FontAwesomeIcons.checkSquare)
-          : const FaIcon(FontAwesomeIcons.play)
-    ]);
   }
 
   TaskIcon ListTileLeading(TaskTags taskTags) {
