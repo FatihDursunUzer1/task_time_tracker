@@ -33,8 +33,8 @@ class Task implements IEntity<Task> {
   }
 
   @override
-  Map<String, dynamic> toJson(Task entity) {
-    return _$TaskToJson(entity);
+  Map<String, dynamic> toJson() {
+    return _$TaskToJson(this);
   }
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

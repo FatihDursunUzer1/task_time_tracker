@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
+import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
 
 class TaskViewModel extends ChangeNotifier {
   bool _isStarted = false;
   bool get isStarted => _isStarted;
   Duration _duration = Duration();
   Timer? _timer;
+  TaskRepository _taskRepository = TaskRepository.instance;
 
   Duration get duration => _duration;
 
@@ -36,5 +38,9 @@ class TaskViewModel extends ChangeNotifier {
   void set currentTask(Task task) {
     _currentTask = task;
     notifyListeners();
+  }
+
+  saveTask() {
+    _taskRepository.updateTask(_currentTask.toJson());
   }
 }

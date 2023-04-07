@@ -66,7 +66,9 @@ class _TaskViewState extends State<TaskView> {
                 icon:
                     const FaIcon(FontAwesomeIcons.solidPauseCircle, size: 50)),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<TaskViewModel>().saveTask();
+            },
             icon: FaIcon(FontAwesomeIcons.solidStopCircle, size: 50)),
       ],
     );
