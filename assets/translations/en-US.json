@@ -43,7 +43,6 @@
     "english":"English",
     "turkish":"Turkish",
     "all":"All",
-    "today":"Today"
-
-
+    "today":"Today",
+    "timer_reset_question":"Are you sure you want to reset timer?"
 }

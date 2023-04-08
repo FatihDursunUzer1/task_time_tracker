@@ -43,5 +43,6 @@
     "english":"İngilizce",
     "turkish":"Türkçe",
     "all":"Hepsi",
-    "today":"Bugün"
+    "today":"Bugün",
+    "timer_reset_question":"Süre sıfırlanacak, devam etmek istiyor musunuz?"
 }

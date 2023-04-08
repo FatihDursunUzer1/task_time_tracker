@@ -15,6 +15,10 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
       userId: json['userId'] as String,
       createdAt: DateTime.fromMicrosecondsSinceEpoch(
           json['createdAt'].microsecondsSinceEpoch),
+      spendTime: json['spendTime'] == null
+          ? null
+          : Duration(microseconds: json['spendTime'] as int),
+      isCompleted: json['isCompleted'] as bool? ?? false,
     )..id = json['id'] as String;
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -23,6 +27,8 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'tags': instance.tags?.map((e) => _$TaskTagsEnumMap[e]!).toList(),
       'userId': instance.userId,
       'createdAt': instance.createdAt,
+      'spendTime': instance.spendTime?.inMicroseconds,
+      'isCompleted': instance.isCompleted,
       'id': instance.id,
     };
 

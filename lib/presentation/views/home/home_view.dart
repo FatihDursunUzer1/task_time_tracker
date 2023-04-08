@@ -187,20 +187,17 @@ class _HomeState extends State<Home> {
     var task = _currentTasks![index];
     return Card(
       child: ListTile(
-        iconColor:
-            context.read<ThemeStateProvider>().themeMode == ThemeMode.light
-                ? Colors.white
-                : Colors.black,
-        textColor:
-            context.read<ThemeStateProvider>().themeMode == ThemeMode.light
-                ? Colors.white
-                : Colors.black,
+        textColor: Colors.white,
         trailing: FaIcon(FontAwesomeIcons.chevronRight),
-        subtitle: Text(task.description.length > 20
-            ? '${task.description.substring(0, 20)}...'
-            : task.description),
+        subtitle: Text(
+          task.description.length > 20
+              ? '${task.description.substring(0, 20)}...'
+              : task.description,
+        ),
         leading: ListTileLeading(task.tags![0]),
-        title: Text(task.title),
+        title: Text(
+          task.title,
+        ),
       ),
     );
   }

@@ -22,7 +22,7 @@ class TaskRepository {
       await doc
           .withConverter<Task>(
               fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
-              toFirestore: (task, _) => task.toJson(task))
+              toFirestore: (task, _) => task.toJson())
           .set(task);
 
       Fluttertoast.showToast(
@@ -33,13 +33,19 @@ class TaskRepository {
   }
 
   Future<void> updateTask(Map<String, dynamic> task) async {
-    await _firestore
-        .collection('tasks')
-        .doc(task['id'])
-        .withConverter<Task>(
-            fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
-            toFirestore: (task, _) => task.toJson(task))
-        .update(task);
+    try {
+      await _firestore
+          .collection('tasks')
+          .doc(task['id'])
+          .withConverter<Task>(
+              fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
+              toFirestore: (task, _) => task.toJson())
+          .update(task);
+      Fluttertoast.showToast(
+          msg: 'Task updated successfully', backgroundColor: Colors.green);
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+    }
   }
 
   Future<void> deleteTask(String id) async {
@@ -51,7 +57,7 @@ class TaskRepository {
         .collection('tasks')
         .withConverter<Task>(
             fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
-            toFirestore: (task, _) => task.toJson(task))
+            toFirestore: (task, _) => task.toJson())
         .get();
     return collection.docs.map((e) => e.data()).toList();
   }
@@ -62,7 +68,7 @@ class TaskRepository {
         .where('userId', isEqualTo: userId)
         .withConverter<Task>(
             fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
-            toFirestore: (task, _) => task.toJson(task))
+            toFirestore: (task, _) => task.toJson())
         .get();
     return collection.docs.map((e) => e.data()).toList();
   }
@@ -76,7 +82,7 @@ class TaskRepository {
           .where('createdAt', isGreaterThanOrEqualTo: date)
           .withConverter<Task>(
               fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
-              toFirestore: (task, _) => task.toJson(task))
+              toFirestore: (task, _) => task.toJson())
           .get();
       return collection.docs.map((e) => e.data()).toList();
     } catch (e) {

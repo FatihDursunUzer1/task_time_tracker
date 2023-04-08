@@ -27,8 +27,8 @@ class CustomUser implements IEntity {
   }
 
   @override
-  Map<String, dynamic> toJson(entity) {
-    return _$CustomUserToJson(entity);
+  Map<String, dynamic> toJson() {
+    return _$CustomUserToJson(this);
   }
 
   factory CustomUser.fromJson(Map<String, dynamic> json) =>

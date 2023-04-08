@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/views/tasks/task_view_model.dart';
 import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
@@ -28,24 +29,60 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: Text(context.read<TaskViewModel>().currentTask.title)),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              context.read<TaskViewModel>().currentTask.description,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            stopWatch(context),
-            TimeIconsRow(context),
-          ],
-        ));
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldPop = await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(LocaleKeys.timer_reset_question.tr()),
+              actionsAlignment: MainAxisAlignment.spaceBetween,
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (!context
+                        .read<TaskViewModel>()
+                        .currentTask
+                        .isCompleted!) {
+                      context.read<TaskViewModel>().resetTask();
+                    }
+                    Navigator.pop(context, true);
+                  },
+                  child: const Text('Yes'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: const Text('No'),
+                ),
+              ],
+            );
+          },
+        );
+        return shouldPop!;
+      },
+      child: Scaffold(
+          appBar: AppBar(
+              title: Text(context.read<TaskViewModel>().currentTask.title)),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                context.read<TaskViewModel>().currentTask.description,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              stopWatch(context),
+              context.read<TaskViewModel>().currentTask.isCompleted!
+                  ? Container()
+                  : TimeIconsRow(context),
+            ],
+          )),
+    );
   }
 
   Text stopWatch(BuildContext context) {
-    return Text(format(context.read<TaskViewModel>().duration),
+    return Text(format(context.read<TaskViewModel>().currentTask.spendTime!),
         style: TextStyle(fontSize: 30));
   }
 
@@ -67,6 +104,7 @@ class _TaskViewState extends State<TaskView> {
                     const FaIcon(FontAwesomeIcons.solidPauseCircle, size: 50)),
         IconButton(
             onPressed: () {
+              context.read<TaskViewModel>().stopTimer();
               context.read<TaskViewModel>().saveTask();
             },
             icon: FaIcon(FontAwesomeIcons.solidStopCircle, size: 50)),

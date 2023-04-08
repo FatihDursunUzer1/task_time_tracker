@@ -14,18 +14,25 @@ class Task implements IEntity<Task> {
   List<TaskTags>? tags;
   late String userId;
   late DateTime createdAt;
+  late Duration? spendTime;
+  bool? isCompleted = false;
 
   @override
   late String id;
 
-  Task.init();
+  Task({
+    required this.title,
+    required this.description,
+    required this.tags,
+    required this.userId,
+    required this.createdAt,
+    this.spendTime,
+    this.isCompleted = false,
+  }) {
+    spendTime ??= const Duration();
+  }
 
-  Task(
-      {required this.title,
-      required this.description,
-      required this.tags,
-      required this.userId,
-      required this.createdAt});
+  Task.init();
 
   @override
   Task fromJson(Map<String, dynamic> json) {
