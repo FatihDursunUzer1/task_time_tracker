@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
     return BottomNavigationBar(
       showSelectedLabels: false,
       showUnselectedLabels: true,
-      fixedColor: ColorConstants.customPurple.color,
+      fixedColor: ColorConstants.customPurple,
       type: BottomNavigationBarType.fixed,
       onTap: (value) {
         context.read<HomeViewModel>().setCurrentNavBarIndex(value);
@@ -187,7 +187,7 @@ class _HomeState extends State<Home> {
     var task = _currentTasks![index];
     return Card(
       child: ListTile(
-        textColor: Colors.white,
+        textColor: Colors.black,
         trailing: FaIcon(FontAwesomeIcons.chevronRight),
         subtitle: Text(
           task.description.length > 20

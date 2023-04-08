@@ -33,23 +33,21 @@ class ThemeStateProvider extends ChangeNotifier {
   ThemeData get _darkTheme => ThemeData.dark().copyWith(
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: Colors.black,
-            selectedIconTheme: IconThemeData(
-                color: ColorConstants.customPurple.color, size: 32)),
+            selectedIconTheme:
+                IconThemeData(color: ColorConstants.customPurple, size: 32)),
         inputDecorationTheme: InputDecorationTheme(
             contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
-            suffixIconColor: ColorConstants.darkBlue.color,
-            labelStyle: TextStyle(color: ColorConstants.darkBlue.color),
+            suffixIconColor: ColorConstants.darkBlue,
+            labelStyle: TextStyle(color: ColorConstants.darkBlue),
             focusedBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: ColorConstants.customPurple.color))),
-        cardColor: ColorConstants.timerCardDark.color,
-        //scaffoldBackgroundColor: ColorConstants.scaffoldBackGroundDark.color,
+                borderSide: BorderSide(color: ColorConstants.customPurple))),
+        cardColor: ColorConstants.timerCardDark,
+        //scaffoldBackgroundColor: ColorConstants.scaffoldBackGroundDark,
         scaffoldBackgroundColor: Colors.black12,
-        appBarTheme:
-            AppBarTheme(backgroundColor: ColorConstants.darkBlue.color),
+        appBarTheme: AppBarTheme(backgroundColor: ColorConstants.darkBlue),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
-              backgroundColor: ColorConstants.darkBlue.color,
+              backgroundColor: ColorConstants.darkBlue,
               foregroundColor: Colors.white),
         ),
         cardTheme: CardTheme(color: Color.fromRGBO(41, 38, 57, 1)),
@@ -57,22 +55,20 @@ class ThemeStateProvider extends ChangeNotifier {
 
   ThemeData get _lightTheme => ThemeData.light().copyWith(
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedIconTheme: IconThemeData(
-              color: ColorConstants.customPurple.color, size: 32)),
-      cardColor: ColorConstants.timerCardLight.color,
-      scaffoldBackgroundColor: ColorConstants.scaffoldBackGround.color,
-      appBarTheme:
-          AppBarTheme(backgroundColor: ColorConstants.customPurple.color),
+          selectedIconTheme:
+              IconThemeData(color: ColorConstants.customPurple, size: 32)),
+      cardColor: ColorConstants.timerCardLight,
+      scaffoldBackgroundColor: ColorConstants.scaffoldBackGround,
+      appBarTheme: AppBarTheme(backgroundColor: ColorConstants.customPurple),
       inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
-          suffixIconColor: ColorConstants.customPurple.color,
-          labelStyle: TextStyle(color: ColorConstants.customPurple.color),
+          suffixIconColor: ColorConstants.customPurple,
+          labelStyle: TextStyle(color: ColorConstants.customPurple),
           focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: ColorConstants.customPurple.color))),
+              borderSide: BorderSide(color: ColorConstants.customPurple))),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-            backgroundColor: ColorConstants.customPurple.color,
+            backgroundColor: ColorConstants.customPurple,
             foregroundColor: Colors.white),
       ),
       cardTheme: CardTheme(color: Color.fromRGBO(250, 250, 255, 1)));

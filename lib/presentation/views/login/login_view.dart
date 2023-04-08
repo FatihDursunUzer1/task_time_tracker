@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
         onPressed: onPressed == null ? () {} : onPressed,
         icon: FaIcon(
           icon,
-          color: ColorConstants.customPurple.color,
+          color: ColorConstants.customPurple,
         ));
   }
 
