@@ -148,7 +148,7 @@ class _SettingsViewState extends State<SettingsView> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
       child: ListTile(
-        textColor: textColor ?? Colors.black,
+        textColor: textColor,
         onTap: () {
           onTap();
         },

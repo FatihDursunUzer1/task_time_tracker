@@ -51,6 +51,7 @@ class ThemeStateProvider extends ChangeNotifier {
               foregroundColor: Colors.white),
         ),
         cardTheme: CardTheme(color: Color.fromRGBO(41, 38, 57, 1)),
+        listTileTheme: ListTileThemeData(textColor: Colors.white),
       );
 
   ThemeData get _lightTheme => ThemeData.light().copyWith(
@@ -71,5 +72,6 @@ class ThemeStateProvider extends ChangeNotifier {
             backgroundColor: ColorConstants.customPurple,
             foregroundColor: Colors.white),
       ),
-      cardTheme: CardTheme(color: Color.fromRGBO(250, 250, 255, 1)));
+      cardTheme: CardTheme(color: Color.fromRGBO(250, 250, 255, 1)),
+      listTileTheme: ListTileThemeData(textColor: Colors.black));
 }
