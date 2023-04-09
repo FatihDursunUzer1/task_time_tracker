@@ -58,12 +58,12 @@ class _AddTaskState extends State<AddTask> {
               ),
               TaskTagDropdownButton(context),
               CustomButton(
-                  onPressed: () {
+                  onPressed: () async {
                     var currentState =
                         context.read<AddTaskViewModel>().formKey.currentState!;
                     if (currentState.validate()) {
                       currentState.save();
-                      context.read<AddTaskViewModel>().addTask();
+                      await context.read<AddTaskViewModel>().addTask();
                       context.read<HomeViewModel>().setCurrentNavBarIndex(0);
                     }
                   },

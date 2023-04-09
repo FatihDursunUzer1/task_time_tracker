@@ -5,10 +5,10 @@ abstract class IUserRepository {
 
   Future<bool> signOut();
 
-  registerWithEmailAndPassword(String email, String password);
+  registerWithEmailAndPassword(String email, String password, String name);
 
   bool IsLoggedIn();
-  CustomUser? getCurrentUser();
+  Future<CustomUser?> getCurrentUser();
 
   sendRegisterEmail();
   deleteAccount();

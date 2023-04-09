@@ -8,6 +8,7 @@ import 'package:task_time_tracker/core/application/constants/page_constants.dart
 import 'package:task_time_tracker/core/application/languages/language_manager.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_route.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
+import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
 import 'package:task_time_tracker/firebase_options.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
@@ -69,8 +70,10 @@ class MainApp extends StatelessWidget {
     _counter++;
   }
 
-  Future<void> initProject() async {
+  Future<CustomUser?> initProject() async {
     await Future.delayed(const Duration(seconds: 2));
+    var user = await UserRepository.instance.getCurrentUser();
+    return user;
   }
 
   @override
@@ -80,9 +83,9 @@ class MainApp extends StatelessWidget {
       builder: (context, snapshot) {
         print(snapshot.connectionState.toString());
         if (snapshot.connectionState == ConnectionState.done) {
-          var user = UserRepository.instance.getCurrentUser();
-          if (user != null) {
-            context.read<HomeViewModel>().setCurrentUser(user);
+         
+          if (snapshot.hasData) {
+            context.read<HomeViewModel>().setCurrentUser(snapshot.data as CustomUser);
             Future.delayed(Duration.zero, () {
               NavigationService.instance
                   .navigateToPageClear(PageConstants.home);

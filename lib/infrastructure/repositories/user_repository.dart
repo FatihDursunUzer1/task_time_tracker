@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/IUserRepository.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
 
 class UserRepository implements IUserRepository {
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   UserRepository._privateConstructor();
   static UserRepository? _instance;
   static UserRepository get instance {
@@ -25,12 +28,24 @@ class UserRepository implements IUserRepository {
     });
   } */
   @override
-  CustomUser? getCurrentUser() {
+  Future<CustomUser?> getCurrentUser() async {
     if (auth.currentUser != null) {
-      return CustomUser(
+      var user = await _firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .withConverter<CustomUser>(
+              fromFirestore: (snapshot, _) =>
+                  CustomUser.fromJson(snapshot.data()!),
+              toFirestore: (customUser, _) => customUser.toJson())
+          .get();
+      //return collection.docs.map((e) => e.data()).toList();
+
+      return user.data();
+
+      /*return CustomUser(
           id: auth.currentUser!.uid,
           email: auth.currentUser!.email!,
-          emailVerified: auth.currentUser!.emailVerified);
+          emailVerified: auth.currentUser!.emailVerified); */
     } else {
       return null;
     }
@@ -46,11 +61,18 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  registerWithEmailAndPassword(String email, String password) async {
+  registerWithEmailAndPassword(
+      String email, String password, String name) async {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       sendRegisterEmail();
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'displayName': name,
+        'email': email,
+        'id': userCredential.user!.uid,
+        'emailVerified': userCredential.user!.emailVerified,
+      });
       Fluttertoast.showToast(
           msg: "User Registered Successfully",
           toastLength: Toast.LENGTH_SHORT,

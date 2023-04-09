@@ -19,13 +19,14 @@ class AddTaskViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  addTask() {
-    var userId = _userRepository.getCurrentUser()!.id;
-    _taskRepository.addTask(Task(
+  Future<dynamic> addTask() async {
+    var userId = await _userRepository.getCurrentUser();
+
+   await  _taskRepository.addTask(Task(
         title: titleEditingController.text,
         description: descriptionEditingController.text,
         tags: [_selectedTaskTag],
-        userId: userId,
+        userId: userId!.id,
         createdAt: DateTime.now()));
     _clear();
   }

@@ -82,19 +82,19 @@ class _HomeState extends State<Home> {
   List<BottomNavigationBarItem> get BottomNavigationBarItems {
     return <BottomNavigationBarItem>[
       BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.clock),
+        icon: const FaIcon(FontAwesomeIcons.clock),
         label: LocaleKeys.home_page.tr(),
       ),
       BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.plus),
+        icon: const FaIcon(FontAwesomeIcons.plus),
         label: LocaleKeys.add_task.tr(),
       ),
       BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.chartBar),
+        icon: const FaIcon(FontAwesomeIcons.chartBar),
         label: LocaleKeys.statiscs.tr(),
       ),
       BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.cog), label: LocaleKeys.settings.tr())
+          icon: const FaIcon(FontAwesomeIcons.cog), label: LocaleKeys.settings.tr())
     ];
   }
 
@@ -108,39 +108,51 @@ class _HomeState extends State<Home> {
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.2,
               child: Text(
-                '${LocaleKeys.hello.tr()} ${context.watch<HomeViewModel>().currentUser.id}',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                '${LocaleKeys.hello.tr()} ${context.watch<HomeViewModel>().currentUser.displayName}',
+                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
           ),
-          FilterOptionsRow(),
-          FutureBuilder(
-            future: getTasks(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  return Expanded(
-                      child: ListView.builder(
-                          itemCount: _currentTasks!.length,
-                          itemBuilder: (context, index) {
-                            return ClickableListTile(context, index);
-                          }));
-                } else {
-                  return const Center(child: Text('No data'));
-                }
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            },
-          )
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                FilterOptionsRow(),
+                FutureBuilder(
+                  future: getTasks(),
+                  builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                        return Expanded(
+                            child: ListView.builder(
+                                itemCount: _currentTasks!.length,
+                                itemBuilder: (context, index) {
+                                  return ClickableListTile(context, index);
+                                }));
+                      } else {
+                        return Center(
+                            child: Text(
+                          LocaleKeys.no_data.tr(),
+                          style: const TextStyle(fontSize: 24),
+                        ));
+                      }
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                )
+              ],
+            ),
+          ),
         ],
       );
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 1) {
-      return AddTask();
+      return const AddTask();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
-      return NotAvailable(); //StatisticsView(); normally but this page not available for this section.
+      return const NotAvailable(); //StatisticsView(); normally but this page not available for this section.
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 3) {
-      return SettingsView();
+      return const SettingsView();
     } else {
       return const Placeholder();
     }
@@ -174,7 +186,7 @@ class _HomeState extends State<Home> {
         context.watch<HomeViewModel>().taskFilterDay == TaskFilterDay.today
             ? condition1
             : condition2,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
   }
 
   InkWell ClickableListTile(BuildContext context, int index) {
@@ -192,7 +204,7 @@ class _HomeState extends State<Home> {
     return Card(
       child: ListTile(
         textColor: Colors.black,
-        trailing: FaIcon(FontAwesomeIcons.chevronRight),
+        trailing: const FaIcon(FontAwesomeIcons.chevronRight),
         subtitle: Text(
           task.description.length > 20
               ? '${task.description.substring(0, 20)}...'
@@ -210,7 +222,7 @@ class _HomeState extends State<Home> {
     return TaskIcon(taskTag: taskTags);
   }
 
-  getTasks() async {
+  Future<List<Task>?> getTasks() async {
     _currentTasks = await context.read<HomeViewModel>().getTasks();
     return _currentTasks;
   }

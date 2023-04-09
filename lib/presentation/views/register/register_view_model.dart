@@ -7,6 +7,7 @@ class RegisterViewModel extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordAgainController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   UserRepository _userRepository = UserRepository.instance;
   bool _isVisible = false;
@@ -44,7 +45,7 @@ class RegisterViewModel extends ChangeNotifier {
 
   registerWithEmailAndPassword() async {
     var customUser = await _userRepository.registerWithEmailAndPassword(
-        emailController.text, passwordController.text);
+        emailController.text, passwordController.text, nameController.text);
     if (customUser == null) return null;
     return customUser;
   }

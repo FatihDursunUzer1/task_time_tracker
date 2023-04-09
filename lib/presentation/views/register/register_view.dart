@@ -33,50 +33,69 @@ class _RegisterState extends State<Register> {
                   Image.asset('assets/icon/ic_logo.png'),
                   Form(
                       key: context.read<RegisterViewModel>().formKey,
-                      child: Column(children: [
-                        EmailTextFormField(
-                          controller:
-                              context.read<RegisterViewModel>().emailController,
-                        ),
-                        PasswordTextFormField(
-                          passwordController: context
-                              .read<RegisterViewModel>()
-                              .passwordController,
-                          isVisible:
-                              context.watch<RegisterViewModel>().isVisible,
-                          onPressed: () {
-                            context.read<RegisterViewModel>().setIsVisible();
-                          },
-                        ),
-                        PasswordTextFormField(
-                          passwordController: context
-                              .read<RegisterViewModel>()
-                              .passwordAgainController,
-                          isVisible:
-                              context.watch<RegisterViewModel>().isVisible,
-                          onPressed: () {
-                            context.read<RegisterViewModel>().setIsVisible();
-                          },
-                          validator: context
-                              .read<RegisterViewModel>()
-                              .validatePasswordAgain,
-                        ),
-                        CustomButton(
-                          onPressed: () async {
-                            var validate =
-                                context.read<RegisterViewModel>().validate();
-                            if (validate) {
-                              var customUser = await context
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextFormField(
+                              controller: context
                                   .read<RegisterViewModel>()
-                                  .registerWithEmailAndPassword();
-                              if (customUser != null) {
-                                context.read<RegisterViewModel>().goToLogin();
-                              }
-                            }
-                          },
-                          text: 'Register',
-                        ),
-                      ])),
+                                  .nameController,
+                              validator: Validators.checkEmptyText,
+                              decoration: const InputDecoration(
+                                hintText: 'Name',
+                              ),
+                            ),
+                            EmailTextFormField(
+                              controller: context
+                                  .read<RegisterViewModel>()
+                                  .emailController,
+                            ),
+                            PasswordTextFormField(
+                              passwordController: context
+                                  .read<RegisterViewModel>()
+                                  .passwordController,
+                              isVisible:
+                                  context.watch<RegisterViewModel>().isVisible,
+                              onPressed: () {
+                                context
+                                    .read<RegisterViewModel>()
+                                    .setIsVisible();
+                              },
+                            ),
+                            PasswordTextFormField(
+                              passwordController: context
+                                  .read<RegisterViewModel>()
+                                  .passwordAgainController,
+                              isVisible:
+                                  context.watch<RegisterViewModel>().isVisible,
+                              onPressed: () {
+                                context
+                                    .read<RegisterViewModel>()
+                                    .setIsVisible();
+                              },
+                              validator: context
+                                  .read<RegisterViewModel>()
+                                  .validatePasswordAgain,
+                            ),
+                            CustomButton(
+                              onPressed: () async {
+                                var validate = context
+                                    .read<RegisterViewModel>()
+                                    .validate();
+                                if (validate) {
+                                  var customUser = await context
+                                      .read<RegisterViewModel>()
+                                      .registerWithEmailAndPassword();
+                                  if (customUser != null) {
+                                    context
+                                        .read<RegisterViewModel>()
+                                        .goToLogin();
+                                  }
+                                }
+                              },
+                              text: 'Register',
+                            ),
+                          ])),
                 ],
               ),
             ),
