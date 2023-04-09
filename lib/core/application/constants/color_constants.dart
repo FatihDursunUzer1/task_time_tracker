@@ -7,17 +7,20 @@ class ColorConstants {
   static const Color timerCardDark = Color(0xFF424242);
   static const Color timerCardLight = Color(0xFFE0E0E0);
   //deeppurple color
-  static const Color scaffoldBackGround = Color(0xE5E5E5);
-  static const Color scaffoldBackGroundDark = Color(0x000);
+  //static const Color scaffoldBackGround = Color(0xE5E5E5);
+  //e5e5e5 rgb values
+  static const Color scaffoldBackGround = Color.fromRGBO(229, 229, 229, 1);
+  static const Color scaffoldBackGroundDark = Colors.black;
   static const Color darkBlue = Color(0xFF1B143F);
-  static const Color customPink = Color(0xFD5B71);
-  static const Color customBlue = Color(0x3D4ABA);
-  static const Color customGreen = Color(0x07E092);
-  static const Color customLightGrey = Color(0xFAFAFF);
-  static const Color customBlack = Color(0x070417);
-  static const Color customPurple = Color(0x9B51E0);
-  static const Color customOrange = Color(0xFFA656);
-  static const Color customDark = Color(0x18152C);
-  static const Color customBlueLinear = Color(0x3D4ABA);
-  static const Color customPurpleRadial = Color(0x7012CE);
+  //static const Color customPink = Color(0xFD5B71);
+  static const Color customPink = Color.fromRGBO(253, 91, 113, 1);
+  static const Color customBlue = Color.fromRGBO(61, 74, 186, 1);
+  static const Color customPurple = Color.fromRGBO(112, 18, 206, 1);
+  static const Color customGreen = Color.fromRGBO(7, 224, 146, 1);
+  static const Color customLightGrey = Color.fromRGBO(250, 250, 255, 1);
+  static const Color customBlack = Color.fromRGBO(7, 4, 23, 1);
+  static const Color customOrange = Color.fromRGBO(255, 166, 86, 1);
+  static const Color customDark = Color.fromRGBO(24, 21, 44, 1);
+  static const Color customBlueLinear = Color.fromRGBO(61, 74, 186, 1);
+  static const Color customPurpleRadial = Color.fromRGBO(112, 18, 206, 1);
 }

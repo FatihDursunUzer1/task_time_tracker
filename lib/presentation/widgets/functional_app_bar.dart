@@ -29,41 +29,7 @@ class _FunctionalAppBarState extends State<FunctionalAppBar> {
     final theme = context.watch<ThemeStateProvider>();
     return AppBar(
       centerTitle: true,
-      actions: [
-        ExitButton(context),
-      ],
       title: Text(widget.title ?? LocaleKeys.app_name.tr()),
     );
-  }
-
-  IconButton ExitButton(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    title: Text(LocaleKeys.logout_message.tr()),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(LocaleKeys.no.tr())),
-                      TextButton(
-                          onPressed: () {
-                            UserRepository.instance.signOut();
-                            context
-                                .read<HomeViewModel>()
-                                .setCurrentNavBarIndex(0);
-                            NavigationService.instance
-                                .navigateToPageClear(PageConstants.login);
-                          },
-                          child: Text(LocaleKeys.yes.tr())),
-                    ],
-                  ));
-          /* NavigationService.instance
-                .navigateToPageClear(PageConstants.login); */
-        },
-        icon: const FaIcon(FontAwesomeIcons.signOutAlt));
   }
 }

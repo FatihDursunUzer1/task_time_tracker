@@ -44,5 +44,6 @@
     "turkish":"Türkçe",
     "all":"Hepsi",
     "today":"Bugün",
-    "timer_reset_question":"Süre sıfırlanacak, devam etmek istiyor musunuz?"
+    "timer_reset_question":"Süre sıfırlanacak, devam etmek istiyor musunuz?",
+    "hello":"Merhaba"
 }

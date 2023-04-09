@@ -47,5 +47,6 @@ abstract class  LocaleKeys {
   static const all = 'all';
   static const today = 'today';
   static const timer_reset_question = 'timer_reset_question';
+  static const hello = 'hello';
 
 }

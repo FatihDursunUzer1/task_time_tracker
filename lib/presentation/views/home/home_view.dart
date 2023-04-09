@@ -103,27 +103,31 @@ class _HomeState extends State<Home> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            child: Text(
-              LocaleKeys.current_task.tr(),
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: Text(
+                '${LocaleKeys.hello.tr()} ${context.watch<HomeViewModel>().currentUser.id}',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
             ),
-            height: MediaQuery.of(context).size.height * 0.2,
           ),
           FilterOptionsRow(),
           FutureBuilder(
             future: getTasks(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData)
+                if (snapshot.hasData) {
                   return Expanded(
                       child: ListView.builder(
                           itemCount: _currentTasks!.length,
                           itemBuilder: (context, index) {
                             return ClickableListTile(context, index);
                           }));
-                else
+                } else {
                   return const Center(child: Text('No data'));
+                }
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
