@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
     return <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.clock),
-        label: LocaleKeys.home.tr(),
+        label: LocaleKeys.home_page.tr(),
       ),
       BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.plus),

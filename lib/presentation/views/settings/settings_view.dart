@@ -51,7 +51,7 @@ class _SettingsViewState extends State<SettingsView> {
                     .navigateToPage(path: PageConstants.theme);
               }),
           customListTile(
-              icon: const Icon(FontAwesomeIcons.mailBulk),
+              icon: const Icon(FontAwesomeIcons.envelope),
               text: LocaleKeys.contact_us.tr(),
               onTap: () {}),
           customListTile(
@@ -59,17 +59,17 @@ class _SettingsViewState extends State<SettingsView> {
               text: LocaleKeys.about.tr(),
               onTap: () {}),
           customListTile(
-              icon: FaIcon(FontAwesomeIcons.userSecret),
+              icon: const FaIcon(FontAwesomeIcons.userSecret),
               //text: LocaleKeys.privacy_policy.tr(),
-              text: 'Privacy Policy',
+              text: LocaleKeys.privacy_policy.tr(),
               onTap: () {}),
           customListTile(
-              icon: FaIcon(FontAwesomeIcons.fileContract),
-              text: 'Terms and Conditions',
+              icon: const FaIcon(FontAwesomeIcons.fileContract),
+              text: LocaleKeys.terms_of_use.tr(),
               onTap: () {}),
           customListTile(
-              icon: FaIcon(FontAwesomeIcons.handsHelping),
-              text: 'Help',
+              icon: const FaIcon(FontAwesomeIcons.question),
+              text: LocaleKeys.help.tr(),
               onTap: () {}),
           customListTile(
               textColor: Colors.red,
@@ -110,9 +110,31 @@ class _SettingsViewState extends State<SettingsView> {
                 FontAwesomeIcons.trash,
                 color: Colors.red,
               ),
-              //text: LocaleKeys.deleteAccount.tr(),
-              text: 'Delete Account',
-              onTap: () {}),
+              text: LocaleKeys.delete_account.tr(),
+              onTap: () {
+                return showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text(LocaleKeys.delete_account_message.tr()),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(LocaleKeys.no.tr())),
+                            TextButton(
+                                onPressed: () {
+                                  UserRepository.instance.deleteAccount();
+                                  context
+                                      .read<HomeViewModel>()
+                                      .setCurrentNavBarIndex(0);
+                                  NavigationService.instance
+                                      .navigateToPageClear(PageConstants.login);
+                                },
+                                child: Text(LocaleKeys.yes.tr())),
+                          ],
+                        ));
+              }),
         ],
       ),
     ));

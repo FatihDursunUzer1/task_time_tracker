@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,6 +10,7 @@ import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/views/add/add_task_view_model.dart';
 import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
@@ -32,7 +34,7 @@ class _AddTaskState extends State<AddTask> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Add Task',
+                LocaleKeys.add_task.tr(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
               TextFormField(
@@ -40,7 +42,7 @@ class _AddTaskState extends State<AddTask> {
                 controller:
                     context.read<AddTaskViewModel>().titleEditingController,
                 decoration: InputDecoration(
-                  hintText: 'Title',
+                  hintText: LocaleKeys.title.tr(),
                 ),
               ),
               Divider(),
@@ -50,7 +52,7 @@ class _AddTaskState extends State<AddTask> {
                     .read<AddTaskViewModel>()
                     .descriptionEditingController,
                 decoration: InputDecoration(
-                  hintText: 'Description',
+                  hintText: LocaleKeys.task_description.tr(),
                 ),
                 maxLines: 5,
               ),
@@ -65,7 +67,7 @@ class _AddTaskState extends State<AddTask> {
                       context.read<HomeViewModel>().setCurrentNavBarIndex(0);
                     }
                   },
-                  text: 'Add Task'),
+                  text: LocaleKeys.add_task.tr()),
             ],
           ),
         ),
@@ -77,7 +79,7 @@ class _AddTaskState extends State<AddTask> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Task Tag: ', style: TextStyle(fontSize: 20)),
+        Text('${LocaleKeys.task_tags.tr()}: ', style: TextStyle(fontSize: 20)),
         DropdownButton(
           icon: FaIcon(FontAwesomeIcons.caretDown),
           items: dropdownItems,
@@ -92,9 +94,10 @@ class _AddTaskState extends State<AddTask> {
 
   List<DropdownMenuItem<TaskTags>> get dropdownItems {
     List<DropdownMenuItem<TaskTags>> items = [
-      DropdownMenuItem(child: Text('Home'), value: TaskTags.home),
-      DropdownMenuItem(child: Text('Work'), value: TaskTags.work),
-      DropdownMenuItem(child: Text('Personal'), value: TaskTags.personal),
+      DropdownMenuItem(child: Text(LocaleKeys.home.tr()), value: TaskTags.home),
+      DropdownMenuItem(child: Text(LocaleKeys.work.tr()), value: TaskTags.work),
+      DropdownMenuItem(
+          child: Text(LocaleKeys.personal.tr()), value: TaskTags.personal),
     ];
     return items;
   }

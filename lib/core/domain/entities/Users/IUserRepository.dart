@@ -8,5 +8,8 @@ abstract class IUserRepository {
   registerWithEmailAndPassword(String email, String password);
 
   bool IsLoggedIn();
-  //CustomUser? getCurrentUser();
+  CustomUser? getCurrentUser();
+
+  sendRegisterEmail();
+  deleteAccount();
 }

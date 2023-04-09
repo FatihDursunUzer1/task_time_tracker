@@ -19,7 +19,7 @@ class TaskView extends StatefulWidget {
   State<TaskView> createState() => _TaskViewState();
 }
 
-class _TaskViewState extends State<TaskView> {
+class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -38,23 +38,12 @@ class _TaskViewState extends State<TaskView> {
               title: Text(LocaleKeys.timer_reset_question.tr()),
               actionsAlignment: MainAxisAlignment.spaceBetween,
               actions: [
-                TextButton(
-                  onPressed: () {
-                    if (!context
-                        .read<TaskViewModel>()
-                        .currentTask
-                        .isCompleted!) {
-                      context.read<TaskViewModel>().resetTask();
-                    }
-                    Navigator.pop(context, true);
-                  },
-                  child: const Text('Yes'),
-                ),
+                resetPasswordAndGoBack(context),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, false);
                   },
-                  child: const Text('No'),
+                  child: Text(LocaleKeys.no.tr()),
                 ),
               ],
             );
@@ -64,26 +53,62 @@ class _TaskViewState extends State<TaskView> {
       },
       child: Scaffold(
           appBar: AppBar(
-              title: Text(context.read<TaskViewModel>().currentTask.title)),
+            title: Text(context.read<TaskViewModel>().currentTask.title),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                      context.read<TaskViewModel>().currentTask.tags![0].name),
+                ),
+              )
+            ],
+          ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 context.read<TaskViewModel>().currentTask.description,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               stopWatch(context),
-              context.read<TaskViewModel>().currentTask.isCompleted!
-                  ? Container()
-                  : TimeIconsRow(context),
+              !context.read<TaskViewModel>().currentTask.isCompleted!
+                  ? TimeIconsRow(context)
+                  : Container(),
             ],
           )),
     );
   }
 
-  Text stopWatch(BuildContext context) {
-    return Text(format(context.read<TaskViewModel>().currentTask.spendTime!),
-        style: TextStyle(fontSize: 30));
+  TextButton resetPasswordAndGoBack(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        if (!context.read<TaskViewModel>().currentTask.isCompleted!) {
+          context.read<TaskViewModel>().resetTask();
+        }
+        Navigator.pop(context, true);
+      },
+      child: Text(LocaleKeys.yes.tr()),
+    );
+  }
+
+  stopWatch(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 200,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/timer.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Center(
+        child: Text(
+            format(context.read<TaskViewModel>().currentTask.spendTime!),
+            style: TextStyle(fontSize: 30)),
+      ),
+    );
   }
 
   Row TimeIconsRow(BuildContext context) {

@@ -48,5 +48,23 @@ abstract class  LocaleKeys {
   static const today = 'today';
   static const timer_reset_question = 'timer_reset_question';
   static const hello = 'hello';
+  static const privacy_policy = 'privacy_policy';
+  static const terms_of_use = 'terms_of_use';
+  static const version = 'version';
+  static const task_name_required = 'task_name_required';
+  static const task_name_min = 'task_name_min';
+  static const task_name_max = 'task_name_max';
+  static const task_description_required = 'task_description_required';
+  static const task_description_min = 'task_description_min';
+  static const task_description_max = 'task_description_max';
+  static const help = 'help';
+  static const delete_account = 'delete_account';
+  static const dark_theme = 'dark_theme';
+  static const title = 'title';
+  static const work = 'work';
+  static const personal = 'personal';
+  static const home_page = 'home_page';
+  static const task_tags = 'task_tags';
+  static const delete_account_message = 'delete_account_message';
 
 }

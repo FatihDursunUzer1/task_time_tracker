@@ -24,6 +24,7 @@ class UserRepository implements IUserRepository {
       }
     });
   } */
+  @override
   CustomUser? getCurrentUser() {
     if (auth.currentUser != null) {
       return CustomUser(
@@ -97,6 +98,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
+  @override
   sendRegisterEmail() async {
     await auth.currentUser!.sendEmailVerification();
   }
@@ -166,5 +168,33 @@ class UserRepository implements IUserRepository {
   Future<bool> signOut() async {
     await auth.signOut();
     return true;
+  }
+
+  @override
+  deleteAccount() async {
+    try {
+      await auth.currentUser!.delete();
+      await signOut();
+      Fluttertoast.showToast(
+          msg: "User Deleted Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        Fluttertoast.showToast(
+            msg:
+                "This operation is sensitive and requires recent authentication. Log in again before retrying this request.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    }
   }
 }

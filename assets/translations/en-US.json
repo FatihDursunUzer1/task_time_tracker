@@ -45,5 +45,24 @@
     "all":"All",
     "today":"Today",
     "timer_reset_question":"Are you sure you want to reset timer?",
-    "hello":"Hello"
+    "hello":"Hello",
+    "privacy_policy":"Privacy Policy",
+    "terms_of_use":"Terms and Conditions",
+    "version":"Version",
+    "task_name_required":"Task name is required",
+    "task_name_min":"Task name must be at least 3 characters",
+    "task_name_max":"Task name must be at most 50 characters",
+    "task_description_required":"Task description is required",
+    "task_description_min":"Task description must be at least 3 characters",
+    "task_description_max":"Task description must be at most 100 characters",
+    "help":"Help",
+    "delete_account":"Delete Account",
+    "dark_theme":"Dark Theme",
+    "title":"Title",
+    "work":"Work",
+    "personal":"Personal",
+    "home_page":"Home Page",
+    "task_page":"Task Page",
+    "delete_account_message":"Are you sure you want to delete your account?"
+
 }
