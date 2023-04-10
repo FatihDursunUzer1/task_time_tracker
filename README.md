@@ -1,16 +1,24 @@
-# task_time_tracker
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# Task Time Tracker
 
-A few resources to get you started if this is your first Flutter project:
+This is a Flutter Project.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Task Time Tracker's purpose is add task, checking and complete them and when you progress in selected task, in app you can count time that how many  time spend for task.
+You can check Today's tasks and all own Tasks. 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+At the this project we use these technologies and structures:
+- Firebase
+  - Firestore
+  - Authentication
+- Provider
+  - State Management
+  - Theme Management (Dark and Light theme for project)
+  
+- Hive 
+  - Caching Mechanism(Local storage on phones)
+- Easy Localization package for local languages
+  - English
+  - Turkish
+- WebView for Policies
