@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class TaskRepository {
   static FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -26,7 +28,7 @@ class TaskRepository {
           .set(task);
 
       Fluttertoast.showToast(
-          msg: 'Task added successfully', backgroundColor: Colors.green);
+          msg: LocaleKeys.task_added_successfully.tr(), backgroundColor: Colors.green);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
     }
@@ -42,7 +44,7 @@ class TaskRepository {
               toFirestore: (task, _) => task.toJson())
           .update(task);
       Fluttertoast.showToast(
-          msg: 'Task updated successfully', backgroundColor: Colors.green);
+          msg: LocaleKeys.task_update_successfully.tr(), backgroundColor: Colors.green);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
     }

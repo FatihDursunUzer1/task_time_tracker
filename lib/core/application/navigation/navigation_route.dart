@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
+import 'package:task_time_tracker/presentation/utility/errors/not_available_currently.dart';
 import 'package:task_time_tracker/presentation/views/home/home_view.dart';
 import 'package:task_time_tracker/presentation/views/login/login_view.dart';
+import 'package:task_time_tracker/presentation/views/profile/profile_view.dart';
 import 'package:task_time_tracker/presentation/views/register/register_view.dart';
 import 'package:task_time_tracker/presentation/views/settings/languages/set_language_view.dart';
+import 'package:task_time_tracker/presentation/views/settings/privacy/privacy_policy.dart';
+import 'package:task_time_tracker/presentation/views/settings/terms/terms_and_conditions.dart';
 import 'package:task_time_tracker/presentation/views/settings/theme/set_theme_view.dart';
 import 'package:task_time_tracker/presentation/views/tasks/task_view.dart';
 
@@ -42,8 +46,14 @@ class NavigationRoute {
         return defaultRoute(SetLanguage());
       case PageConstants.theme:
         return defaultRoute(SetTheme());
+      case PageConstants.privacyPolicy:
+        return defaultRoute(PrivacyPolicy());
+      case PageConstants.termsOfService:
+        return defaultRoute(TermsAndConditions());
+      case PageConstants.profile:
+        return defaultRoute(Profile());
       default:
-        return defaultRoute(Home());
+        return defaultRoute(NotAvailable());
     }
   }
 }

@@ -94,7 +94,8 @@ class _HomeState extends State<Home> {
         label: LocaleKeys.statiscs.tr(),
       ),
       BottomNavigationBarItem(
-          icon: const FaIcon(FontAwesomeIcons.cog), label: LocaleKeys.settings.tr())
+          icon: const FaIcon(FontAwesomeIcons.cog),
+          label: LocaleKeys.settings.tr())
     ];
   }
 
@@ -106,15 +107,16 @@ class _HomeState extends State<Home> {
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.1,
               child: Text(
                 '${LocaleKeys.hello.tr()} ${context.watch<HomeViewModel>().currentUser.displayName}',
-                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -138,7 +140,10 @@ class _HomeState extends State<Home> {
                         ));
                       }
                     } else {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: ColorConstants.customPurple,
+                      ));
                     }
                   },
                 )
@@ -150,7 +155,7 @@ class _HomeState extends State<Home> {
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 1) {
       return const AddTask();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
-      return const NotAvailable(); //StatisticsView(); normally but this page not available for this section.
+      return const StatisticsView(); //StatisticsView(); normally but this page not available for this section.
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 3) {
       return const SettingsView();
     } else {

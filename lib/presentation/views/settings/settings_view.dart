@@ -53,24 +53,39 @@ class _SettingsViewState extends State<SettingsView> {
           customListTile(
               icon: const Icon(FontAwesomeIcons.envelope),
               text: LocaleKeys.contact_us.tr(),
-              onTap: () {}),
+              onTap: () {
+                NavigationService.instance
+                    .navigateToPage(path: PageConstants.contact);
+              }),
           customListTile(
               icon: const Icon(FontAwesomeIcons.infoCircle),
               text: LocaleKeys.about.tr(),
-              onTap: () {}),
+              onTap: () {
+                NavigationService.instance
+                    .navigateToPage(path: PageConstants.about);
+              }),
           customListTile(
               icon: const FaIcon(FontAwesomeIcons.userSecret),
               //text: LocaleKeys.privacy_policy.tr(),
               text: LocaleKeys.privacy_policy.tr(),
-              onTap: () {}),
+              onTap: () {
+                NavigationService.instance
+                    .navigateToPage(path: PageConstants.privacyPolicy);
+              }),
           customListTile(
               icon: const FaIcon(FontAwesomeIcons.fileContract),
               text: LocaleKeys.terms_of_use.tr(),
-              onTap: () {}),
+              onTap: () {
+                NavigationService.instance
+                    .navigateToPage(path: PageConstants.termsOfService);
+              }),
           customListTile(
               icon: const FaIcon(FontAwesomeIcons.question),
               text: LocaleKeys.help.tr(),
-              onTap: () {}),
+              onTap: () {
+                NavigationService.instance
+                    .navigateToPage(path: PageConstants.about);
+              }),
           customListTile(
               textColor: Colors.red,
               icon: const Icon(
@@ -79,28 +94,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               text: LocaleKeys.logout.tr(),
               onTap: () {
-                return showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text(LocaleKeys.logout_message.tr()),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(LocaleKeys.no.tr())),
-                            TextButton(
-                                onPressed: () {
-                                  UserRepository.instance.signOut();
-                                  context
-                                      .read<HomeViewModel>()
-                                      .setCurrentNavBarIndex(0);
-                                  NavigationService.instance
-                                      .navigateToPageClear(PageConstants.login);
-                                },
-                                child: Text(LocaleKeys.yes.tr())),
-                          ],
-                        ));
+                return ExitDialog(context);
                 /* NavigationService.instance
                 .navigateToPageClear(PageConstants.login); */
               }),
@@ -138,6 +132,29 @@ class _SettingsViewState extends State<SettingsView> {
         ],
       ),
     ));
+  }
+
+  Future<dynamic> ExitDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(LocaleKeys.logout_message.tr()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(LocaleKeys.no.tr())),
+                TextButton(
+                    onPressed: () {
+                      UserRepository.instance.signOut();
+                      context.read<HomeViewModel>().setCurrentNavBarIndex(0);
+                      NavigationService.instance
+                          .navigateToPageClear(PageConstants.login);
+                    },
+                    child: Text(LocaleKeys.yes.tr())),
+              ],
+            ));
   }
 
   customListTile(

@@ -16,6 +16,7 @@ class _NotAvailableState extends State<NotAvailable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
         body: Container(
       color: Colors.red[900],
       child: Column(

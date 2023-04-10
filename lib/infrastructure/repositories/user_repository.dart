@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/IUserRepository.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class UserRepository implements IUserRepository {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -74,7 +76,7 @@ class UserRepository implements IUserRepository {
         'emailVerified': userCredential.user!.emailVerified,
       });
       Fluttertoast.showToast(
-          msg: "User Registered Successfully",
+          msg: LocaleKeys.user_registered_successfully.tr(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -134,7 +136,7 @@ class UserRepository implements IUserRepository {
         // ignore: curly_braces_in_flow_control_structures
         throw FirebaseAuthException(code: 'email-not-verified');
       Fluttertoast.showToast(
-          msg: "User Logged In Successfully",
+          msg: LocaleKeys.user_logged_in_successfully.tr(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -198,7 +200,7 @@ class UserRepository implements IUserRepository {
       await auth.currentUser!.delete();
       await signOut();
       Fluttertoast.showToast(
-          msg: "User Deleted Successfully",
+          msg: LocaleKeys.user_deleted_successfully.tr(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
