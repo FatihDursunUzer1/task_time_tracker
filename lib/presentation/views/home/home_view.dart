@@ -110,13 +110,23 @@ class _HomeState extends State<Home> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
                 child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.1,
-                  child: Text(
-                    '${LocaleKeys.hello.tr()} ${context.watch<HomeViewModel>().currentUser.displayName}',
-                    style: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.bold),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${LocaleKeys.hello.tr()},',
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                          '${context.watch<HomeViewModel>().currentUser.displayName}',
+                          style: const TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold)),
+                    ],
                   ),
                 ),
               ),
