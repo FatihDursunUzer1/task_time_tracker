@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -10,6 +11,7 @@ import 'package:task_time_tracker/core/application/constants/color_constants.dar
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
+import 'package:task_time_tracker/core/application/state/version_checker_provider.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
@@ -102,79 +104,11 @@ class _HomeState extends State<Home> {
     ];
   }
 
-  Widget HomeWidget() {
+  HomeWidget() {
     if (context.watch<HomeViewModel>().currentNavBarIndex == 0) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${LocaleKeys.hello.tr()},',
-                        style: const TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                          '${context.watch<HomeViewModel>().currentUser.displayName}',
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-              ),
-              FilterOptionsRow(),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: FutureBuilder(
-              future: _futureTasks,
-              builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                    return Expanded(
-                        child: ListView.builder(
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return ClickableListTile(context, index);
-                            }));
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.all(48.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            LocaleKeys.no_data.tr(),
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            LocaleKeys.add_new_task_button.tr(),
-                            style: const TextStyle(fontSize: 16),
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                } else {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                    color: ColorConstants.customPurple,
-                  ));
-                }
-              },
-            ),
-          ),
-        ],
-      );
+      return !VersionChecker.instance.isUpdate
+          ? TasksHomeWidget()
+          : updateDialog();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 1) {
       return const AddTask();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
@@ -184,6 +118,102 @@ class _HomeState extends State<Home> {
     } else {
       return const Placeholder();
     }
+  }
+
+  //Update dialog
+  AlertDialog updateDialog() {
+    return AlertDialog(
+      title: Text('Update'),
+      content: Text('There is a new version of the app. Please update it.'),
+      actions: [
+        TextButton(
+            onPressed: () {
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+            },
+            child: Text('Cancel')),
+        TextButton(
+            onPressed: () {
+              NavigationService.instance
+                ..navigateToPage(path: PageConstants.profile);
+              //NavigationService.instance.navigateTo(PageConstants.updatePage);
+            },
+            child: Text('Update'))
+      ],
+    );
+  }
+
+  Column TasksHomeWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${LocaleKeys.hello.tr()},',
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                        '${context.watch<HomeViewModel>().currentUser.displayName}',
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+            ),
+            FilterOptionsRow(),
+          ],
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: FutureBuilder(
+            future: _futureTasks,
+            builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                  return Expanded(
+                      child: ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return ClickableListTile(context, index);
+                          }));
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(48.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          LocaleKeys.no_data.tr(),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          LocaleKeys.add_new_task_button.tr(),
+                          style: const TextStyle(fontSize: 16),
+                        )
+                      ],
+                    ),
+                  );
+                }
+              } else {
+                return const Center(
+                    child: CircularProgressIndicator(
+                  color: ColorConstants.customPurple,
+                ));
+              }
+            },
+          ),
+        ),
+      ],
+    );
   }
 
   Row FilterOptionsRow() {

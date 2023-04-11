@@ -8,7 +8,6 @@ class HomeViewModel extends ChangeNotifier {
   late CustomUser _currentUser;
   TaskRepository _taskRepository = TaskRepository.instance;
 
-
   CustomUser get currentUser => _currentUser;
   void setCurrentUser(CustomUser user) {
     _currentUser = user;
@@ -55,7 +54,7 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteTask(Task task)async  {
+  Future<void> deleteTask(Task task) async {
     await _taskRepository.deleteTask(task.id);
     _currentTasks.remove(task);
     notifyListeners();

@@ -22,7 +22,7 @@ class NavigationRoute {
   }
 
   NavigationRoute._();
-  defaultRoute(Widget page) {
+  defaultRoute(page) {
     return MaterialPageRoute(
       builder: (context) => page,
     );
