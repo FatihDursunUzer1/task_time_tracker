@@ -2,7 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
+import 'package:task_time_tracker/core/application/constants/validators.dart';
+import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
+import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
+import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
 
 class Profile extends StatefulWidget {
@@ -13,6 +18,18 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  late TextEditingController _nameController;
+  late GlobalKey<FormState> _formKey;
+
+  @override
+  void initState() {
+    _nameController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
+    _nameController.text =
+        context.read<HomeViewModel>().currentUser.displayName!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,36 +39,67 @@ class _ProfileState extends State<Profile> {
       body: Container(
           child: Padding(
         padding: const EdgeInsets.all(32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(
-                  'https://www.w3schools.com/howto/img_avatar.png'),
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red))),
-              readOnly: true,
-              enabled: false,
-              initialValue: 'Test1',
-            ),
-            TextFormField(
-              enabled: false,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red))),
-              readOnly: true,
-              initialValue: 'Test2',
-            ),
-            CustomButton(
-                text: LocaleKeys.update.tr(),
-                onPressed: () {
-                  //update user info here
-                }),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(
+                    'https://www.w3schools.com/howto/img_avatar.png'),
+              ),
+              TextFormField(
+                controller: _nameController,
+                validator: Validators.checkEmptyText,
+                decoration: InputDecoration(
+                    labelText: 'Name',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red))),
+                readOnly: false,
+                enabled: true,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                enabled: false,
+                decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red))),
+                readOnly: true,
+                initialValue: context.read<HomeViewModel>().currentUser.email,
+              ),
+              CustomButton(
+                  text: LocaleKeys.update.tr(),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      //context.read<HomeViewModel>().updateProfile(_nameController.text);
+                      /* context.read<HomeViewModel>().setCurrentUser(
+                          context.read<HomeViewModel>().currentUser.copyWith(
+                              displayName: _nameController.text,
+                             )); */
+                      context.read<HomeViewModel>().setCurrentUser(CustomUser(
+                          id: context.read<HomeViewModel>().currentUser.id,
+                          displayName: _nameController.text,
+                          email:
+                              context.read<HomeViewModel>().currentUser.email,
+                          emailVerified: context
+                              .read<HomeViewModel>()
+                              .currentUser
+                              .emailVerified,
+                          photoURL: context
+                              .read<HomeViewModel>()
+                              .currentUser
+                              .photoURL));
+
+                      UserRepository.instance.updateUser(
+                          context.read<HomeViewModel>().currentUser);
+                    }
+                  }),
+            ],
+          ),
         ),
       )),
     );

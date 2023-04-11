@@ -51,7 +51,13 @@ class TaskRepository {
   }
 
   Future<void> deleteTask(String id) async {
+    try{
     await _firestore.collection('tasks').doc(id).delete();
+    Fluttertoast.showToast(
+        msg: LocaleKeys.task_deleted_successfully.tr(), backgroundColor: Colors.green);
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+    }
   }
 
   getTasks() async {

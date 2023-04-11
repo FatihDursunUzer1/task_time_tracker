@@ -107,50 +107,60 @@ class _HomeState extends State<Home> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: Text(
-                '${LocaleKeys.hello.tr()} ${context.watch<HomeViewModel>().currentUser.displayName}',
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Text(
+                    '${LocaleKeys.hello.tr()} ${context.watch<HomeViewModel>().currentUser.displayName}',
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
-            ),
+              FilterOptionsRow(),
+            ],
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                FilterOptionsRow(),
-                FutureBuilder(
-                  future: _futureTasks,
-                  builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                        return Expanded(
-                            child: ListView.builder(
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  return ClickableListTile(context, index);
-                                }));
-                      } else {
-                        return Center(
-                            child: Text(
-                          LocaleKeys.no_data.tr(),
-                          style: const TextStyle(fontSize: 24),
-                        ));
-                      }
-                    } else {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        color: ColorConstants.customPurple,
-                      ));
-                    }
-                  },
-                )
-              ],
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: FutureBuilder(
+              future: _futureTasks,
+              builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return Expanded(
+                        child: ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return ClickableListTile(context, index);
+                            }));
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(48.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            LocaleKeys.no_data.tr(),
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          Text(
+                            LocaleKeys.add_new_task_button.tr(),
+                            style: const TextStyle(fontSize: 16),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                } else {
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    color: ColorConstants.customPurple,
+                  ));
+                }
+              },
             ),
           ),
         ],

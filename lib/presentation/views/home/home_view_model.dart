@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
 import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
+import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
   late CustomUser _currentUser;
   TaskRepository _taskRepository = TaskRepository.instance;
+
 
   CustomUser get currentUser => _currentUser;
   void setCurrentUser(CustomUser user) {

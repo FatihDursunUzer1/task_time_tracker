@@ -40,18 +40,39 @@ class UserRepository implements IUserRepository {
                   CustomUser.fromJson(snapshot.data()!),
               toFirestore: (customUser, _) => customUser.toJson())
           .get();
-      //return collection.docs.map((e) => e.data()).toList();
-
       return user.data();
-
-      /*return CustomUser(
-          id: auth.currentUser!.uid,
-          email: auth.currentUser!.email!,
-          emailVerified: auth.currentUser!.emailVerified); */
     } else {
       return null;
     }
   }
+
+  Future<bool> updateUser(CustomUser user) async
+  {
+    try{
+      _firestore.collection('users').doc(user.id).update(user.toJson());
+      Fluttertoast.showToast(
+          msg: LocaleKeys.user_updated_successfully.tr(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return true;
+    }catch(e){
+      Fluttertoast.showToast(
+          msg: e.toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return false;
+    }
+  }
+
+
 
   @override
   bool IsLoggedIn() {

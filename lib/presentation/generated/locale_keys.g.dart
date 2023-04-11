@@ -29,6 +29,7 @@ abstract class  LocaleKeys {
   static const logout_message = 'logout_message';
   static const no = 'no';
   static const no_data = 'no_data';
+  static const add_new_task_button = 'add_new_task_button';
   static const no_data_description = 'no_data_description';
   static const no_data_description_reports = 'no_data_description_reports';
   static const no_data_description_statiscs = 'no_data_description_statiscs';
@@ -49,6 +50,7 @@ abstract class  LocaleKeys {
   static const statiscs = 'statiscs';
   static const stop = 'stop';
   static const task_added_successfully = 'task_added_successfully';
+  static const task_deleted_successfully = 'task_deleted_successfully';
   static const task_description = 'task_description';
   static const task_description_max = 'task_description_max';
   static const task_description_min = 'task_description_min';
@@ -73,6 +75,7 @@ abstract class  LocaleKeys {
   static const user_disabled = 'user_disabled';
   static const user_logged_in_successfully = 'user_logged_in_successfully';
   static const user_not_found = 'user_not_found';
+  static const user_updated_successfully = 'user_updated_successfully';
   static const user_registered_successfully = 'user_registered_successfully';
   static const version = 'version';
   static const work = 'work';

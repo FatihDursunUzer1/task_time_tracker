@@ -19,7 +19,7 @@ class _GeneralPolicyState extends State<GeneralPolicy> {
   void initState() {
     progress = 0;
     _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setJavaScriptMode(JavaScriptMode.disabled)
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(

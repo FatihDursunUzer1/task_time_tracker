@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:task_time_tracker/core/domain/entities/abstracts/IEntity.dart';
 
