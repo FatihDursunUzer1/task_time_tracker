@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/application/constants/validators.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class EmailTextFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -12,7 +14,7 @@ class EmailTextFormField extends StatelessWidget {
       validator: Validators.validateEmail,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        labelText: 'Email',
+        labelText: LocaleKeys.email.tr(),
       ),
     );
   }

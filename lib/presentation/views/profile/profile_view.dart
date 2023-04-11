@@ -53,7 +53,7 @@ class _ProfileState extends State<Profile> {
                 controller: _nameController,
                 validator: Validators.checkEmptyText,
                 decoration: InputDecoration(
-                    labelText: 'Name',
+                    labelText: LocaleKeys.name.tr(),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.red))),
                 readOnly: false,
@@ -65,7 +65,7 @@ class _ProfileState extends State<Profile> {
               TextFormField(
                 enabled: false,
                 decoration: InputDecoration(
-                    labelText: 'Email',
+                    labelText: LocaleKeys.email.tr(),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.red))),
                 readOnly: true,

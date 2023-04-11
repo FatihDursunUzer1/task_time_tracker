@@ -15,6 +15,7 @@ abstract class  LocaleKeys {
   static const email_already_in_use = 'email_already_in_use';
   static const email_not_verified = 'email_not_verified';
   static const english = 'english';
+  static const email = 'email';
   static const filter = 'filter';
   static const finish = 'finish';
   static const hello = 'hello';
@@ -27,6 +28,8 @@ abstract class  LocaleKeys {
   static const loading = 'loading';
   static const logout = 'logout';
   static const logout_message = 'logout_message';
+  static const login = 'login';
+  static const name = 'name';
   static const no = 'no';
   static const no_data = 'no_data';
   static const add_new_task_button = 'add_new_task_button';
@@ -36,6 +39,7 @@ abstract class  LocaleKeys {
   static const no_data_description_tasks = 'no_data_description_tasks';
   static const not_available_current_version = 'not_available_current_version';
   static const or = 'or';
+  static const password = 'password';
   static const password_is_too_weak = 'password_is_too_weak';
   static const personal = 'personal';
   static const privacy_policy = 'privacy_policy';
