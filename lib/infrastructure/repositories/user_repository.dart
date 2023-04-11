@@ -93,7 +93,7 @@ class UserRepository implements IUserRepository {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(
-            msg: "The password provided is too weak.",
+            msg: LocaleKeys.password_is_too_weak.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -102,7 +102,7 @@ class UserRepository implements IUserRepository {
             fontSize: 16.0);
       } else if (e.code == 'email-already-in-use') {
         Fluttertoast.showToast(
-            msg: "The account already exists for that email.",
+            msg: LocaleKeys.email_already_in_use.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -150,7 +150,7 @@ class UserRepository implements IUserRepository {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Fluttertoast.showToast(
-            msg: "No user found for that email.",
+            msg: LocaleKeys.user_not_found.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -159,7 +159,7 @@ class UserRepository implements IUserRepository {
             fontSize: 16.0);
       } else if (e.code == 'wrong-password') {
         Fluttertoast.showToast(
-            msg: "Wrong password provided for that user.",
+            msg:  LocaleKeys.wrong_password.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -168,7 +168,7 @@ class UserRepository implements IUserRepository {
             fontSize: 16.0);
       } else if (e.code == 'user-disabled') {
         Fluttertoast.showToast(
-            msg: "User has been disabled.",
+            msg: LocaleKeys.user_disabled.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -177,7 +177,7 @@ class UserRepository implements IUserRepository {
             fontSize: 16.0);
       } else if (e.code == 'email-not-verified') {
         Fluttertoast.showToast(
-            msg: "Email not verified.",
+            msg: LocaleKeys.email_not_verified.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,

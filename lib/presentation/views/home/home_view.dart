@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -32,10 +33,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late List<Task>? _currentTasks;
+  late Future<List<Task>?> _futureTasks;
   @override
   void initState() {
     super.initState();
     _currentTasks = [];
+    _futureTasks = getTasks();
     /*context
         .read<HomeViewModel>()
         .setCurrentUser(UserRepository.instance.getCurrentUser()!); */
@@ -122,13 +125,13 @@ class _HomeState extends State<Home> {
               children: [
                 FilterOptionsRow(),
                 FutureBuilder(
-                  future: getTasks(),
+                  future: _futureTasks,
                   builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                         return Expanded(
                             child: ListView.builder(
-                                itemCount: _currentTasks!.length,
+                                itemCount: snapshot.data!.length,
                                 itemBuilder: (context, index) {
                                   return ClickableListTile(context, index);
                                 }));
@@ -194,30 +197,82 @@ class _HomeState extends State<Home> {
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
   }
 
-  InkWell ClickableListTile(BuildContext context, int index) {
-    return InkWell(
-        onTap: () {
-          debugPrint('tapped');
-          context.read<TaskViewModel>().currentTask = _currentTasks![index];
-          NavigationService.instance.navigateToPage(path: PageConstants.task);
-        },
-        child: ListTileTask(index));
+  Card ClickableListTile(BuildContext context, int index) {
+    return ListTileTask(index);
   }
 
   ListTileTask(int index) {
     var task = _currentTasks![index];
+
     return Card(
-      child: ListTile(
-        textColor: Colors.black,
-        trailing: const FaIcon(FontAwesomeIcons.chevronRight),
-        subtitle: Text(
-          task.description.length > 20
-              ? '${task.description.substring(0, 20)}...'
-              : task.description,
+      child: Slidable(
+        // Specify a key if the Slidable is dismissible.
+        key: UniqueKey(),
+
+        // The start action pane is the one at the left or the top side.
+        startActionPane: ActionPane(
+          // A motion is a widget used to control how the pane animates.
+          motion: const ScrollMotion(),
+
+          // A pane can dismiss the Slidable.
+          dismissible: DismissiblePane(onDismissed: () async {
+            await context.read<HomeViewModel>().deleteTask(task);
+          }),
+
+          // All actions are defined in the children parameter.
+          children: [
+            // A SlidableAction can have an icon and/or a label.
+            SlidableAction(
+              onPressed: (context) async {
+                await context.read<HomeViewModel>().deleteTask(task);
+              },
+              backgroundColor: Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
+            ),
+            SlidableAction(
+              onPressed: (_) {},
+              backgroundColor: Color(0xFF21B7CA),
+              foregroundColor: Colors.white,
+              icon: Icons.share,
+              label: 'Share',
+            ),
+          ],
         ),
-        leading: ListTileLeading(task.tags![0]),
-        title: Text(
-          task.title,
+
+        // The end action pane is the one at the right or the bottom side.
+        endActionPane: ActionPane(
+          motion: ScrollMotion(),
+          children: [
+            SlidableAction(
+              onPressed: (context) {
+                context.read<HomeViewModel>().updateTask(task);
+              },
+              backgroundColor: Color(0xFF0392CF),
+              foregroundColor: Colors.white,
+              icon: Icons.save,
+              label: 'Save',
+            ),
+          ],
+        ),
+        child: ListTile(
+          onTap: () {
+            debugPrint('tapped');
+            context.read<TaskViewModel>().currentTask = _currentTasks![index];
+            NavigationService.instance.navigateToPage(path: PageConstants.task);
+          },
+          textColor: Colors.black,
+          trailing: const FaIcon(FontAwesomeIcons.chevronRight),
+          subtitle: Text(
+            task.description.length > 20
+                ? '${task.description.substring(0, 20)}...'
+                : task.description,
+          ),
+          leading: ListTileLeading(task.tags![0]),
+          title: Text(
+            task.title,
+          ),
         ),
       ),
     );

@@ -12,6 +12,8 @@ abstract class  LocaleKeys {
   static const dark_theme = 'dark_theme';
   static const delete_account = 'delete_account';
   static const delete_account_message = 'delete_account_message';
+  static const email_already_in_use = 'email_already_in_use';
+  static const email_not_verified = 'email_not_verified';
   static const english = 'english';
   static const filter = 'filter';
   static const finish = 'finish';
@@ -33,6 +35,7 @@ abstract class  LocaleKeys {
   static const no_data_description_tasks = 'no_data_description_tasks';
   static const not_available_current_version = 'not_available_current_version';
   static const or = 'or';
+  static const password_is_too_weak = 'password_is_too_weak';
   static const personal = 'personal';
   static const privacy_policy = 'privacy_policy';
   static const profile = 'profile';
@@ -67,10 +70,13 @@ abstract class  LocaleKeys {
   static const turkish = 'turkish';
   static const update = 'update';
   static const user_deleted_successfully = 'user_deleted_successfully';
+  static const user_disabled = 'user_disabled';
   static const user_logged_in_successfully = 'user_logged_in_successfully';
+  static const user_not_found = 'user_not_found';
   static const user_registered_successfully = 'user_registered_successfully';
   static const version = 'version';
   static const work = 'work';
+  static const wrong_password = 'wrong_password';
   static const yes = 'yes';
 
 }

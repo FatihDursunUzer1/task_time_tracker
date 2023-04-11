@@ -16,32 +16,32 @@ class _NotAvailableState extends State<NotAvailable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+        appBar: AppBar(),
         body: Container(
-      color: Colors.red[900],
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const FaIcon(
-            FontAwesomeIcons.exclamationTriangle,
-            size: 100,
-            color: Colors.yellow,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: Column(
-              children: [
-                Text(
-                  LocaleKeys.not_available_current_version.tr(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+          color: Colors.red[900],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const FaIcon(
+                FontAwesomeIcons.exclamationTriangle,
+                size: 100,
+                color: Colors.yellow,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      LocaleKeys.not_available_current_version.tr(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }

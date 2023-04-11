@@ -63,7 +63,8 @@ class _AddTaskState extends State<AddTask> {
                         context.read<AddTaskViewModel>().formKey.currentState!;
                     if (currentState.validate()) {
                       currentState.save();
-                      await context.read<AddTaskViewModel>().addTask();
+                      var task=await context.read<AddTaskViewModel>().addTask();
+                      context.read<HomeViewModel>().addTask(task);
                       context.read<HomeViewModel>().setCurrentNavBarIndex(0);
                     }
                   },
