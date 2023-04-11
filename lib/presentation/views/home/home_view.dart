@@ -235,9 +235,9 @@ class _HomeState extends State<Home> {
           motion: const ScrollMotion(),
 
           // A pane can dismiss the Slidable.
-          dismissible: DismissiblePane(onDismissed: () async {
+          /* dismissible: DismissiblePane(onDismissed: () async {
             await context.read<HomeViewModel>().deleteTask(task);
-          }),
+          }),*/
 
           // All actions are defined in the children parameter.
           children: [
@@ -246,14 +246,14 @@ class _HomeState extends State<Home> {
               onPressed: (context) async {
                 await context.read<HomeViewModel>().deleteTask(task);
               },
-              backgroundColor: Color(0xFFFE4A49),
+              backgroundColor: ColorConstants.customPink,
               foregroundColor: Colors.white,
               icon: Icons.delete,
               label: 'Delete',
             ),
             SlidableAction(
               onPressed: (_) {},
-              backgroundColor: Color(0xFF21B7CA),
+              backgroundColor: ColorConstants.customPurple,
               foregroundColor: Colors.white,
               icon: Icons.share,
               label: 'Share',
@@ -269,7 +269,7 @@ class _HomeState extends State<Home> {
               onPressed: (context) {
                 context.read<HomeViewModel>().updateTask(task);
               },
-              backgroundColor: Color(0xFF0392CF),
+              backgroundColor: ColorConstants.customBlue,
               foregroundColor: Colors.white,
               icon: Icons.save,
               label: 'Save',
