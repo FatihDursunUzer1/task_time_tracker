@@ -50,13 +50,13 @@ class _SettingsViewState extends State<SettingsView> {
                 NavigationService.instance
                     .navigateToPage(path: PageConstants.theme);
               }),
-          customListTile(
+          /*customListTile(
               icon: const Icon(FontAwesomeIcons.envelope),
               text: LocaleKeys.contact_us.tr(),
               onTap: () {
                 NavigationService.instance
                     .navigateToPage(path: PageConstants.contact);
-              }),
+              }), */
           customListTile(
               icon: const Icon(FontAwesomeIcons.infoCircle),
               text: LocaleKeys.about.tr(),
