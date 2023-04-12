@@ -106,28 +106,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               text: LocaleKeys.delete_account.tr(),
               onTap: () {
-                return showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text(LocaleKeys.delete_account_message.tr()),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(LocaleKeys.no.tr())),
-                            TextButton(
-                                onPressed: () {
-                                  UserRepository.instance.deleteAccount();
-                                  context
-                                      .read<HomeViewModel>()
-                                      .setCurrentNavBarIndex(0);
-                                  NavigationService.instance
-                                      .navigateToPageClear(PageConstants.login);
-                                },
-                                child: Text(LocaleKeys.yes.tr())),
-                          ],
-                        ));
+                return ExitDialog(context);
               }),
         ],
       ),

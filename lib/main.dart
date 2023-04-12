@@ -33,7 +33,7 @@ void main() async {
   VersionChecker.instance.checkVersion(packageInfo.version);
   runApp(EasyLocalization(
     supportedLocales: LanguageManager.instance.supportedLocales,
-    path: 'assets/translations',
+    path: AppConstants.translationsPath,
     child: MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeStateProvider()),

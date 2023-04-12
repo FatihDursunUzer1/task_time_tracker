@@ -24,29 +24,27 @@ class _SetLanguageState extends State<SetLanguage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          languageInkWell(context, LanguageManager.instance.trLocale, "Türkçe"),
-          languageInkWell(
+          languageListTile(
+              context, LanguageManager.instance.trLocale, "Türkçe"),
+          languageListTile(
               context, LanguageManager.instance.enLocale, "English"),
         ],
       ),
     );
   }
 
-  languageInkWell(BuildContext context, Locale locale, String language) {
+  languageListTile(BuildContext context, Locale locale, String language) {
     return Column(
       children: [
-        InkWell(
-          onTap: () {
-            setState(() async {
+        ListTile(
+            onTap: () async {
               if (context.locale != locale) {
                 await context.setLocale(locale);
               }
               NavigationService.instance
                   .navigateToPageClear(PageConstants.home);
-            });
-          },
-          child: ListTile(title: Text(language)),
-        ),
+            },
+            title: Text(language)),
         const Divider()
       ],
     );

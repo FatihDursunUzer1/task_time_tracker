@@ -38,7 +38,7 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
               title: Text(LocaleKeys.timer_reset_question.tr()),
               actionsAlignment: MainAxisAlignment.spaceBetween,
               actions: [
-                resetPasswordAndGoBack(context),
+                resetTimerAndGoBack(context),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, false);
@@ -74,14 +74,14 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
               ),
               stopWatch(context),
               !context.read<TaskViewModel>().currentTask.isCompleted!
-                  ? TimeIconsRow(context)
+                  ? ManageTimerRows(context)
                   : Container(),
             ],
           )),
     );
   }
 
-  TextButton resetPasswordAndGoBack(BuildContext context) {
+  TextButton resetTimerAndGoBack(BuildContext context) {
     return TextButton(
       onPressed: () {
         if (!context.read<TaskViewModel>().currentTask.isCompleted!) {
@@ -111,7 +111,7 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
     );
   }
 
-  Row TimeIconsRow(BuildContext context) {
+  Row ManageTimerRows(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
