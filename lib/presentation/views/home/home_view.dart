@@ -51,21 +51,24 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-              ],
-            ),
-            child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+        bottomNavigationBar: !VersionChecker.instance.isUpdate
+            ? Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+                  ],
                 ),
-                child: HomeBottomNavigationBar(context))),
+                child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                    child: HomeBottomNavigationBar(context)))
+            : null,
         appBar: FunctionalAppBar(
           title: 'Task Time Tracker',
         ),
@@ -108,7 +111,9 @@ class _HomeState extends State<Home> {
 
   HomeWidget() {
     if (context.watch<HomeViewModel>().currentNavBarIndex == 0) {
-      return TasksHomeWidget();
+      return VersionChecker.instance.isUpdate
+          ? updateDialog()
+          : TasksHomeWidget();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 1) {
       return const AddTask();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
