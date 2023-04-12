@@ -197,11 +197,11 @@ class _HomeState extends State<Home> {
         children: [
           Text(
             LocaleKeys.no_data.tr(),
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           Text(
             LocaleKeys.add_new_task_button.tr(),
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           )
         ],
       ),
@@ -276,9 +276,9 @@ class _HomeState extends State<Home> {
           motion: const ScrollMotion(),
 
           // A pane can dismiss the Slidable.
-          /* dismissible: DismissiblePane(onDismissed: () async {
+          dismissible: DismissiblePane(onDismissed: () async {
             await context.read<HomeViewModel>().deleteTask(task);
-          }),*/
+          }),
 
           // All actions are defined in the children parameter.
           children: [

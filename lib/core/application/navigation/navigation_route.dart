@@ -5,6 +5,7 @@ import 'package:task_time_tracker/presentation/views/home/home_view.dart';
 import 'package:task_time_tracker/presentation/views/login/login_view.dart';
 import 'package:task_time_tracker/presentation/views/profile/profile_view.dart';
 import 'package:task_time_tracker/presentation/views/register/register_view.dart';
+import 'package:task_time_tracker/presentation/views/settings/about/about_view.dart';
 import 'package:task_time_tracker/presentation/views/settings/languages/set_language_view.dart';
 import 'package:task_time_tracker/presentation/views/settings/privacy/privacy_policy.dart';
 import 'package:task_time_tracker/presentation/views/settings/terms/terms_and_conditions.dart';
@@ -33,27 +34,29 @@ class NavigationRoute {
       case PageConstants.main:
         return defaultRoute(MainApp());
       case PageConstants.splash:
-        return defaultRoute(Splash());
+        return defaultRoute(const Splash());
       case PageConstants.home:
-        return defaultRoute(Home());
+        return defaultRoute(const Home());
       case PageConstants.login:
-        return defaultRoute(Login());
+        return defaultRoute(const Login());
       case PageConstants.register:
-        return defaultRoute(Register());
+        return defaultRoute(const Register());
       case PageConstants.task:
-        return defaultRoute(TaskView());
+        return defaultRoute(const TaskView());
       case PageConstants.languages:
-        return defaultRoute(SetLanguage());
+        return defaultRoute(const SetLanguage());
       case PageConstants.theme:
-        return defaultRoute(SetTheme());
+        return defaultRoute(const SetTheme());
       case PageConstants.privacyPolicy:
-        return defaultRoute(PrivacyPolicy());
+        return defaultRoute(const PrivacyPolicy());
       case PageConstants.termsOfService:
-        return defaultRoute(TermsAndConditions());
+        return defaultRoute(const TermsAndConditions());
       case PageConstants.profile:
-        return defaultRoute(Profile());
+        return defaultRoute(const Profile());
+      case PageConstants.about:
+        return defaultRoute(const About());
       default:
-        return defaultRoute(NotAvailable());
+        return defaultRoute(const NotAvailable());
     }
   }
 }
