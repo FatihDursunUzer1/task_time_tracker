@@ -50,13 +50,13 @@ class _SettingsViewState extends State<SettingsView> {
                 NavigationService.instance
                     .navigateToPage(path: PageConstants.theme);
               }),
-          /*customListTile(
+          customListTile(
               icon: const Icon(FontAwesomeIcons.envelope),
               text: LocaleKeys.contact_us.tr(),
               onTap: () {
                 NavigationService.instance
                     .navigateToPage(path: PageConstants.contact);
-              }), */
+              }),
           customListTile(
               icon: const Icon(FontAwesomeIcons.infoCircle),
               text: LocaleKeys.about.tr(),
@@ -106,11 +106,36 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               text: LocaleKeys.delete_account.tr(),
               onTap: () {
-                return ExitDialog(context);
+                return DeleteAccountDialog(context);
               }),
         ],
       ),
     ));
+  }
+
+  Future<dynamic> DeleteAccountDialog(BuildContext context) {
+    return showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text(LocaleKeys.delete_account_message.tr()),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(LocaleKeys.no.tr())),
+                          TextButton(
+                              onPressed: () {
+                                UserRepository.instance.deleteAccount();
+                                context
+                                    .read<HomeViewModel>()
+                                    .setCurrentNavBarIndex(0);
+                                NavigationService.instance
+                                    .navigateToPageClear(PageConstants.login);
+                              },
+                              child: Text(LocaleKeys.yes.tr())),
+                        ],
+                      ));
   }
 
   Future<dynamic> ExitDialog(BuildContext context) {
