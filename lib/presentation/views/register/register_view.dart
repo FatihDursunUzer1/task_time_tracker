@@ -1,11 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
-import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/constants/validators.dart';
-import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
-import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
+import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/views/register/register_view_model.dart';
 import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
 import 'package:task_time_tracker/presentation/widgets/email_text_form_field.dart';
@@ -93,7 +90,7 @@ class _RegisterState extends State<Register> {
                                   }
                                 }
                               },
-                              text: 'Register',
+                              text: LocaleKeys.register.tr(),
                             ),
                           ])),
                 ],

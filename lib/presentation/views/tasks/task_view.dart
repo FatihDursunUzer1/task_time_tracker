@@ -1,16 +1,10 @@
-import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/views/tasks/task_view_model.dart';
-import 'package:task_time_tracker/presentation/widgets/custom_button.dart';
-import 'package:task_time_tracker/presentation/widgets/functional_app_bar.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView({super.key});
@@ -97,7 +91,7 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
     return Container(
       width: 200,
       height: 200,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/timer.png"),
           fit: BoxFit.cover,
@@ -106,7 +100,7 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
       child: Center(
         child: Text(
             format(context.read<TaskViewModel>().currentTask.spendTime!),
-            style: TextStyle(fontSize: 30)),
+            style: const TextStyle(fontSize: 30)),
       ),
     );
   }
@@ -132,7 +126,7 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
               context.read<TaskViewModel>().stopTimer();
               context.read<TaskViewModel>().saveTask();
             },
-            icon: FaIcon(FontAwesomeIcons.solidStopCircle, size: 50)),
+            icon: const FaIcon(FontAwesomeIcons.solidStopCircle, size: 50)),
       ],
     );
   }
@@ -143,11 +137,11 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
       children: [
         Text(
           context.read<TaskViewModel>().currentTask.title,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         Text(
           context.read<TaskViewModel>().currentTask.tags![0].toString(),
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ],
     );

@@ -3,13 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/IUserRepository.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class UserRepository implements IUserRepository {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   UserRepository._privateConstructor();
   static UserRepository? _instance;
   static UserRepository get instance {
@@ -46,9 +45,8 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  Future<bool> updateUser(CustomUser user) async
-  {
-    try{
+  Future<bool> updateUser(CustomUser user) async {
+    try {
       _firestore.collection('users').doc(user.id).update(user.toJson());
       Fluttertoast.showToast(
           msg: LocaleKeys.user_updated_successfully.tr(),
@@ -59,7 +57,7 @@ class UserRepository implements IUserRepository {
           textColor: Colors.white,
           fontSize: 16.0);
       return true;
-    }catch(e){
+    } catch (e) {
       Fluttertoast.showToast(
           msg: e.toString(),
           toastLength: Toast.LENGTH_SHORT,
@@ -71,8 +69,6 @@ class UserRepository implements IUserRepository {
       return false;
     }
   }
-
-
 
   @override
   bool IsLoggedIn() {
@@ -156,6 +152,7 @@ class UserRepository implements IUserRepository {
       if (!userCredential.user!.emailVerified)
         // ignore: curly_braces_in_flow_control_structures
         throw FirebaseAuthException(code: 'email-not-verified');
+
       Fluttertoast.showToast(
           msg: LocaleKeys.user_logged_in_successfully.tr(),
           toastLength: Toast.LENGTH_SHORT,
@@ -164,10 +161,7 @@ class UserRepository implements IUserRepository {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      return CustomUser(
-          id: userCredential.user!.uid,
-          email: userCredential.user!.email!,
-          emailVerified: userCredential.user!.emailVerified);
+      return getCurrentUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Fluttertoast.showToast(
@@ -180,7 +174,7 @@ class UserRepository implements IUserRepository {
             fontSize: 16.0);
       } else if (e.code == 'wrong-password') {
         Fluttertoast.showToast(
-            msg:  LocaleKeys.wrong_password.tr(),
+            msg: LocaleKeys.wrong_password.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -55,7 +53,7 @@ class _GeneralPolicyState extends State<GeneralPolicy> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(
+                    const CircularProgressIndicator(
                       color: ColorConstants.customPurple,
                     ),
                     Text('$progress%')

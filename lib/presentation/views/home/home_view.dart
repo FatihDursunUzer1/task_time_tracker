@@ -2,25 +2,16 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
-import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';
-import 'package:task_time_tracker/core/application/state/version_checker_provider.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
-import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
-import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/utility/enums/TaskIcons.dart';
-import 'package:task_time_tracker/presentation/utility/errors/not_available_currently.dart';
 import 'package:task_time_tracker/presentation/views/add/add_task_view.dart';
 import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
 import 'package:task_time_tracker/presentation/views/settings/settings_view.dart';
@@ -123,8 +114,8 @@ class _HomeState extends State<Home> {
   //Update dialog
   AlertDialog updateDialog() {
     return AlertDialog(
-      title: Text('Update'),
-      content: Text('There is a new version of the app. Please update it.'),
+      title: const Text('Update'),
+      content: const Text('There is a new version of the app. Please update it.'),
       actions: [
         TextButton(
             onPressed: () {
@@ -304,7 +295,7 @@ class _HomeState extends State<Home> {
 
         // The end action pane is the one at the right or the bottom side.
         endActionPane: ActionPane(
-          motion: ScrollMotion(),
+          motion: const ScrollMotion(),
           children: [
             SlidableAction(
               onPressed: (context) {

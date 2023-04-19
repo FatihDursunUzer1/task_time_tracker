@@ -1,6 +1,5 @@
 import 'dart:core';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:task_time_tracker/core/domain/entities/abstracts/IEntity.dart';

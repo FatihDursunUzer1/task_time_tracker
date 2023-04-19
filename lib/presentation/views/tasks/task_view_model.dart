@@ -9,12 +9,12 @@ class TaskViewModel extends ChangeNotifier {
   bool _isStarted = false;
   bool get isStarted => _isStarted;
   Timer? _timer;
-  TaskRepository _taskRepository = TaskRepository.instance;
+  final TaskRepository _taskRepository = TaskRepository.instance;
 
   void startTimer() {
     _isStarted = true;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      _currentTask.spendTime = _currentTask.spendTime! + Duration(seconds: 1);
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _currentTask.spendTime = _currentTask.spendTime! + const Duration(seconds: 1);
       notifyListeners();
     });
   }
@@ -25,7 +25,7 @@ class TaskViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void set isStarted(bool isStarted) {
+  set isStarted(bool isStarted) {
     _isStarted = isStarted;
     notifyListeners();
   }
@@ -33,7 +33,7 @@ class TaskViewModel extends ChangeNotifier {
   late Task _currentTask;
 
   Task get currentTask => _currentTask;
-  void set currentTask(Task task) {
+  set currentTask(Task task) {
     _currentTask = task;
     notifyListeners();
   }
@@ -46,7 +46,7 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   resetTask() {
-    _currentTask.spendTime = Duration();
+    _currentTask.spendTime = const Duration();
     stopTimer();
     notifyListeners();
   }

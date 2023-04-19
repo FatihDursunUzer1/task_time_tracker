@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/validators.dart';
 import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
@@ -26,7 +24,7 @@ class _ProfileState extends State<Profile> {
     _nameController = TextEditingController();
     _formKey = GlobalKey<FormState>();
     _nameController.text =
-        context.read<HomeViewModel>().currentUser.displayName!;
+        context.read<HomeViewModel>().currentUser.displayName ?? "";
     super.initState();
   }
 
@@ -44,7 +42,7 @@ class _ProfileState extends State<Profile> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 50,
                 backgroundImage: NetworkImage(
                     'https://www.w3schools.com/howto/img_avatar.png'),
@@ -54,19 +52,19 @@ class _ProfileState extends State<Profile> {
                 validator: Validators.checkEmptyText,
                 decoration: InputDecoration(
                     labelText: LocaleKeys.name.tr(),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.red))),
                 readOnly: false,
                 enabled: true,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
                 enabled: false,
                 decoration: InputDecoration(
                     labelText: LocaleKeys.email.tr(),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.red))),
                 readOnly: true,
                 initialValue: context.read<HomeViewModel>().currentUser.email,

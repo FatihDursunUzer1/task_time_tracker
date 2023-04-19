@@ -7,8 +7,8 @@ import 'package:task_time_tracker/infrastructure/repositories/user_repository.da
 class AddTaskViewModel extends ChangeNotifier {
   TextEditingController titleEditingController = TextEditingController();
   TextEditingController descriptionEditingController = TextEditingController();
-  TaskRepository _taskRepository = TaskRepository.instance;
-  UserRepository _userRepository = UserRepository.instance;
+  final TaskRepository _taskRepository = TaskRepository.instance;
+  final UserRepository _userRepository = UserRepository.instance;
 
   final formKey = GlobalKey<FormState>();
 

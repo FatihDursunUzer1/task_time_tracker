@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
@@ -35,7 +33,7 @@ class _NotAvailableState extends State<NotAvailable> {
                   children: [
                     Text(
                       LocaleKeys.not_available_current_version.tr(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

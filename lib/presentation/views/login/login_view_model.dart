@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_time_tracker/core/application/constants/page_constants.dart';
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
-import 'package:task_time_tracker/core/domain/entities/Users/IUserRepository.dart';
-import 'package:task_time_tracker/core/domain/entities/Users/custom_user.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentation/utility/enums/OAuthMethods.dart';
 

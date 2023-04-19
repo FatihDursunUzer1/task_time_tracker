@@ -2,6 +2,7 @@
 
 abstract class  LocaleKeys {
   static const about = 'about';
+  static const add_new_task_button = 'add_new_task_button';
   static const add_task = 'add_task';
   static const all = 'all';
   static const app_name = 'app_name';
@@ -12,10 +13,10 @@ abstract class  LocaleKeys {
   static const dark_theme = 'dark_theme';
   static const delete_account = 'delete_account';
   static const delete_account_message = 'delete_account_message';
+  static const email = 'email';
   static const email_already_in_use = 'email_already_in_use';
   static const email_not_verified = 'email_not_verified';
   static const english = 'english';
-  static const email = 'email';
   static const filter = 'filter';
   static const finish = 'finish';
   static const hello = 'hello';
@@ -26,13 +27,12 @@ abstract class  LocaleKeys {
   static const languages = 'languages';
   static const light = 'light';
   static const loading = 'loading';
+  static const login = 'login';
   static const logout = 'logout';
   static const logout_message = 'logout_message';
-  static const login = 'login';
   static const name = 'name';
   static const no = 'no';
   static const no_data = 'no_data';
-  static const add_new_task_button = 'add_new_task_button';
   static const no_data_description = 'no_data_description';
   static const no_data_description_reports = 'no_data_description_reports';
   static const no_data_description_statiscs = 'no_data_description_statiscs';
@@ -46,6 +46,7 @@ abstract class  LocaleKeys {
   static const profile = 'profile';
   static const quit = 'quit';
   static const rate_application = 'rate_application';
+  static const register = 'register';
   static const reports = 'reports';
   static const see_all_task = 'see_all_task';
   static const see_today = 'see_today';
@@ -79,8 +80,8 @@ abstract class  LocaleKeys {
   static const user_disabled = 'user_disabled';
   static const user_logged_in_successfully = 'user_logged_in_successfully';
   static const user_not_found = 'user_not_found';
-  static const user_updated_successfully = 'user_updated_successfully';
   static const user_registered_successfully = 'user_registered_successfully';
+  static const user_updated_successfully = 'user_updated_successfully';
   static const version = 'version';
   static const work = 'work';
   static const wrong_password = 'wrong_password';

@@ -29,7 +29,7 @@ class _SplashState extends State<Splash> {
 
   Padding displayLogo() {
     return Padding(
-        padding: EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32),
         child: Image.asset('assets/icon/ic_logo.png'));
   }
 }

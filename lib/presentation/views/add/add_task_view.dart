@@ -1,15 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:task_time_tracker/core/application/constants/validators.dart';
-import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task_tags.dart';
-import 'package:task_time_tracker/infrastructure/repositories/task_repository.dart';
-import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/views/add/add_task_view_model.dart';
 import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
@@ -35,7 +29,7 @@ class _AddTaskState extends State<AddTask> {
             children: [
               Text(
                 LocaleKeys.add_task.tr(),
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
               TextFormField(
                 validator: Validators.checkEmptyText,
@@ -45,7 +39,7 @@ class _AddTaskState extends State<AddTask> {
                   hintText: LocaleKeys.title.tr(),
                 ),
               ),
-              Divider(),
+              const Divider(),
               TextFormField(
                 validator: Validators.checkEmptyText,
                 controller: context
@@ -80,9 +74,9 @@ class _AddTaskState extends State<AddTask> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('${LocaleKeys.task_tags.tr()}: ', style: TextStyle(fontSize: 20)),
+        Text('${LocaleKeys.task_tags.tr()}: ', style: const TextStyle(fontSize: 20)),
         DropdownButton(
-          icon: FaIcon(FontAwesomeIcons.caretDown),
+          icon: const FaIcon(FontAwesomeIcons.caretDown),
           items: dropdownItems,
           onChanged: (taskTag) {
             context.read<AddTaskViewModel>().setSelectedTaskTag(taskTag!);
@@ -95,10 +89,11 @@ class _AddTaskState extends State<AddTask> {
 
   List<DropdownMenuItem<TaskTags>> get dropdownItems {
     List<DropdownMenuItem<TaskTags>> items = [
-      DropdownMenuItem(child: Text(LocaleKeys.home.tr()), value: TaskTags.home),
-      DropdownMenuItem(child: Text(LocaleKeys.work.tr()), value: TaskTags.work),
+      DropdownMenuItem(value: TaskTags.home, child: Text(LocaleKeys.home.tr())),
+      DropdownMenuItem(value: TaskTags.work, child: Text(LocaleKeys.work.tr())),
       DropdownMenuItem(
-          child: Text(LocaleKeys.personal.tr()), value: TaskTags.personal),
+          value: TaskTags.personal,
+          child: Text(LocaleKeys.personal.tr())),
     ];
     return items;
   }

@@ -6,7 +6,7 @@ import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
 class TaskRepository {
-  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static TaskRepository? _instance;
 
@@ -83,7 +83,7 @@ class TaskRepository {
 
   getTodayTasksByUser(String userId) async {
     try {
-      var date = DateTime.now().subtract(Duration(days: 1));
+      var date = DateTime.now().subtract(const Duration(days: 1));
       final collection = await _firestore
           .collection('tasks')
           .where('userId', isEqualTo: userId)

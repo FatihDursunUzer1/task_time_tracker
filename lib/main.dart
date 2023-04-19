@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/app_constants.dart';
@@ -20,7 +19,6 @@ import 'package:task_time_tracker/presentation/views/login/login_view_model.dart
 import 'package:task_time_tracker/presentation/views/register/register_view_model.dart';
 import 'package:task_time_tracker/presentation/views/splash/splash_view.dart';
 import 'package:task_time_tracker/presentation/views/tasks/task_view_model.dart';
-import 'package:task_time_tracker/presentation/widgets/functional_app_bar.dart';
 
 import 'core/application/state/theme_state_provider.dart';
 
@@ -69,6 +67,8 @@ class MyApp extends StatelessWidget {
 
 class MainApp extends StatelessWidget {
   int _counter = 0;
+
+  MainApp({super.key});
 
   void _incrementCounter() {
     _counter++;

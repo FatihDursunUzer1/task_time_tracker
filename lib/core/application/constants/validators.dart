@@ -21,11 +21,13 @@ class Validators {
     if (value != password) {
       return 'Passwords do not match';
     }
+    return null;
   }
 
   static String? checkEmptyText(String? value) {
     if (value!.isEmpty) {
       return 'This field is required';
     }
+    return null;
   }
 }

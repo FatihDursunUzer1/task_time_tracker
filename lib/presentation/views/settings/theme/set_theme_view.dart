@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/Theme/custom_theme_mode.dart';
 import 'package:task_time_tracker/core/application/state/theme_state_provider.dart';

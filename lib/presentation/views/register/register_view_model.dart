@@ -9,7 +9,7 @@ class RegisterViewModel extends ChangeNotifier {
   final TextEditingController passwordAgainController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  UserRepository _userRepository = UserRepository.instance;
+  final UserRepository _userRepository = UserRepository.instance;
   bool _isVisible = false;
   bool get isVisible => _isVisible;
   void setIsVisible() {
@@ -54,5 +54,6 @@ class RegisterViewModel extends ChangeNotifier {
     if (value != passwordController.text) {
       return 'Passwords do not match';
     }
+    return null;
   }
 }

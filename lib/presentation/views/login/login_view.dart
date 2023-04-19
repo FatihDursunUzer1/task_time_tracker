@@ -1,14 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:task_time_tracker/core/application/constants/color_constants.dart';
-import 'package:task_time_tracker/core/application/constants/page_constants.dart';
-import 'package:task_time_tracker/core/application/constants/validators.dart';
-import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 import 'package:task_time_tracker/presentation/utility/enums/OAuthMethods.dart';
 import 'package:task_time_tracker/presentation/views/home/home_view_model.dart';
@@ -89,7 +83,7 @@ class _LoginState extends State<Login> {
   IconButton SignInMethods(BuildContext context, IconData icon,
       {Function()? onPressed}) {
     return IconButton(
-        onPressed: onPressed == null ? () {} : onPressed,
+        onPressed: onPressed ?? () {},
         icon: FaIcon(
           icon,
           color: ColorConstants.customPurple,
@@ -101,12 +95,12 @@ class _LoginState extends State<Login> {
         onPressed: () {
           context.read<LoginViewModel>().goToRegister();
         },
-        text: 'Register');
+        text: LocaleKeys.register.tr());
   }
 
   LoginButton(BuildContext context) {
     return CustomButton(
-        text: 'Login',
+        text: LocaleKeys.login.tr(),
         onPressed: () async {
           var validate = context.read<LoginViewModel>().validate();
           if (validate) {

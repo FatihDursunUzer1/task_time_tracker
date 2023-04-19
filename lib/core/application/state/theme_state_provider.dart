@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:task_time_tracker/core/application/Theme/custom_theme_mode.dart';
 import 'package:task_time_tracker/core/application/constants/color_constants.dart';
 import 'package:task_time_tracker/infrastructure/cache/hive_cache_manager.dart';
@@ -31,12 +30,12 @@ class ThemeStateProvider extends ChangeNotifier {
   }
 
   ThemeData get _darkTheme => ThemeData.dark().copyWith(
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Colors.black,
             selectedIconTheme:
                 IconThemeData(color: ColorConstants.customPurple, size: 32)),
-        inputDecorationTheme: InputDecorationTheme(
-            contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
+        inputDecorationTheme: const InputDecorationTheme(
+            contentPadding: EdgeInsets.symmetric(vertical: 0.0),
             suffixIconColor: ColorConstants.darkBlue,
             labelStyle: TextStyle(color: ColorConstants.darkBlue),
             focusedBorder: UnderlineInputBorder(
@@ -44,25 +43,25 @@ class ThemeStateProvider extends ChangeNotifier {
         cardColor: ColorConstants.timerCardDark,
         //scaffoldBackgroundColor: ColorConstants.scaffoldBackGroundDark,
         scaffoldBackgroundColor: Colors.black12,
-        appBarTheme: AppBarTheme(backgroundColor: ColorConstants.darkBlue),
+        appBarTheme: const AppBarTheme(backgroundColor: ColorConstants.darkBlue),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
               backgroundColor: ColorConstants.darkBlue,
               foregroundColor: Colors.white),
         ),
-        cardTheme: CardTheme(color: Color.fromRGBO(41, 38, 57, 1)),
-        listTileTheme: ListTileThemeData(textColor: Colors.white),
+        cardTheme: const CardTheme(color: Color.fromRGBO(41, 38, 57, 1)),
+        listTileTheme: const ListTileThemeData(textColor: Colors.white),
       );
 
   ThemeData get _lightTheme => ThemeData.light().copyWith(
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedIconTheme:
               IconThemeData(color: ColorConstants.customPurple, size: 32)),
       cardColor: ColorConstants.timerCardLight,
       scaffoldBackgroundColor: ColorConstants.scaffoldBackGround,
-      appBarTheme: AppBarTheme(backgroundColor: ColorConstants.customPurple),
-      inputDecorationTheme: InputDecorationTheme(
-          contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
+      appBarTheme: const AppBarTheme(backgroundColor: ColorConstants.customPurple),
+      inputDecorationTheme: const InputDecorationTheme(
+          contentPadding: EdgeInsets.symmetric(vertical: 0.0),
           suffixIconColor: ColorConstants.customPurple,
           labelStyle: TextStyle(color: ColorConstants.customPurple),
           focusedBorder: UnderlineInputBorder(
@@ -72,6 +71,6 @@ class ThemeStateProvider extends ChangeNotifier {
             backgroundColor: ColorConstants.customPurple,
             foregroundColor: Colors.white),
       ),
-      cardTheme: CardTheme(color: Color.fromRGBO(250, 250, 255, 1)),
-      listTileTheme: ListTileThemeData(textColor: Colors.black));
+      cardTheme: const CardTheme(color: Color.fromRGBO(250, 250, 255, 1)),
+      listTileTheme: const ListTileThemeData(textColor: Colors.black));
 }
