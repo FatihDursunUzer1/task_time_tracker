@@ -45,6 +45,7 @@
 	"quit": "Quit",
 	"rate_application": "Rate Application",
 	"register": "Register",
+    "requires_recent_login":"This operation is sensitive and requires recent authentication. Log in again before retrying this request.",
 	"reports": "Reports",
 	"see_all_task": "See All Tasks",
 	"see_today": "See Today",
@@ -85,4 +86,5 @@
 	"work": "Work",
 	"wrong_password": "Wrong password provided for that user.",
 	"yes": "Yes"
+    
 }

@@ -164,41 +164,13 @@ class UserRepository implements IUserRepository {
       return getCurrentUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        Fluttertoast.showToast(
-            msg: LocaleKeys.user_not_found.tr(),
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        await errorMessage(LocaleKeys.user_not_found.tr());
       } else if (e.code == 'wrong-password') {
-        Fluttertoast.showToast(
-            msg: LocaleKeys.wrong_password.tr(),
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        await errorMessage(LocaleKeys.wrong_password.tr());
       } else if (e.code == 'user-disabled') {
-        Fluttertoast.showToast(
-            msg: LocaleKeys.user_disabled.tr(),
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        await errorMessage(LocaleKeys.user_disabled.tr());
       } else if (e.code == 'email-not-verified') {
-        Fluttertoast.showToast(
-            msg: LocaleKeys.email_not_verified.tr(),
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        await errorMessage(LocaleKeys.email_not_verified.tr());
       }
     }
   }
@@ -224,16 +196,19 @@ class UserRepository implements IUserRepository {
           fontSize: 16.0);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        Fluttertoast.showToast(
-            msg:
-                "This operation is sensitive and requires recent authentication. Log in again before retrying this request.",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        await errorMessage(LocaleKeys.requires_recent_login.tr());
       }
     }
+  }
+
+  Future<bool?> errorMessage(String msg) {
+    return Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }

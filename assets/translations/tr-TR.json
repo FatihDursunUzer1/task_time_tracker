@@ -45,6 +45,7 @@
 	"quit": "Çık",
 	"rate_application": "Uygulamayı Değerlendir",
 	"register": "Kayıt Ol",
+    "requires_recent_login": "Bu işlem için son giriş yapmanız gerekiyor",
 	"reports": "Raporlar",
 	"see_all_task": "Hepsini gör",
 	"see_today": "Bugünü gör",

@@ -47,6 +47,7 @@ abstract class  LocaleKeys {
   static const quit = 'quit';
   static const rate_application = 'rate_application';
   static const register = 'register';
+  static const requires_recent_login = 'requires_recent_login';
   static const reports = 'reports';
   static const see_all_task = 'see_all_task';
   static const see_today = 'see_today';
