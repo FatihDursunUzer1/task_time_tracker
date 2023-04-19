@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:task_time_tracker/core/application/constants/custom_toasts.dart';
 import 'package:task_time_tracker/core/domain/entities/Tasks/task.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
 
@@ -27,10 +28,9 @@ class TaskRepository {
               toFirestore: (task, _) => task.toJson())
           .set(task);
 
-      Fluttertoast.showToast(
-          msg: LocaleKeys.task_added_successfully.tr(), backgroundColor: Colors.green);
+      CustomToasts.successMessage(LocaleKeys.task_added_successfully.tr());
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+      CustomToasts.errorMessage(e.toString());
     }
   }
 
@@ -43,20 +43,18 @@ class TaskRepository {
               fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
               toFirestore: (task, _) => task.toJson())
           .update(task);
-      Fluttertoast.showToast(
-          msg: LocaleKeys.task_update_successfully.tr(), backgroundColor: Colors.green);
+      CustomToasts.successMessage(LocaleKeys.task_update_successfully.tr());
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+      CustomToasts.errorMessage(e.toString());
     }
   }
 
   Future<void> deleteTask(String id) async {
     try{
     await _firestore.collection('tasks').doc(id).delete();
-    Fluttertoast.showToast(
-        msg: LocaleKeys.task_deleted_successfully.tr(), backgroundColor: Colors.green);
+    CustomToasts.successMessage(LocaleKeys.task_deleted_successfully.tr());
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+      CustomToasts.errorMessage(e.toString());
     }
   }
 
