@@ -164,13 +164,13 @@ class UserRepository implements IUserRepository {
       return getCurrentUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        await errorMessage(LocaleKeys.user_not_found.tr());
+        await _errorMessage(LocaleKeys.user_not_found.tr());
       } else if (e.code == 'wrong-password') {
-        await errorMessage(LocaleKeys.wrong_password.tr());
+        await _errorMessage(LocaleKeys.wrong_password.tr());
       } else if (e.code == 'user-disabled') {
-        await errorMessage(LocaleKeys.user_disabled.tr());
+        await _errorMessage(LocaleKeys.user_disabled.tr());
       } else if (e.code == 'email-not-verified') {
-        await errorMessage(LocaleKeys.email_not_verified.tr());
+        await _errorMessage(LocaleKeys.email_not_verified.tr());
       }
     }
   }
@@ -196,12 +196,12 @@ class UserRepository implements IUserRepository {
           fontSize: 16.0);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        await errorMessage(LocaleKeys.requires_recent_login.tr());
+        await _errorMessage(LocaleKeys.requires_recent_login.tr());
       }
     }
   }
 
-  Future<bool?> errorMessage(String msg) {
+  Future<bool?> _errorMessage(String msg) {
     return Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
