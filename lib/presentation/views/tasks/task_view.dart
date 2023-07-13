@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,25 +24,29 @@ class _TaskViewState extends State<TaskView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final shouldPop = await showDialog<bool>(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(LocaleKeys.timer_reset_question.tr()),
-              actionsAlignment: MainAxisAlignment.spaceBetween,
-              actions: [
-                resetTimerAndGoBack(context),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context, false);
-                  },
-                  child: Text(LocaleKeys.no.tr()),
-                ),
-              ],
-            );
-          },
-        );
-        return shouldPop!;
+        var task = context.read<TaskViewModel>().currentTask;
+        if (task.spendTime != Duration.zero && task.isCompleted != true) {
+          final shouldPop = await showDialog<bool>(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(LocaleKeys.timer_reset_question.tr()),
+                actionsAlignment: MainAxisAlignment.spaceBetween,
+                actions: [
+                  resetTimerAndGoBack(context),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, false);
+                    },
+                    child: Text(LocaleKeys.no.tr()),
+                  ),
+                ],
+              );
+            },
+          );
+          return shouldPop!;
+        }
+        return true;
       },
       child: Scaffold(
           appBar: AppBar(

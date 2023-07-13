@@ -136,24 +136,26 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Column TasksHomeWidget() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32.0),
-              child: WelcomeArea(),
-            ),
-            FilterOptionsRow(),
-          ],
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
-          child: TasksFutureBuilder(),
-        ),
-      ],
+  TasksHomeWidget() {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                child: WelcomeArea(),
+              ),
+              FilterOptionsRow(),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: TasksFutureBuilder(),
+          ),
+        ],
+      ),
     );
   }
 

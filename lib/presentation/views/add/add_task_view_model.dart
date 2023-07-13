@@ -26,13 +26,13 @@ class AddTaskViewModel extends ChangeNotifier {
         title: titleEditingController.text,
         description: descriptionEditingController.text,
         tags: [_selectedTaskTag],
-        userId: userId!.id,
+        userId: userId!.id!,
         createdAt: DateTime.now()));
     var task = Task(
         title: titleEditingController.text,
         description: descriptionEditingController.text,
         tags: [_selectedTaskTag],
-        userId: userId.id,
+        userId: userId.id!,
         createdAt: DateTime.now());
     _clear();
 

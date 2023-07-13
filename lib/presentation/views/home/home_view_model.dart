@@ -42,8 +42,8 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<List<Task>> getTasks() async {
     _currentTasks = (_taskFilterDay == TaskFilterDay.all)
-        ? await _taskRepository.getTasksByUser(_currentUser.id)
-        : await _taskRepository.getTodayTasksByUser(_currentUser.id);
+        ? await _taskRepository.getTasksByUser(_currentUser.id!)
+        : await _taskRepository.getTodayTasksByUser(_currentUser.id!);
     notifyListeners();
     return _currentTasks;
   }
@@ -54,7 +54,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> deleteTask(Task task) async {
-    await _taskRepository.deleteTask(task.id);
+    await _taskRepository.deleteTask(task.id!);
     _currentTasks.remove(task);
     notifyListeners();
   }

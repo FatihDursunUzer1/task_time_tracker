@@ -17,7 +17,7 @@ class Task implements IEntity<Task> {
   bool? isCompleted = false;
 
   @override
-  late String id;
+  String? id;
 
   Task({
     required this.title,

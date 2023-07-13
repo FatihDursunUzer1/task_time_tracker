@@ -6,7 +6,7 @@ part 'custom_user.g.dart';
 @JsonSerializable()
 class CustomUser implements IEntity {
   @override
-  late String id;
+  late String? id;
 
   final String email;
   final String? displayName;
