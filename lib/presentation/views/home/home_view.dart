@@ -260,78 +260,93 @@ class _HomeState extends State<Home> {
 
     return Card(
       color: task.isCompleted == true
-          ? ColorConstants.customGreen
+          ? ColorConstants.customDark
           : ColorConstants.customPurpleRadial,
-      child: Slidable(
-        // Specify a key if the Slidable is dismissible.
-        key: UniqueKey(),
+      child: SlidableFeature(task, index),
+    );
+  }
 
-        // The start action pane is the one at the left or the top side.
-        startActionPane: ActionPane(
-          // A motion is a widget used to control how the pane animates.
-          motion: const ScrollMotion(),
+  Slidable SlidableFeature(Task task, int index) {
+    return Slidable(
+      // Specify a key if the Slidable is dismissible.
+      key: UniqueKey(),
 
-          // A pane can dismiss the Slidable.
-          dismissible: DismissiblePane(onDismissed: () async {
-            await context.read<HomeViewModel>().deleteTask(task);
-          }),
+      // The start action pane is the one at the left or the top side.
+      startActionPane: ActionPane(
+        // A motion is a widget used to control how the pane animates.
+        motion: const ScrollMotion(),
 
-          // All actions are defined in the children parameter.
-          children: [
-            // A SlidableAction can have an icon and/or a label.
-            SlidableAction(
-              onPressed: (context) async {
-                await context.read<HomeViewModel>().deleteTask(task);
-              },
-              backgroundColor: ColorConstants.customPink,
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: 'Delete',
-            ),
-            SlidableAction(
-              onPressed: (_) {},
-              backgroundColor: ColorConstants.customPurple,
-              foregroundColor: Colors.white,
-              icon: Icons.share,
-              label: 'Share',
-            ),
-          ],
+        // A pane can dismiss the Slidable.
+        dismissible: DismissiblePane(onDismissed: () async {
+          await context.read<HomeViewModel>().deleteTask(task);
+        }),
+
+        // All actions are defined in the children parameter.
+        children: [
+          // A SlidableAction can have an icon and/or a label.
+          DeleteAction(task),
+          ShareAction(),
+        ],
+      ),
+
+      // The end action pane is the one at the right or the bottom side.
+      endActionPane: UpdateAction(task),
+      child: ListTile(
+        onTap: () {
+          context.read<TaskViewModel>().currentTask = _currentTasks![index];
+          NavigationService.instance.navigateToPage(path: PageConstants.task);
+        },
+        textColor: Colors.black,
+        trailing: const FaIcon(FontAwesomeIcons.chevronRight),
+        subtitle: Text(
+          task.description.length > 20
+              ? '${task.description.substring(0, 20)}...'
+              : task.description,
         ),
-
-        // The end action pane is the one at the right or the bottom side.
-        endActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          children: [
-            SlidableAction(
-              onPressed: (context) {
-                context.read<HomeViewModel>().updateTask(task);
-              },
-              backgroundColor: ColorConstants.customBlue,
-              foregroundColor: Colors.white,
-              icon: Icons.save,
-              label: 'Save',
-            ),
-          ],
-        ),
-        child: ListTile(
-          onTap: () {
-            debugPrint('tapped');
-            context.read<TaskViewModel>().currentTask = _currentTasks![index];
-            NavigationService.instance.navigateToPage(path: PageConstants.task);
-          },
-          textColor: Colors.black,
-          trailing: const FaIcon(FontAwesomeIcons.chevronRight),
-          subtitle: Text(
-            task.description.length > 20
-                ? '${task.description.substring(0, 20)}...'
-                : task.description,
-          ),
-          leading: ListTileLeading(task.tags![0]),
-          title: Text(
-            task.title,
-          ),
+        leading: ListTileLeading(task.tags![0]),
+        title: Text(
+          task.title,
         ),
       ),
+    );
+  }
+
+  ActionPane UpdateAction(Task task) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        SlidableAction(
+          onPressed: (context) {
+            context.read<HomeViewModel>().updateTask(task);
+          },
+          backgroundColor: ColorConstants.customBlue,
+          foregroundColor: Colors.white,
+          icon: Icons.save,
+          label: 'Save',
+        ),
+      ],
+    );
+  }
+
+  SlidableAction ShareAction() {
+    return SlidableAction(
+      onPressed: (_) {},
+      backgroundColor: ColorConstants.customPurple,
+      foregroundColor: Colors.white,
+      icon: Icons.share,
+      label: 'Share',
+    );
+  }
+
+  SlidableAction DeleteAction(Task task) {
+    return SlidableAction(
+      onPressed: (context) async {
+        await context.read<HomeViewModel>().deleteTask(task);
+      },
+      backgroundColor: ColorConstants.customPink,
+      foregroundColor: Colors.white,
+      icon: Icons.delete,
+      label: 'Delete',
     );
   }
 
