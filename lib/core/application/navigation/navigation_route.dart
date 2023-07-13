@@ -6,6 +6,7 @@ import 'package:task_time_tracker/presentation/views/login/login_view.dart';
 import 'package:task_time_tracker/presentation/views/profile/profile_view.dart';
 import 'package:task_time_tracker/presentation/views/register/register_view.dart';
 import 'package:task_time_tracker/presentation/views/settings/about/about_view.dart';
+import 'package:task_time_tracker/presentation/views/settings/contact/contact_us_view.dart';
 import 'package:task_time_tracker/presentation/views/settings/languages/set_language_view.dart';
 import 'package:task_time_tracker/presentation/views/settings/privacy/privacy_policy.dart';
 import 'package:task_time_tracker/presentation/views/settings/terms/terms_and_conditions.dart';
@@ -55,6 +56,8 @@ class NavigationRoute {
         return defaultRoute(const Profile());
       case PageConstants.about:
         return defaultRoute(const About());
+      case PageConstants.contactUs:
+        return defaultRoute(const EmailSender());
       default:
         return defaultRoute(const NotAvailable());
     }

@@ -15,4 +15,5 @@ class PageConstants {
   static const String task = '/task';
   static const String languages = '/languages';
   static const String theme = '/theme';
+  static const String contactUs = '/contact-us';
 }

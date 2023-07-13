@@ -6,6 +6,7 @@ import 'package:task_time_tracker/core/application/constants/page_constants.dart
 import 'package:task_time_tracker/core/application/navigation/navigation_service.dart';
 import 'package:task_time_tracker/infrastructure/repositories/user_repository.dart';
 import 'package:task_time_tracker/presentation/generated/locale_keys.g.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../home/home_view_model.dart';
 
@@ -50,9 +51,35 @@ class _SettingsViewState extends State<SettingsView> {
           customListTile(
               icon: const Icon(FontAwesomeIcons.envelope),
               text: LocaleKeys.contact_us.tr(),
-              onTap: () {
-                NavigationService.instance
-                    .navigateToPage(path: PageConstants.contact);
+              onTap: () async {
+                /*NavigationService.instance
+                    .navigateToPage(path: PageConstants.contactUs); */
+                String? encodeQueryParameters(Map<String, String> params) {
+                  return params.entries
+                      .map((MapEntry<String, String> e) =>
+                          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                      .join('&');
+                }
+
+// ···
+                final Uri emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: 'smith@example.com',
+                  query: encodeQueryParameters(<String, String>{
+                    'subject': 'Example Subject & Symbols are allowed!',
+                  }),
+                );
+
+                if (await canLaunchUrl(emailLaunchUri)) {
+                  await launchUrl(emailLaunchUri);
+                } else {
+                  throw 'Could not launch $emailLaunchUri';
+                }
+                /* try {
+                  launchUrl(emailLaunchUri);
+                } catch (e) {
+                  print(e.toString());
+                } */
               }),
           customListTile(
               icon: const Icon(FontAwesomeIcons.infoCircle),
@@ -112,27 +139,25 @@ class _SettingsViewState extends State<SettingsView> {
 
   Future<dynamic> DeleteAccountDialog(BuildContext context) {
     return showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(LocaleKeys.delete_account_message.tr()),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(LocaleKeys.no.tr())),
-                          TextButton(
-                              onPressed: () {
-                                UserRepository.instance.deleteAccount();
-                                context
-                                    .read<HomeViewModel>()
-                                    .setCurrentNavBarIndex(0);
-                                NavigationService.instance
-                                    .navigateToPageClear(PageConstants.login);
-                              },
-                              child: Text(LocaleKeys.yes.tr())),
-                        ],
-                      ));
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(LocaleKeys.delete_account_message.tr()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(LocaleKeys.no.tr())),
+                TextButton(
+                    onPressed: () {
+                      UserRepository.instance.deleteAccount();
+                      context.read<HomeViewModel>().setCurrentNavBarIndex(0);
+                      NavigationService.instance
+                          .navigateToPageClear(PageConstants.login);
+                    },
+                    child: Text(LocaleKeys.yes.tr())),
+              ],
+            ));
   }
 
   Future<dynamic> ExitDialog(BuildContext context) {
