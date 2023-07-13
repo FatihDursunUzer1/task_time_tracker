@@ -115,7 +115,8 @@ class _HomeState extends State<Home> {
   AlertDialog updateDialog() {
     return AlertDialog(
       title: const Text('Update'),
-      content: const Text('There is a new version of the app. Please update it.'),
+      content:
+          const Text('There is a new version of the app. Please update it.'),
       actions: [
         TextButton(
             onPressed: () {
@@ -162,6 +163,8 @@ class _HomeState extends State<Home> {
       builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            var taskList = snapshot.data!
+                .sort((a, b) => a.createdAt.compareTo(b.createdAt));
             return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
@@ -257,6 +260,7 @@ class _HomeState extends State<Home> {
     var task = _currentTasks![index];
 
     return Card(
+      color: task.isCompleted == true ? Colors.green : Colors.white,
       child: Slidable(
         // Specify a key if the Slidable is dismissible.
         key: UniqueKey(),

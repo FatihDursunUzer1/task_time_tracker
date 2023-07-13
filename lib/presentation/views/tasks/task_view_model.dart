@@ -14,7 +14,8 @@ class TaskViewModel extends ChangeNotifier {
   void startTimer() {
     _isStarted = true;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _currentTask.spendTime = _currentTask.spendTime! + const Duration(seconds: 1);
+      _currentTask.spendTime =
+          _currentTask.spendTime! + const Duration(seconds: 1);
       notifyListeners();
     });
   }
@@ -40,6 +41,7 @@ class TaskViewModel extends ChangeNotifier {
 
   saveTask() {
     _currentTask.isCompleted = true;
+    notifyListeners();
     _taskRepository.updateTask(_currentTask.toJson());
     resetTask();
     NavigationService.instance.navigateToPageClear('/home');

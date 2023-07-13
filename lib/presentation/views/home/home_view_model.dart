@@ -40,7 +40,7 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  getTasks() async {
+  Future<List<Task>> getTasks() async {
     _currentTasks = (_taskFilterDay == TaskFilterDay.all)
         ? await _taskRepository.getTasksByUser(_currentUser.id)
         : await _taskRepository.getTodayTasksByUser(_currentUser.id);
