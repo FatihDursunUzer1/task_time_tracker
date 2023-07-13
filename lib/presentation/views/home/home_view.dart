@@ -129,7 +129,6 @@ class _HomeState extends State<Home> {
             onPressed: () {
               NavigationService.instance
                   .navigateToPage(path: PageConstants.profile);
-              //NavigationService.instance.navigateTo(PageConstants.updatePage);
             },
             child: Text(LocaleKeys.update.tr()))
       ],
@@ -165,8 +164,6 @@ class _HomeState extends State<Home> {
       builder: (context, AsyncSnapshot<List<Task>?> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-            var taskList = snapshot.data!
-                .sort((a, b) => a.createdAt.compareTo(b.createdAt));
             return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
@@ -262,7 +259,9 @@ class _HomeState extends State<Home> {
     var task = _currentTasks![index];
 
     return Card(
-      color: task.isCompleted == true ? Colors.green : Colors.white,
+      color: task.isCompleted == true
+          ? ColorConstants.customGreen
+          : ColorConstants.customPurpleRadial,
       child: Slidable(
         // Specify a key if the Slidable is dismissible.
         key: UniqueKey(),

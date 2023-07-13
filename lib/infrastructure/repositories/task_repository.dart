@@ -50,9 +50,9 @@ class TaskRepository {
   }
 
   Future<void> deleteTask(String id) async {
-    try{
-    await _firestore.collection('tasks').doc(id).delete();
-    CustomToasts.successMessage(LocaleKeys.task_deleted_successfully.tr());
+    try {
+      await _firestore.collection('tasks').doc(id).delete();
+      CustomToasts.successMessage(LocaleKeys.task_deleted_successfully.tr());
     } catch (e) {
       CustomToasts.errorMessage(e.toString());
     }
@@ -76,7 +76,9 @@ class TaskRepository {
             fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
             toFirestore: (task, _) => task.toJson())
         .get();
-    return collection.docs.map((e) => e.data()).toList();
+    var taskCollection = collection.docs.map((e) => e.data()).toList();
+    taskCollection.sort((a, b) => a.isCompleted == true ? -1 : 1);
+    return taskCollection;
   }
 
   getTodayTasksByUser(String userId) async {
@@ -90,7 +92,9 @@ class TaskRepository {
               fromFirestore: (snapshot, _) => Task.fromJson(snapshot.data()!),
               toFirestore: (task, _) => task.toJson())
           .get();
-      return collection.docs.map((e) => e.data()).toList();
+      var taskCollection = collection.docs.map((e) => e.data()).toList();
+      taskCollection.sort((a, b) => a.isCompleted == true ? 1 : -1);
+      return taskCollection;
     } catch (e) {
       print(e);
     }
