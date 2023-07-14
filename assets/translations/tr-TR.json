@@ -53,6 +53,7 @@
 	"start": "Başlat",
 	"statiscs": "İstatistikler",
 	"stop": "Durdur",
+	"subject_title":"Task Time Tracker Uygulaması Hakkında",
 	"task_added_successfully": "Görev başarıyla eklendi",
 	"task_deleted_successfully": "Görev başarıyla silindi",
 	"task_description": "Görev Açıklaması",

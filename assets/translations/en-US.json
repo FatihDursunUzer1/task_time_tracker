@@ -53,6 +53,7 @@
 	"start": "Start",
 	"statiscs": "Statiscs",
 	"stop": "Stop",
+	"subject_title":"About Task Time Tracker Application",
 	"task_added_successfully": "Task added successfully",
 	"task_deleted_successfully": "Task deleted successfully",
 	"task_description": "Task Description",

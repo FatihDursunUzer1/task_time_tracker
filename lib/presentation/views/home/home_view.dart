@@ -87,10 +87,10 @@ class _HomeState extends State<Home> {
         icon: const FaIcon(FontAwesomeIcons.plus),
         label: LocaleKeys.add_task.tr(),
       ),
-      BottomNavigationBarItem(
+      /*BottomNavigationBarItem(
         icon: const FaIcon(FontAwesomeIcons.chartBar),
         label: LocaleKeys.statiscs.tr(),
-      ),
+      ), this feature not available currently*/
       BottomNavigationBarItem(
           icon: const FaIcon(FontAwesomeIcons.cog),
           label: LocaleKeys.settings.tr())
@@ -102,9 +102,10 @@ class _HomeState extends State<Home> {
       return TasksHomeWidget();
     } else if (context.watch<HomeViewModel>().currentNavBarIndex == 1) {
       return const AddTask();
-    } else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
+    } /*else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
       return const StatisticsView(); //StatisticsView(); normally but this page not available for this section.
-    } else if (context.watch<HomeViewModel>().currentNavBarIndex == 3) {
+    }  */
+    else if (context.watch<HomeViewModel>().currentNavBarIndex == 2) {
       return const SettingsView();
     } else {
       return const Placeholder();
@@ -260,7 +261,7 @@ class _HomeState extends State<Home> {
 
     return Card(
       color: task.isCompleted == true
-          ? ColorConstants.customDark
+          ? ColorConstants.timerCardDark
           : ColorConstants.customPurpleRadial,
       child: SlidableFeature(task, index),
     );
@@ -296,7 +297,7 @@ class _HomeState extends State<Home> {
           context.read<TaskViewModel>().currentTask = _currentTasks![index];
           NavigationService.instance.navigateToPage(path: PageConstants.task);
         },
-        textColor: Colors.black,
+        textColor: ColorConstants.timerCardLight,
         trailing: const FaIcon(FontAwesomeIcons.chevronRight),
         subtitle: Text(
           task.description.length > 20

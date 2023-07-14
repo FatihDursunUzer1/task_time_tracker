@@ -52,34 +52,7 @@ class _SettingsViewState extends State<SettingsView> {
               icon: const Icon(FontAwesomeIcons.envelope),
               text: LocaleKeys.contact_us.tr(),
               onTap: () async {
-                /*NavigationService.instance
-                    .navigateToPage(path: PageConstants.contactUs); */
-                String? encodeQueryParameters(Map<String, String> params) {
-                  return params.entries
-                      .map((MapEntry<String, String> e) =>
-                          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-                      .join('&');
-                }
-
-// ···
-                final Uri emailLaunchUri = Uri(
-                  scheme: 'mailto',
-                  path: 'smith@example.com',
-                  query: encodeQueryParameters(<String, String>{
-                    'subject': 'Example Subject & Symbols are allowed!',
-                  }),
-                );
-
-                if (await canLaunchUrl(emailLaunchUri)) {
-                  await launchUrl(emailLaunchUri);
-                } else {
-                  throw 'Could not launch $emailLaunchUri';
-                }
-                /* try {
-                  launchUrl(emailLaunchUri);
-                } catch (e) {
-                  print(e.toString());
-                } */
+                goToMail();
               }),
           customListTile(
               icon: const Icon(FontAwesomeIcons.infoCircle),
@@ -119,8 +92,6 @@ class _SettingsViewState extends State<SettingsView> {
               text: LocaleKeys.logout.tr(),
               onTap: () {
                 return ExitDialog(context);
-                /* NavigationService.instance
-                .navigateToPageClear(PageConstants.login); */
               }),
           customListTile(
               textColor: Colors.red,
@@ -135,6 +106,35 @@ class _SettingsViewState extends State<SettingsView> {
         ],
       ),
     ));
+  }
+
+  void goToMail() async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'tasktimetracker@gmail.com',
+      query: encodeQueryParameters(<String, String>{
+        'subject': LocaleKeys.subject_title.tr(),
+      }),
+    );
+
+    if (await canLaunchUrl(emailLaunchUri)) {
+      await launchUrl(emailLaunchUri);
+    } else {
+      throw 'Could not launch $emailLaunchUri';
+    }
+    /* for unexpected errors
+    try {
+      launchUrl(emailLaunchUri);
+    } catch (e) {
+      print(e.toString());
+    } */
   }
 
   Future<dynamic> DeleteAccountDialog(BuildContext context) {

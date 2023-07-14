@@ -55,6 +55,7 @@ abstract class  LocaleKeys {
   static const start = 'start';
   static const statiscs = 'statiscs';
   static const stop = 'stop';
+  static const subject_title = 'subject_title';
   static const task_added_successfully = 'task_added_successfully';
   static const task_deleted_successfully = 'task_deleted_successfully';
   static const task_description = 'task_description';
