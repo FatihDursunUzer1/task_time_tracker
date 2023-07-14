@@ -67,8 +67,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '279983312401',
     projectId: 'task-time-tracker-flutter',
     storageBucket: 'task-time-tracker-flutter.appspot.com',
-    iosClientId: '279983312401-vu280eo3i8n9i1hqhldcgt6a1vrif0vd.apps.googleusercontent.com',
-    iosBundleId: 'com.example.taskTimeTracker',
+    iosClientId:
+        '279983312401-vu280eo3i8n9i1hqhldcgt6a1vrif0vd.apps.googleusercontent.com',
+    iosBundleId: 'com.taskTimeTracker',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '279983312401',
     projectId: 'task-time-tracker-flutter',
     storageBucket: 'task-time-tracker-flutter.appspot.com',
-    iosClientId: '279983312401-vu280eo3i8n9i1hqhldcgt6a1vrif0vd.apps.googleusercontent.com',
-    iosBundleId: 'com.example.taskTimeTracker',
+    iosClientId:
+        '279983312401-vu280eo3i8n9i1hqhldcgt6a1vrif0vd.apps.googleusercontent.com',
+    iosBundleId: 'com.taskTimeTracker',
   );
 }

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.task_time_tracker">
+    package="com.task_time_tracker">
    <application
         android:label="task_time_tracker"
         android:name="${applicationName}"
