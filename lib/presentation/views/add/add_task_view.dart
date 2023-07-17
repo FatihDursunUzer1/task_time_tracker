@@ -19,7 +19,7 @@ class AddTask extends StatefulWidget {
 class _AddTaskState extends State<AddTask> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
       child: Form(
         key: context.read<AddTaskViewModel>().formKey,
         child: Padding(
@@ -29,7 +29,8 @@ class _AddTaskState extends State<AddTask> {
             children: [
               Text(
                 LocaleKeys.add_task.tr(),
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
               TextFormField(
                 validator: Validators.checkEmptyText,
@@ -57,7 +58,8 @@ class _AddTaskState extends State<AddTask> {
                         context.read<AddTaskViewModel>().formKey.currentState!;
                     if (currentState.validate()) {
                       currentState.save();
-                      var task=await context.read<AddTaskViewModel>().addTask();
+                      var task =
+                          await context.read<AddTaskViewModel>().addTask();
                       context.read<HomeViewModel>().addTask(task);
                       context.read<HomeViewModel>().setCurrentNavBarIndex(0);
                     }
@@ -74,7 +76,8 @@ class _AddTaskState extends State<AddTask> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('${LocaleKeys.task_tags.tr()}: ', style: const TextStyle(fontSize: 20)),
+        Text('${LocaleKeys.task_tags.tr()}: ',
+            style: const TextStyle(fontSize: 20)),
         DropdownButton(
           icon: const FaIcon(FontAwesomeIcons.caretDown),
           items: dropdownItems,
@@ -92,8 +95,7 @@ class _AddTaskState extends State<AddTask> {
       DropdownMenuItem(value: TaskTags.home, child: Text(LocaleKeys.home.tr())),
       DropdownMenuItem(value: TaskTags.work, child: Text(LocaleKeys.work.tr())),
       DropdownMenuItem(
-          value: TaskTags.personal,
-          child: Text(LocaleKeys.personal.tr())),
+          value: TaskTags.personal, child: Text(LocaleKeys.personal.tr())),
     ];
     return items;
   }

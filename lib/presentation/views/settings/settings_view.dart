@@ -21,7 +21,7 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+        body: SingleChildScrollView(
       child: Column(
         children: [
           const SizedBox(

@@ -19,6 +19,8 @@ import 'package:task_time_tracker/presentation/views/statistics/statistics_view.
 import 'package:task_time_tracker/presentation/views/tasks/task_view_model.dart';
 import 'package:task_time_tracker/presentation/widgets/functional_app_bar.dart';
 
+import '../../../core/application/base/base_state.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -26,7 +28,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends BaseState<Home> {
   late List<Task>? _currentTasks;
   late Future<List<Task>?> _futureTasks;
   @override
@@ -144,7 +146,7 @@ class _HomeState extends State<Home> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: WelcomeArea(),
               ),
               FilterOptionsRow(),
@@ -205,7 +207,7 @@ class _HomeState extends State<Home> {
   SizedBox WelcomeArea() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.15,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

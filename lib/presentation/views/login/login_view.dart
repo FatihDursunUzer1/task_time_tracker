@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
                         },
                       ),
                       LoginButton(context),
-                      Row(
+                      /*Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SignInMethods(context, FontAwesomeIcons.google,
@@ -67,8 +67,8 @@ class _LoginState extends State<Login> {
                               onPressed: context
                                   .read<LoginViewModel>()
                                   .signInWithOAuths(OAuthMethods.apple)),
-                        ],
-                      ),
+                        ], 
+                      ), */
                       const Divider(),
                       Text(LocaleKeys.or.tr()),
                       const Divider(),
