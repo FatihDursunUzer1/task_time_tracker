@@ -22,3 +22,4 @@ At the this project we use these technologies and structures:
   - English
   - Turkish
 - WebView for Policies
+- url_launcher package for users can send email to us
